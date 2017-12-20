@@ -1,0 +1,59 @@
+.user{
+	.user-form{
+		padding-top: 30px;
+	}
+	.am-navbar{
+		position:relative;
+		border-bottom: 1px solid #eee;
+
+		.fa.fa-gear{
+			font-size: 1.6rem;
+			color:#666;
+		}
+	}
+	.am-navbar-right{
+		a{
+			font-size: 1rem;
+			color: #999;
+		}
+	}
+	.user-form-box{
+		display: flex;
+		justify-content:flex-start;
+		align-items:center;
+		padding: 10px;
+		background-color: #fff;
+		margin-bottom: 10px;
+		position: relative;
+		.user-form-left{
+			flex:1;
+		}
+		.user-form-right{
+			flex:3;
+		}	
+		.send-code-bt{
+			position: absolute;
+			right: 10px;
+			top: 7px;
+			a{
+				font-size: 1.2rem;
+				height: 30px;
+				line-height: 30px;
+				width: 60px;
+			}
+		}	
+	}
+	.user-form-bt{
+		padding: 10px;
+	}
+	.user-form-extra{
+		padding: 0 10px;
+		display: flex;
+		justify-content:space-between;
+		align-items:center;
+		a{
+			font-size: 1rem;
+			color:#999;
+		}
+	}
+}

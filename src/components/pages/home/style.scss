@@ -1,0 +1,16 @@
+.am-tab-bar-bar .am-tab-bar-tab-title{
+	margin: 5px 0 0;
+}
+.home-wrap{
+	&>div{
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		overflow-y: auto;
+	}
+	.home-content{
+		padding-bottom: 50px;
+	}
+}
