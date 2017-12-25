@@ -59,6 +59,7 @@
 			    margin: 0;
 			    padding: 10px;
 			    font-weight: normal;
+				background-color: #eee;
 			}
 		}
 		.pre-price{
@@ -91,7 +92,6 @@
 		.leave-words{
 			padding: 10px;
 			background-color: #fff;
-			margin-top: 6px;
 			h5{
 			    font-size: 1.2rem;
 			    color: #666;
@@ -112,6 +112,34 @@
 		.submit{
 			padding: 10px;
 		}
+	}
+	.user-form{
+					margin-top: 6px;
+		.user-form-box{
+			display: flex;
+			justify-content:flex-start;
+			align-items:center;
+			padding: 10px;
+			background-color: #fff;
+			position: relative;
+			border-bottom: 1px dashed #eee;
+
+			.user-form-left{
+				flex:1;
+			}
+			.user-form-right{
+				flex:3;
+			}	
+
+		}
+		h5{
+				font-size: 1.2rem;
+			    color: #666;
+			    margin: 0;
+			    padding: 10px;
+			    font-weight: normal;
+			}
+		
 	}
 	
 }

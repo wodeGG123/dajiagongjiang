@@ -111,20 +111,32 @@ class MakeOrder extends React.Component{
 						<h5>预估价格：</h5>
 						<p><font>6543</font><span>元</span></p>
 					</div>
-					<div className="leave-words">
-						<h5>留言：</h5>
-						<div>
-							<textarea name="" id="">留言内容</textarea>
-						</div>
-					</div>
 					<div className="remarks">
 						<p>工匠备注：备注备注备注备注备注备注备注备注备注备注备注备注备注备注</p>
 					</div>
+						<div className='user-form'>
+							<h5>下单信息：</h5>
+							<div className='user-form-box'>
+								<div className='user-form-left'><span>姓名</span></div>
+								<div className='user-form-right'><input placeholder='请输入姓名' type="text"/></div>
+							</div>
+							<div className='user-form-box'>
+								<div className='user-form-left'><span>备用手机号</span></div>
+								<div className='user-form-right'><input placeholder='此号码不能是注册号码' type="text"/></div>
+							</div>
+						</div>
+
+					<div className="leave-words">
+						<div>
+							<textarea name="" id="">留言</textarea>
+						</div>
+					</div>
+					
 					<div className="submit">
 						<Button type="primary"  onClick={()=>{}}>立即下单</Button>
 					</div>
 			      </div>
-			      <div>
+			       <div>
 			       <List>
 				        <List.Item
 				          wrap
@@ -138,7 +150,7 @@ class MakeOrder extends React.Component{
 				              onChange={this.onChange.bind(this)}
 				            />}
 				        >
-				        项目1
+				        项目2
 				        <span>（㎡）</span>
 				        </List.Item>
 				        <List.Item
@@ -153,7 +165,7 @@ class MakeOrder extends React.Component{
 				              onChange={this.onChange.bind(this)}
 				            />}
 				        >
-				        项目1
+				        项目2
 				        <span>（㎡）</span>
 				        </List.Item>
 				        <List.Item
@@ -168,7 +180,7 @@ class MakeOrder extends React.Component{
 				              onChange={this.onChange.bind(this)}
 				            />}
 				        >
-				        项目1
+				        项目2
 				        <span>（㎡）</span>
 				        </List.Item>
 					</List>
@@ -177,20 +189,32 @@ class MakeOrder extends React.Component{
 						<h5>预估价格：</h5>
 						<p><font>6543</font><span>元</span></p>
 					</div>
-					<div className="leave-words">
-						<h5>留言：</h5>
-						<div>
-							<textarea name="" id="">留言内容</textarea>
-						</div>
-					</div>
 					<div className="remarks">
 						<p>工匠备注：备注备注备注备注备注备注备注备注备注备注备注备注备注备注</p>
 					</div>
+						<div className='user-form'>
+							<h5>下单信息：</h5>
+							<div className='user-form-box'>
+								<div className='user-form-left'><span>姓名</span></div>
+								<div className='user-form-right'><input placeholder='请输入姓名' type="text"/></div>
+							</div>
+							<div className='user-form-box'>
+								<div className='user-form-left'><span>备用手机号</span></div>
+								<div className='user-form-right'><input placeholder='此号码不能是注册号码' type="text"/></div>
+							</div>
+						</div>
+
+					<div className="leave-words">
+						<div>
+							<textarea name="" id="">留言</textarea>
+						</div>
+					</div>
+					
 					<div className="submit">
 						<Button type="primary"  onClick={()=>{}}>立即下单</Button>
 					</div>
 			      </div>
-			      <div>
+			       <div>
 			       <List>
 				        <List.Item
 				          wrap
@@ -204,7 +228,7 @@ class MakeOrder extends React.Component{
 				              onChange={this.onChange.bind(this)}
 				            />}
 				        >
-				        项目1
+				        项目3
 				        <span>（㎡）</span>
 				        </List.Item>
 				        <List.Item
@@ -219,7 +243,7 @@ class MakeOrder extends React.Component{
 				              onChange={this.onChange.bind(this)}
 				            />}
 				        >
-				        项目1
+				        项目3
 				        <span>（㎡）</span>
 				        </List.Item>
 				        <List.Item
@@ -234,7 +258,7 @@ class MakeOrder extends React.Component{
 				              onChange={this.onChange.bind(this)}
 				            />}
 				        >
-				        项目1
+				        项目3
 				        <span>（㎡）</span>
 				        </List.Item>
 					</List>
@@ -243,19 +267,32 @@ class MakeOrder extends React.Component{
 						<h5>预估价格：</h5>
 						<p><font>6543</font><span>元</span></p>
 					</div>
-					<div className="leave-words">
-						<h5>留言：</h5>
-						<div>
-							<textarea name="" id="">留言内容</textarea>
-						</div>
-					</div>
 					<div className="remarks">
 						<p>工匠备注：备注备注备注备注备注备注备注备注备注备注备注备注备注备注</p>
 					</div>
+						<div className='user-form'>
+							<h5>下单信息：</h5>
+							<div className='user-form-box'>
+								<div className='user-form-left'><span>姓名</span></div>
+								<div className='user-form-right'><input placeholder='请输入姓名' type="text"/></div>
+							</div>
+							<div className='user-form-box'>
+								<div className='user-form-left'><span>备用手机号</span></div>
+								<div className='user-form-right'><input placeholder='此号码不能是注册号码' type="text"/></div>
+							</div>
+						</div>
+
+					<div className="leave-words">
+						<div>
+							<textarea name="" id="">留言</textarea>
+						</div>
+					</div>
+					
 					<div className="submit">
 						<Button type="primary"  onClick={()=>{}}>立即下单</Button>
 					</div>
 			      </div>
+			     
 			    </Tabs>
 		    </div>
 
