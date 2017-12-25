@@ -11,7 +11,7 @@ class Home extends React.Component{
 	constructor(props){
 		super(props);
 	    this.state = {
-	      selectedTab: 'Tab5',
+	      selectedTab: 'Tab3',
 	      hidden: false,
 	    };
 	}

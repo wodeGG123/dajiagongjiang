@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class InitComponent extends React.Component{
+require('./style.scss')
+
+class Main extends React.Component{
 	constructor(props){
 		super(props)
 	}
@@ -10,10 +12,11 @@ class InitComponent extends React.Component{
 	}
 
 }
-InitComponent.contextTypes = {
-  store: PropTypes.object
+Main.contextTypes = {	
+  store: PropTypes.object,
+  router: PropTypes.object
 };
-InitComponent.defaultProps = {
+Main.defaultProps = {
   
 };
-export default InitComponent
+export default Main

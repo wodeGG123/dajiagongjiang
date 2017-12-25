@@ -11,7 +11,7 @@ class Guider extends React.Component{
 	}
 	render(){
 		return(<div className='welcom'>
-			<Link to='/home'>欢迎光临</Link>
+			<Link to='/home/index'>欢迎光临</Link>
 		</div>)
 	}
 

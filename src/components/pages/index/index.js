@@ -31,7 +31,7 @@ class Index extends React.Component{
 			<NavBar
       mode="light"
       rightContent={
-        <Icon key="0" type="search" />
+        <Link to='/home/search'><Icon key="0" type="search" /></Link>
       }
     >首页</NavBar>
     <div className='index-guiders'>
@@ -69,37 +69,37 @@ class Index extends React.Component{
        <div className="swiper-container">
         <div className="swiper-wrapper">
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg1.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg1.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg2.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg2.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg3.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg3.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg4.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg4.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg5.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg5.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg6.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg6.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg7.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg7.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg8.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg8.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg9.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg9.jpg' /></Link>
           </div>
           <div className="swiper-slide">
-            <Link to=''><ImgInit src='/statics/img/temp/timg10.jpg' /></Link>
+            <Link to='/home/workerInfo'><ImgInit src='/statics/img/temp/timg10.jpg' /></Link>
           </div>
         </div>
       </div>
@@ -109,60 +109,76 @@ class Index extends React.Component{
       <h5>推荐工匠</h5>
       <div className='worker-lists'>
         <div className='worker-item'>
+          <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src='/statics/img/temp/timg7.jpg' /><i>威远</i></dt>
             <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
             <dd><p>木工</p></dd>
-          </dl> 
+          </dl>
+          </Link> 
         </div>
         <div className='worker-item'>
+          <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src='/statics/img/temp/timg4.jpg' /><i>威远</i></dt>
             <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
             <dd><p>木工</p></dd>
-          </dl> 
+          </dl>
+          </Link> 
         </div>
         <div className='worker-item'>
+          <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src='/statics/img/temp/timg8.jpg' /><i>威远</i></dt>
             <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
             <dd><p>木工</p></dd>
-          </dl> 
+          </dl>
+          </Link> 
         </div>
         <div className='worker-item'>
+          <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src='/statics/img/temp/timg9.jpg' /><i>威远</i></dt>
             <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
             <dd><p>木工</p></dd>
-          </dl> 
+          </dl>
+          </Link> 
         </div>
         <div className='worker-item'>
+          <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src='/statics/img/temp/timg3.jpg' /><i>威远</i></dt>
             <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
             <dd><p>木工</p></dd>
-          </dl> 
+          </dl>
+          </Link> 
         </div>
         <div className='worker-item'>
+          <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src='/statics/img/temp/timg2.jpg' /><i>威远</i></dt>
             <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
             <dd><p>木工</p></dd>
-          </dl> 
+          </dl>
+          </Link> 
         </div>
         <div className='worker-item'>
+          <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src='/statics/img/temp/timg5.jpg' /><i>威远</i></dt>
             <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
             <dd><p>木工</p></dd>
-          </dl> 
+          </dl>
+          </Link> 
         </div>
         <div className='worker-item'>
+          <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src='/statics/img/temp/timg10.jpg' /><i>威远</i></dt>
             <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
             <dd><p>木工</p></dd>
-          </dl> 
+          </dl>
+          </Link> 
         </div>
       </div>
 

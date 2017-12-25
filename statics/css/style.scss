@@ -1,6 +1,19 @@
 html{
 	font-size: 75%;
 }
+input{
+	outline: none;
+	box-shadow: none;
+	border:none;
+}
+.wrap-box{
+	.am-navbar-right{
+		a{
+			color: #999;
+			font-size: 1rem;
+		}
+	}
+}
 .content-box{
 	padding:0 10px;
 }

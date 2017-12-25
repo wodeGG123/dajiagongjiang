@@ -39,10 +39,6 @@ class EiditUser extends React.Component{
 		    		<p>设置头像</p>
 		    		<ImagePickerExample length={1} />
 		    	</div>
-		    	<div>
-		    		<p>展示图片<span>（最多可设置8张）</span></p>
-		    		<ImagePickerExample length={8} />
-		    	</div>
 		    		
 		    </div>
 		    <div className='user-mid'>

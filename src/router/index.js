@@ -10,6 +10,9 @@ import Guider from 'rootsrc/components/pages/guider/index.js'
 import Home from 'rootsrc/components/pages/home/index.js'
 import ArticleInfo from 'rootsrc/components/pages/article/index.js'
 import Message from 'rootsrc/components/pages/message/index.js'
+import WorkerInfo from 'rootsrc/components/pages/workerInfo/index.js'
+import Order from 'rootsrc/components/pages/order/index.js'
+import {MakeOrder} from 'rootsrc/components/pages/order/index.js'
 import Mine from 'rootsrc/components/pages/mine/index.js'
 import {MineIndex} from 'rootsrc/components/pages/mine/index.js'
 import EditUser from 'rootsrc/components/pages/mine/editUser.js'
@@ -27,6 +30,7 @@ import User from 'rootsrc/components/pages/user/index.js'
 import {Login, CodeLogin, Regist, RegistNext, GetPassword, GetPasswordNext} from 'rootsrc/components/pages/user/index.js'
 
 import Index from 'rootsrc/components/pages/index/index.js'
+import Search from 'rootsrc/components/pages/search/index.js'
 
 
 class App extends React.Component{
@@ -64,8 +68,13 @@ class MyRouter extends React.Component{
 		    		
 					<Route path="articleInfo" component={ArticleInfo} />
 					<Route path="message" component={Message} />
-					
+					<Route path="workerInfo" component={WorkerInfo} />
+					<Route path="order" component={Order}>
+						<Route path="make" component={MakeOrder} />
+					</Route>
 					<Route path="index" component={Index} />
+					<Route path="search" component={Search} />
+
 		    	</Route>
 		    	<Route path="user" component={User}>
 		    			<Route path="login" component={Login} />

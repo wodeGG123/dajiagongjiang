@@ -41,6 +41,12 @@ class WorkerManagement extends React.Component{
 				    		<dd><FontAwesome name='angle-right' /></dd>
 				    	</dl>
 			    	</Link>
+			    	<Link to='/home/mine/applyForWorker'>
+				    	<dl>
+				    		<dt><span>自主下单</span></dt>
+				    		<dd><FontAwesome name='angle-right' /></dd>
+				    	</dl>
+			    	</Link>
 		    	</div>
 
 		</div>)
@@ -111,6 +117,10 @@ class ApplyForWorker extends React.Component{
 		    	<div>
 		    		<p>身份证<span>（需要上传身份证正反面）</span></p>
 		    		<ImagePickerExample length={2} />
+		    	</div>
+		    	<div>
+		    		<p>项目展示<span>（您的项目展示）</span></p>
+		    		<ImagePickerExample length={8} />
 		    	</div>
 		    	<div>
 		    		<p>资质证书<span>（您的获奖资质证书）</span></p>
@@ -278,6 +288,12 @@ class MakeOffers extends React.Component{
 					    		<dt><span>项目描述</span></dt>
 					    		<dd><input type="text" placeholder='请输入项目描述'/></dd>
 					    	</dl>
+					    	<div className="leave-words">
+								<h5>备注：</h5>
+								<div>
+									<textarea name="" id="">备注内容</textarea>
+								</div>
+							</div>
 				    	</div>)
 					})}
 

@@ -1,0 +1,117 @@
+.make-order{
+	position: relative;
+	.am-navbar{
+		border-bottom: 1px solid #eee;
+	    
+	}
+	.make-order-top{
+		padding-top: 10px;
+		position: relative;
+		background-color: #fff;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #eee;
+		.make-order-head-img{
+
+			img{
+				width: 80px;
+				height: 80px;
+		        border-radius: 40px;
+		        display: block;
+				margin-left: auto;
+				margin-right: auto;
+				border:2px solid rgba(0,0,0,0.1);	
+				object-fit: cover;
+			}
+		}
+		.make-order-text{
+			text-align: center;
+			h3{
+				font-weight: normal;
+				padding: 6px 0 3px;
+				margin: 0;
+				color: #333;
+				font-size: 1.4rem
+			}
+			p{
+				font-size: 1rem;
+				margin: 0;
+				padding: 0;
+				color:#999;
+			}
+		}
+	
+	}
+	.make-order-mid{
+		margin-top: 6px;
+		.am-list-content{
+			span{
+				font-size: 1rem;
+				color: #999;
+			}
+		}
+		.am-list-item{
+			border-bottom: 1px dashed #eee;
+		}
+		.remarks{
+			p{
+			    font-size: 1.2rem;
+			    color: #666;
+			    margin: 0;
+			    padding: 10px;
+			    font-weight: normal;
+			}
+		}
+		.pre-price{
+			margin-top: 6px;
+			background-color: #fff;
+			padding-bottom: 6px;
+			h5{
+			    font-size: 1.2rem;
+			    color: #666;
+			    margin: 0;
+			    padding: 10px;
+			    font-weight: normal;
+			}
+			p{
+				font-size: 1.2rem;
+			    color: #999;
+			    margin: 0;
+			    padding: 0 10px;
+			    font-weight: normal;
+			    font{
+			    	font-size: 2rem;
+			    	color: #f60;
+			    }
+			    span{
+			    	color: #999;
+			    	margin-left: 10px;
+			    }
+			}
+		}
+		.leave-words{
+			padding: 10px;
+			background-color: #fff;
+			margin-top: 6px;
+			h5{
+			    font-size: 1.2rem;
+			    color: #666;
+			    margin: 0;
+			    margin-bottom: 6px;
+			    font-weight: normal;
+			}
+			textarea{
+				width: 100%;
+				resize: none;
+				font-size: 1rem;
+				color: #666;
+				margin: 0;
+				padding: 0;
+				height: 60px;
+			}
+		}
+		.submit{
+			padding: 10px;
+		}
+	}
+	
+}
