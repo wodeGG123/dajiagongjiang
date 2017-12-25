@@ -35,10 +35,10 @@ class Index extends React.Component{
       }
     >首页</NavBar>
     <div className='index-guiders'>
-      <Link to=''>装修百科</Link>
-      <Link to=''>市场数据</Link>
-      <Link to=''>项目1</Link>
-      <Link to=''>项目2</Link>
+      <Link to='/home/articleList'>装修百科</Link>
+      <Link to='/home/articleList'>市场数据</Link>
+      <Link to='/home/articleList'>项目1</Link>
+      <Link to='/home/articleList'>项目2</Link>
     </div>
     <div className='index-banner'>
       <div className="swiper-container">

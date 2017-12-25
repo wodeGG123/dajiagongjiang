@@ -9,6 +9,7 @@ import { Button } from 'antd-mobile';
 import Guider from 'rootsrc/components/pages/guider/index.js'
 import Home from 'rootsrc/components/pages/home/index.js'
 import ArticleInfo from 'rootsrc/components/pages/article/index.js'
+import {ArticleList} from 'rootsrc/components/pages/article/index.js'
 import Message from 'rootsrc/components/pages/message/index.js'
 import WorkerInfo from 'rootsrc/components/pages/workerInfo/index.js'
 import Order from 'rootsrc/components/pages/order/index.js'
@@ -67,6 +68,7 @@ class MyRouter extends React.Component{
 		    		</Route>
 		    		
 					<Route path="articleInfo" component={ArticleInfo} />
+					<Route path="articleList" component={ArticleList} />
 					<Route path="message" component={Message} />
 					<Route path="workerInfo" component={WorkerInfo} />
 					<Route path="order" component={Order}>

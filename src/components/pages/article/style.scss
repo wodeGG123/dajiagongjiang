@@ -1,10 +1,29 @@
-.welcom{
-	position: fixed;
-	display: flex;
-	justify-content:center;
-	align-items:center;
-	left:0px;
-	right:0px;
-	top:0px;
-	bottom: 0px;
+.article-list{
+	dl{
+		margin: 0;
+		background-color: #fff;
+		padding: 12px 10px;
+		border-bottom: 1px solid #eee;
+		font-size: 1.1rem;
+		display: flex;
+		justify-content:space-between;
+		align-items:center;
+		color:#666;
+		dt{
+			span{
+				margin-left: 5px;
+			}
+			
+		}
+		dd{
+			.fa.fa-angle-right{
+				font-size: 1.4rem;
+			}
+		}
+	}
+}
+.article-content{
+	img{
+		width: 90%;
+	}
 }
