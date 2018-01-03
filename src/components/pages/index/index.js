@@ -28,12 +28,6 @@ class Index extends React.Component{
   }
 	render(){
 		return(<div className='index-wrap'>
-			<NavBar
-      mode="light"
-      rightContent={
-        <Link to='/home/search'><Icon key="0" type="search" /></Link>
-      }
-    >首页</NavBar>
     <div className='index-guiders'>
       <Link to='/home/articleList'>装修百科</Link>
       <Link to='/home/articleList'>市场数据</Link>

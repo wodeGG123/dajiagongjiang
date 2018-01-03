@@ -1,4 +1,5 @@
 .index-wrap{
+	padding-top: 30px;
 	.am-navbar{
 		border-bottom: 1px solid #eee;
 	}
@@ -13,6 +14,11 @@
 	}
 	
 	.index-guiders{
+		z-index: 100;
+		left: 0;
+		top: 0;
+		width: 100%;
+		position: fixed;
 		height: 30px;
 		line-height: 30px;
 		display: flex;

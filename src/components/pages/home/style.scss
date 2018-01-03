@@ -12,5 +12,8 @@
 	}
 	.home-content{
 		padding-bottom: 50px;
+	    height: 100%;
+	    box-sizing: border-box;
+	    overflow: auto;
 	}
 }

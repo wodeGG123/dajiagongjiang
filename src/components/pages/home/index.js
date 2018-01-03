@@ -53,7 +53,7 @@ class Home extends React.Component{
             selectedIcon={<FontAwesome name='users'/>}
             selected={this.state.selectedTab === 'Tab2'}
             onPress={() => {
-              this.context.router.replace('/home/articleInfo')
+              this.context.router.replace('/home/contactUs')
               this.setState({
                 selectedTab: 'Tab2',
               });

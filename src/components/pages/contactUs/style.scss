@@ -1,0 +1,34 @@
+.contact-us{
+	.am-navbar{
+
+		border-bottom: 1px solid #eee;
+
+	}
+	.contact-us-img,.contact-us-qr{
+		text-align: center;
+		background-color: #fff;
+		padding: 20px;
+		img{
+			height: 150px;
+		}
+	}
+	.contact-us-text{
+		background-color: #fff;
+		dl{
+			display: flex;
+			justify-content:space-between;
+			align-items:center;
+			padding: 10px;
+			border-bottom: 1px dashed #eee;
+			&:last-child{
+				border-bottom: none;
+			}
+			dt{
+				color: #666;
+			}
+			dd{
+
+			}
+		}
+	}
+}

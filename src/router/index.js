@@ -32,6 +32,7 @@ import {Login, CodeLogin, Regist, RegistNext, GetPassword, GetPasswordNext} from
 
 import Index from 'rootsrc/components/pages/index/index.js'
 import Search from 'rootsrc/components/pages/search/index.js'
+import ContactUs from 'rootsrc/components/pages/contactUs/index.js'
 
 
 class App extends React.Component{
@@ -76,6 +77,7 @@ class MyRouter extends React.Component{
 					</Route>
 					<Route path="index" component={Index} />
 					<Route path="search" component={Search} />
+					<Route path="contactUs" component={ContactUs} />
 
 		    	</Route>
 		    	<Route path="user" component={User}>
