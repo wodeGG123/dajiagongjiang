@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import { NavBar, Icon, SearchBar } from 'antd-mobile';
 import {Link} from 'react-router'
+import CheckBox from 'rootsrc/components/common/checkbox/index.js'
+
 var FontAwesome = require('react-fontawesome');
 
 require('./style.scss');
@@ -39,8 +41,11 @@ class ArticleList extends React.Component{
 			<NavBar
 		      mode="light"
 		      icon={<Icon type="left" />}
-		      onLeftClick={() => {console.log(this.context.router)}}
+		      onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}
 		    >文章列表</NavBar>
+		    <div>
+		    	<CheckBox />
+		    </div>
 		    <div>
 				<SearchBar placeholder="输入文章标题" maxLength={8} />
 			</div>

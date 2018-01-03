@@ -75,6 +75,12 @@ class MineIndex extends React.Component{
 		    <div className='user-mid'>
 		    	<Link to='/home/mine/orderList'>
 		    		<dl>
+			    		<dt><FontAwesome name='comments' /><span>我的消息</span></dt>
+			    		<dd><FontAwesome name='angle-right' /></dd>
+		    		</dl>
+		    	</Link>
+		    	<Link to='/home/mine/orderList'>
+		    		<dl>
 			    		<dt><FontAwesome name='book' /><span>我的订单</span></dt>
 			    		<dd><FontAwesome name='angle-right' /></dd>
 		    		</dl>

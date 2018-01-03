@@ -37,7 +37,7 @@ class Home extends React.Component{
             key="key1"
             selected={this.state.selectedTab === 'Tab1'}
             onPress={() => {
-              this.context.router.replace('/home/articleInfo')
+              window.location.href = "https://www.chinalife.com.cn/zhuzhan/index/";
               this.setState({
                 selectedTab: 'Tab1',
               });
@@ -79,11 +79,10 @@ class Home extends React.Component{
            
           </TabBar.Item>
           <TabBar.Item
-            icon={<FontAwesome name='comments' />}
-            selectedIcon={<FontAwesome name='comments' />}
-            title="消息"
+            icon={<FontAwesome name='newspaper-o' />}
+            selectedIcon={<FontAwesome name='newspaper-o' />}
+            title="资讯"
             key="key4"
-            badge={2}
             selected={this.state.selectedTab === 'Tab4'}
             onPress={() => {
             	this.context.router.replace('/home/message')

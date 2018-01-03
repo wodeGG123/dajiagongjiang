@@ -37,8 +37,8 @@ class Index extends React.Component{
     <div className='index-guiders'>
       <Link to='/home/articleList'>装修百科</Link>
       <Link to='/home/articleList'>市场数据</Link>
-      <Link to='/home/articleList'>项目1</Link>
-      <Link to='/home/articleList'>项目2</Link>
+      <Link to='/home/search'>找工匠</Link>
+      <Link to='/home/articleList'>精品</Link>
     </div>
     <div className='index-banner'>
       <div className="swiper-container">

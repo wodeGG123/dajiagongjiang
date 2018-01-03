@@ -42,7 +42,7 @@ class Main extends React.Component{
 	}
 	render(){
 		return(<div className='workerinfo wrap-box'>
-			<NavBar mode="light" icon={<Icon type="left" />} rightContent={<Link to='/home/order/make'>下单</Link>} onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}>李师傅</NavBar>
+			<NavBar mode="light" icon={<Icon type="left" />} rightContent={<Link to='/home/order/make'>预算一下</Link>} onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}>李师傅</NavBar>
 			<div className='workerinfo-top'>
 				<div className='workerinfo-top-img'><ImgInit src='/statics/img/temp/timg10.jpg' /><i></i></div>
 				<div className='workerinfo-top-left-block'>
@@ -97,7 +97,7 @@ class Main extends React.Component{
 		    	</div>
 		    </div>
 		    <div className="submit">
-		    	<Link to='/home/order/make'><Button type="primary"  onClick={()=>{}}>找他下单</Button></Link>
+		    	<Link to='/home/order/make'><Button type="primary"  onClick={()=>{}}>预算一下</Button></Link>
 		    </div>
 
 		    <Modal

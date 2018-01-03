@@ -112,7 +112,7 @@ class MakeOrder extends React.Component{
 						<p><font>6543</font><span>元</span></p>
 					</div>
 					<div className="remarks">
-						<p>工匠备注：备注备注备注备注备注备注备注备注备注备注备注备注备注备注</p>
+						<p>客户提供：管子、乳胶漆、石灰、水、电</p>
 					</div>
 						<div className='user-form'>
 							<h5>下单信息：</h5>
@@ -190,7 +190,7 @@ class MakeOrder extends React.Component{
 						<p><font>6543</font><span>元</span></p>
 					</div>
 					<div className="remarks">
-						<p>工匠备注：备注备注备注备注备注备注备注备注备注备注备注备注备注备注</p>
+						<p>客户提供：管子、乳胶漆、石灰、水、电</p>
 					</div>
 						<div className='user-form'>
 							<h5>下单信息：</h5>
@@ -268,7 +268,7 @@ class MakeOrder extends React.Component{
 						<p><font>6543</font><span>元</span></p>
 					</div>
 					<div className="remarks">
-						<p>工匠备注：备注备注备注备注备注备注备注备注备注备注备注备注备注备注</p>
+						<p>客户提供：管子、乳胶漆、石灰、水、电</p>
 					</div>
 						<div className='user-form'>
 							<h5>下单信息：</h5>

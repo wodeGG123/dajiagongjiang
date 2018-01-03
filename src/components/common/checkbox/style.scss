@@ -1,0 +1,19 @@
+.checkbox-wrap{
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+	width:100%;
+	&>div{
+		display: block;
+		width: 30%;
+		height: 60px;
+		font-size: 1.1rem;
+		position:relative;
+		span{
+			display: block;
+			color: #666;
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
