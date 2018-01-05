@@ -43,6 +43,7 @@
 	}
 	.make-order-mid{
 		margin-top: 6px;
+
 		.am-list-content{
 			span{
 				font-size: 1rem;
@@ -51,21 +52,63 @@
 		}
 		.am-list-item{
 			border-bottom: 1px dashed #eee;
+			&:last-child{
+				border-bottom:none;
+			}
+		}
+		.am-list-item .am-list-line .am-list-content{
+			font-size: 1.2rem;
 		}
 		.remarks{
+			background-color:#eee;
 			p{
-			    font-size: 1.2rem;
+			    font-size: 1rem;
 			    color: #666;
 			    margin: 0;
 			    padding: 10px;
 			    font-weight: normal;
-				background-color: #eee;
 			}
+		}
+		.price-part{
+			border-top: 1px solid #eee;
+			background-color:#fff;
+			height: 0px;
+			overflow: hidden;
+			transition: all .5s;
+			table{
+				width: 100%;
+				text-align: center;
+				font-size: 1rem;
+				th{
+					color: #666;
+					border-bottom:1px dashed #eee;
+					width: 25%;
+					height: 24px;
+				}
+				td{
+					color: #333;
+					height: 24px;
+				}
+			}
+
+		}
+		.price-part-show{
+			height: auto;
+			padding:8px 0;
 		}
 		.pre-price{
 			margin-top: 6px;
 			background-color: #fff;
-			padding-bottom: 6px;
+			&>div{
+				text-align: center;
+				&>span{
+					display: inline-block;
+				    padding: 1px 25px;
+				    font-size: 1rem;
+				    color: #999;
+				    background-color: #eee;
+				}
+			}
 			h5{
 			    font-size: 1.2rem;
 			    color: #666;
@@ -88,6 +131,7 @@
 			    	margin-left: 10px;
 			    }
 			}
+
 		}
 		.leave-words{
 			padding: 10px;
@@ -114,7 +158,8 @@
 		}
 	}
 	.user-form{
-					margin-top: 6px;
+			margin-top: 6px;
+			font-size: 1.2rem;
 		.user-form-box{
 			display: flex;
 			justify-content:flex-start;

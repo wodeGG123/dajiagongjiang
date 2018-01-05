@@ -442,8 +442,37 @@
 			font-size: 1.4rem;
 			position: relative;
 		}
-		.am-list-content{
-			font-size: 1.2rem;
+		.order-estimate-items{
+			background-color:#fff;
+			padding:8px 0;
+			border-top:1px solid #eee;
+			.order-estimate-item{
+				height: 100px;
+				border-bottom:1px solid #eee;
+				&:last-child{
+					border-bottom:none;
+				}
+				h5{
+					font-size: 1rem;
+					color: #333;
+					margin: 0;
+					padding:8px 10px;
+					font-weight: normal;
+					border-bottom:1px dashed #eee;
+				}
+				.am-slider-wrapper{
+					margin-top: 20px;
+				}
+				.am-slider-mark-text{
+					color: #999;
+
+				}
+				.am-slider-mark-text-active{
+					color: #108ee9;
+					opacity: 1;
+				}
+				
+			}
 		}
 		.order-estimate-textarea{
 			.am-list-item{

@@ -13,7 +13,7 @@ import {ArticleList} from 'rootsrc/components/pages/article/index.js'
 import Message from 'rootsrc/components/pages/message/index.js'
 import WorkerInfo from 'rootsrc/components/pages/workerInfo/index.js'
 import Order from 'rootsrc/components/pages/order/index.js'
-import {MakeOrder} from 'rootsrc/components/pages/order/index.js'
+import {MakeOrder,MakeSelfOrder} from 'rootsrc/components/pages/order/index.js'
 import Mine from 'rootsrc/components/pages/mine/index.js'
 import {MineIndex} from 'rootsrc/components/pages/mine/index.js'
 import EditUser from 'rootsrc/components/pages/mine/editUser.js'
@@ -74,6 +74,7 @@ class MyRouter extends React.Component{
 					<Route path="workerInfo" component={WorkerInfo} />
 					<Route path="order" component={Order}>
 						<Route path="make" component={MakeOrder} />
+						<Route path="slefMake" component={MakeSelfOrder} />
 					</Route>
 					<Route path="index" component={Index} />
 					<Route path="search" component={Search} />

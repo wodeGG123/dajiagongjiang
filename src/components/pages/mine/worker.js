@@ -41,7 +41,7 @@ class WorkerManagement extends React.Component{
 				    		<dd><FontAwesome name='angle-right' /></dd>
 				    	</dl>
 			    	</Link>
-			    	<Link to='/home/mine/applyForWorker'>
+			    	<Link to='/home/order/slefMake'>
 				    	<dl>
 				    		<dt><span>自主下单</span></dt>
 				    		<dd><FontAwesome name='angle-right' /></dd>
@@ -69,7 +69,6 @@ class ApplyForWorker extends React.Component{
 			email:'123@qq.com',
 			mobile:'13990546657',
 			job:'',
-
 			makeOffers:false,
 		}
 	}
@@ -284,19 +283,23 @@ class MakeOffers extends React.Component{
 					    		<dt><span>项目单位</span></dt>
 					    		<dd><input type="text" placeholder='请输入项目单位'/></dd>
 					    	</dl>
-					    	<dl>
-					    		<dt><span>项目描述</span></dt>
-					    		<dd><input type="text" placeholder='请输入项目描述'/></dd>
-					    	</dl>
-					    	<div className="leave-words">
-								<h5>备注：</h5>
-								<div>
-									<textarea name="" id="">备注内容</textarea>
-								</div>
-							</div>
+					    	
 				    	</div>)
 					})}
-
+					<div>
+						<div className="leave-words">
+								<h5>报价说明：</h5>
+								<div>
+									<textarea name="" id="">报价说明报价说明报价说明报价说明</textarea>
+								</div>
+							</div>
+							<div className="leave-words">
+								<h5>客户需提供：</h5>
+								<div>
+									<textarea name="" id="">客户需提供：管子、乳胶漆、石灰、水、电</textarea>
+								</div>
+							</div>
+					</div>
 				</div>
 		    	
 		    </div>
