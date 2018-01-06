@@ -6,6 +6,7 @@ module.exports = {
 	entry: './src/index.js', //入口文件
 	output:{
 		path: path.join(__dirname,'dist'),
+		publicPath: path.join(__dirname,'dist'),
 		filename:'bundle.js',
 
 	},
