@@ -42,13 +42,14 @@ class ArticleList extends React.Component{
 		      mode="light"
 		      icon={<Icon type="left" />}
 		      onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}
-		    >文章列表</NavBar>
-		    <div>
-		    	<CheckBox />
-		    </div>
+		    >装修百科</NavBar>
 		    <div>
 				<SearchBar placeholder="输入文章标题" maxLength={8} />
 			</div>
+		    <div>
+		    	<CheckBox />
+		    </div>
+		    
 		    <div className="article-list">
 		    	<Link to="/home/articleInfo">
 			    	<dl>
