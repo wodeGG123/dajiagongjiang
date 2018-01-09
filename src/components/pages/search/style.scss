@@ -1,3 +1,24 @@
-.worker-lists{
-	margin-top:6px;
+.search{
+	.worker-lists{
+		margin-top:6px;
+	}
+	.search-tools{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: #fff;
+		div{
+			flex:1;
+			text-align: center;
+			height: 30px;
+			line-height: 30px;
+			font-size: 1.1rem;
+			border-right: 1px solid #eee;
+			color: #666;
+			&:last-child{
+				border-right:none;
+			}
+
+		}
+	}
 }
