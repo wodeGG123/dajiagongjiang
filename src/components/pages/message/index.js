@@ -12,7 +12,7 @@ class ArticleInfo extends React.Component{
 	}
 	render(){
 		return(<div className='message-wrap'>
-			<NavBar mode="light">消息</NavBar>
+			<NavBar icon={<Icon type="left" />} onLeftClick={() => {this.context.router.goBack()}} mode="light">消息</NavBar>
 		    <div className="content-box">
 		    	<dl>
 		    		<dt>消息</dt>

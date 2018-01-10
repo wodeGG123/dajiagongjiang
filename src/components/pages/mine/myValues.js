@@ -53,8 +53,22 @@ class MyEvaluate extends React.Component{
 		return(<div className='my-evaluate'>
 			<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>我的评价</NavBar>
 			<div className='my-evaluate-content'>
-				<p>总评价：100</p>
-				<p>好评：98</p>
+				<dl>
+		    		<dt><span>评价选项1</span></dt>
+		    		<dd>98%</dd>
+				</dl>
+				<dl>
+		    		<dt><span>评价选项2</span></dt>
+		    		<dd>98%</dd>
+				</dl>
+				<dl>
+		    		<dt><span>评价选项3</span></dt>
+		    		<dd>98%</dd>
+				</dl>
+				<dl>
+		    		<dt><span>评价选项3</span></dt>
+		    		<dd>98%</dd>
+				</dl>
 				<div>
 					<h3>98%</h3>					
 				</div>

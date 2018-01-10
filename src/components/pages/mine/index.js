@@ -46,7 +46,7 @@ class MineIndex extends React.Component{
 		    			<Link to='/home/mine/myLevel'>
 		    			<div>
 		    				<FontAwesome name='street-view' />
-		    				<span>等级：1</span>
+		    				<span>平台等级：1</span>
 		    			</div>
 		    			</Link>
 		    			<Link to='/home/mine/myCoin'>
@@ -73,7 +73,7 @@ class MineIndex extends React.Component{
 		    		
 		    </div>
 		    <div className='user-mid'>
-		    	<Link to='/home/mine/orderList'>
+		    	<Link to='/home/message'>
 		    		<dl>
 			    		<dt><FontAwesome name='comments' /><span>我的消息</span></dt>
 			    		<dd><FontAwesome name='angle-right' /></dd>
@@ -81,7 +81,7 @@ class MineIndex extends React.Component{
 		    	</Link>
 		    	<Link to='/home/mine/orderList'>
 		    		<dl>
-			    		<dt><FontAwesome name='book' /><span>我的订单</span></dt>
+			    		<dt><FontAwesome name='book' /><span>我的订单</span><font>(100)</font></dt>
 			    		<dd><FontAwesome name='angle-right' /></dd>
 		    		</dl>
 		    	</Link>

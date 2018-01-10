@@ -30,7 +30,7 @@ class Index extends React.Component{
 		return(<div className='index-wrap'>
     <div className='index-guiders'>
       <Link to='/home/articleList'>装修百科</Link>
-      <Link to='/home/articleList'>市场数据</Link>
+      <Link to='/home/question'>市场数据</Link>
       <Link to='/home/search'>找工匠</Link>
       <Link to='/home/articleList'>精品</Link>
     </div>

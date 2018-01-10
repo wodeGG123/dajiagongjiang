@@ -1,19 +1,14 @@
 .user-center{
 	padding-bottom: 30px;
 	.am-navbar{
-		background: none;
-		z-index: 1;
-		left: 0;
-		top: 0;
-		width: 100%;
-		position: absolute;
+		
 		.fa.fa-gear{
 			font-size: 1.6rem;
 			color:#666;
 		}
 	}
 	.user-top{
-		padding-top: 45px;
+
 		position: relative;
 		background-color: #fff;
 		padding-bottom: 10px;
@@ -208,6 +203,11 @@
 }
 
 .order-list{
+	
+	.am-navbar{
+		border-bottom: 1px solid #eee;
+	}
+
 	.order-list-filter{
 		display: flex;
 		justify-content:center;
@@ -750,18 +750,35 @@
 			border-bottom: 1px solid #eee;
 	}
 	.my-evaluate-content{
-		padding: 15px 15px 50px;
+		padding: 0px 0px 50px;
 		background-color: #fff;
-		p{
+		dl{
 			margin: 0;
-			padding: 4px 0px;
-			color: #999;
-			font-size: 1.2rem;
-			font-weight: normal;
+			background-color: #fff;
+			padding: 12px 10px;
+			border-bottom: 1px solid #eee;
+			font-size: 1.1rem;
+			display: flex;
+			justify-content:space-between;
+			align-items:center;
+			color:#666;
+			dt{
+				span{
+					
+				}
+				
+			}
+			dd{
+				font{
+					color:#999;
+					margin-right: 6px;
+				}
+				.fa.fa-angle-right{
+					font-size: 1.4rem;
+				}
+			}
 		}
 		&>div{
-			border-top: 1px dashed #eee;
-			margin-top: 10px;
 			padding-top: 30px;
 			h3{
 				width: 200px;
@@ -1084,15 +1101,64 @@
 	}
 }
 .worker-management{
+	padding-bottom: 30px;
 	.am-navbar{
-		border-bottom: 1px solid #eee;
 		.fa.fa-gear{
 			font-size: 1.6rem;
 			color:#666;
 		}
 	}
+	.user-top{
+		position: relative;
+		background-color: #fff;
+		padding-bottom: 10px;
+		.user-head-img{
+
+			img{
+				width: 80px;
+				height: 80px;
+		        border-radius: 40px;
+		        display: block;
+				margin-left: auto;
+				margin-right: auto;
+				border:2px solid rgba(0,0,0,0.1)	
+			}
+		}
+		.user-text{
+			text-align: center;
+			padding-bottom: 12px;
+			border-bottom: 1px dashed #eee;
+			h3{
+				font-weight: normal;
+				padding: 6px 0 3px;
+				margin: 0;
+				color: #333;
+				font-size: 1.4rem
+			}
+			p{
+				font-size: 1rem;
+				margin: 0;
+				padding: 0;
+				color:#999;
+			}
+		}
+		.user-es{
+			margin-top: 12px;
+			font-size: 1rem;
+			display: flex;
+			justify-content:space-between;
+			align-items:center;
+			padding: 0 40px;
+			div{
+				color: #666;
+				span{
+					margin-left: 3px;
+				}
+			}
+		}
+	}
 	.user-mid{
-		margin-top: 0;
+		margin-top: 8px;
 		dl{
 			margin: 0;
 			background-color: #fff;
@@ -1136,6 +1202,27 @@
 		}
 		.make-offers-item{
 			margin-top: 8px;
+		}
+		.leave-words{
+			margin-top: 8px;
+			padding: 10px;
+			background-color: #fff;
+			h5{
+			    font-size: 1.2rem;
+			    color: #666;
+			    margin: 0;
+			    margin-bottom: 6px;
+			    font-weight: normal;
+			}
+			textarea{
+				width: 100%;
+				resize: none;
+				font-size: 1rem;
+				color: #666;
+				margin: 0;
+				padding: 0;
+				height: 60px;
+			}
 		}
 
 	}

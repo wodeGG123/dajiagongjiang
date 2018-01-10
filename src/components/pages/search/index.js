@@ -71,7 +71,7 @@ class Main extends React.Component{
 	
 	render(){
 		return(<div className='search wrap-box'>
-			<NavBar mode="light" icon={<Icon type="left" />} rightContent={<span>筛选</span>} onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}>搜索</NavBar>
+			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}>找工匠</NavBar>
 			<div>
 				<SearchBar placeholder="可输入姓名、工种、工作范围" maxLength={8} />
 			</div>

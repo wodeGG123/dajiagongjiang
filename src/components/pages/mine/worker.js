@@ -18,23 +18,85 @@ class WorkerManagement extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			busy:0
+			busy:0,
+			collocation:0
 		}
 	}
 	render(){
 		return(<div className='worker-management'>
 				<NavBar icon={<Icon type="left" />} mode="light" onLeftClick={() => {this.context.router.goBack()}}>工匠管理</NavBar>	
+				 <div className='user-top'>
+		    	
+		    		<div  className='user-head-img'>
+                   		<ImgInit src=''/>	
+		    		</div>
+		    		<div className='user-text'>
+		    			<h3>李师傅</h3>
+		    			<p>(高级工匠)</p>
+		    		</div>
+		    		<div className='user-es'>
+		    			<Link to='/home/mine/myLevel'>
+		    			<div>
+		    				<FontAwesome name='street-view' />
+		    				<span>技能等级：高级</span>
+		    			</div>
+		    			</Link>
+		    			<Link to='/home/mine/myCoin'>
+			    			<div>
+			    				<FontAwesome name='database' />
+			    				<span>积分：96</span>
+			    			</div>
+		    			</Link>
+		    		</div>
+		    		<div className='user-es'>
+		    			<Link to='/home/mine/myEvaluate'>
+			    			<div>
+			    				<FontAwesome name='hand-peace-o' />
+			    				<span>好评率：96%</span>
+			    			</div>
+		    			</Link>
+		    			<Link to='/home/mine/myCredit'>
+			    			<div>
+			    				<FontAwesome name='tags' />
+			    				<span>信誉：650</span>
+			    			</div>
+			    		</Link>
+		    		</div>
+		    		
+		    </div>
+
+
 				<div className='user-mid'>
-			    	<dl>
-			    		<dt><span>等级</span></dt>
-			    		<dd>二级工匠</dd>
-			    	</dl>
+					<div>
+				    	<dl>
+				    		<dt><span>技能等级</span></dt>
+				    		<dd>高级工匠</dd>
+				    	</dl>
+					</div>
 			    	<Picker value={[this.state.busy]} onChange={value => this.setState({busy:value[0]})} data={[{value:1,label:'忙碌'},{value:0,label:'空闲'},]} cols={1} className="forss">
 			          	<dl>
 				    		<dt><span>是否开启忙碌</span></dt>
 				    		<dd><font>{this.state.busy?'忙碌':'空闲'}</font></dd>
 			    		</dl>
 		        	</Picker>
+		        	<Picker value={[this.state.busy]} onChange={value => this.setState({collocation:value[0]})} data={[{value:1,label:'托管'},{value:0,label:'自主'},]} cols={1} className="forss">
+			          	<dl>
+				    		<dt><span>是否开启托管</span></dt>
+				    		<dd><font>{this.state.collocation?'托管':'自主'}</font></dd>
+			    		</dl>
+		        	</Picker>
+		        	<Link to='/home/mine/orderList'>
+		    		<dl>
+			    		<dt><span>工匠订单</span><font>(100)</font></dt>
+			    		<dd><FontAwesome name='angle-right' /></dd>
+		    		</dl>
+		    	</Link>
+		        	<a href='https://www.chinalife.com.cn/zhuzhan/index/'>
+				    	<dl>
+				    		<dt><span>保险</span></dt>
+				    		<dd><FontAwesome name='angle-right' /></dd>
+				    	</dl>
+			    	</a>
 		        	<Link to='/home/mine/applyForWorker'>
 				    	<dl>
 				    		<dt><span>重新申请</span></dt>
@@ -47,6 +109,11 @@ class WorkerManagement extends React.Component{
 				    		<dd><FontAwesome name='angle-right' /></dd>
 				    	</dl>
 			    	</Link>
+			    	<div className="leave-words">
+						<div>
+							<textarea name="" id="">工匠个人备注</textarea>
+						</div>
+					</div>
 		    	</div>
 
 		</div>)
@@ -173,7 +240,7 @@ class ApplyForWorker extends React.Component{
 		        </Picker>
 		    	<Picker value={[this.state.year]} onChange={value => this.setState({year:value[0]})} data={[{value:1,label:'1年'},{value:2,label:'2年'},]} cols={1} className="forss">
 		          	<dl>
-			    		<dt><span>工作年限</span></dt>
+			    		<dt><span>工龄</span></dt>
 			    		<dd><font>5年</font><FontAwesome name='angle-right' /></dd>
 		    		</dl>
 		        </Picker>
