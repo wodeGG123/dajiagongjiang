@@ -71,6 +71,10 @@ class Main extends React.Component{
 		    			<dd><span>男</span></dd>
 		    		</dl>
 		    		<dl>
+		    			<dt><span>年龄</span></dt>
+		    			<dd><span>40</span></dd>
+		    		</dl>
+		    		<dl>
 		    			<dt><span>关注</span></dt>
 		    			<dd><span>40</span></dd>
 		    		</dl>

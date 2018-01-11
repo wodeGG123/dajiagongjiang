@@ -350,7 +350,10 @@ class MakeOffers extends React.Component{
 					    		<dt><span>项目单位</span></dt>
 					    		<dd><input type="text" placeholder='请输入项目单位'/></dd>
 					    	</dl>
-					    	
+					    	<dl>
+					    		<dt><span>项目保质期</span></dt>
+					    		<dd><input type="text" placeholder='保质期单位（天）'/></dd>
+					    	</dl>
 				    	</div>)
 					})}
 					<div>

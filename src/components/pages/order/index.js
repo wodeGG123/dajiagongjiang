@@ -118,7 +118,7 @@ class MakeOrder extends React.Component{
 						</div>
 					<div className='pre-price'>
 						<h5>预估价格：</h5>
-						<p><font>6543</font><span>元</span></p>
+						<p><font>6543</font><span>元</span><span>（保质期30天）</span></p>
 						<div>
 							<span onClick={()=>{this.priceDetail()}}><FontAwesome name={this.state.priceDetail?'angle-double-up':'angle-double-down'} /></span>
 						</div>
