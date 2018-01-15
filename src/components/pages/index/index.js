@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router'
 import { NavBar, Icon, Carousel } from 'antd-mobile';
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
+import WorkerList from 'rootsrc/components/common/workerList/index.js'
 
 var FontAwesome = require('react-fontawesome');
 require('./style.scss');
@@ -29,10 +30,10 @@ class Index extends React.Component{
 	render(){
 		return(<div className='index-wrap'>
     <div className='index-guiders'>
-      <Link to='/home/articleList'>装修百科</Link>
-      <Link to='/home/question'>市场数据</Link>
-      <Link to='/home/search'>找工匠</Link>
-      <Link to='/home/articleList'>精品</Link>
+      <Link to='/home/articleList'><FontAwesome name='book' /><span>装修百科</span></Link>
+      <Link to='/home/question'><FontAwesome name='area-chart' /><span>市场数据</span></Link>
+      <Link to='/home/search'><FontAwesome name='search' /><span>找工匠</span></Link>
+      <Link to='/home/articleList'><FontAwesome name='cube' /><span>精品</span></Link>
     </div>
     <div className='index-banner'>
       <div className="swiper-container">
@@ -101,80 +102,7 @@ class Index extends React.Component{
 
     <div className="index-content">
       <h5>推荐工匠</h5>
-      <div className='worker-lists'>
-        <div className='worker-item'>
-          <Link to='/home/workerInfo'>
-          <dl>
-            <dt><ImgInit src='/statics/img/temp/timg7.jpg' /><i>威远</i></dt>
-            <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
-            <dd><p>木工</p></dd>
-          </dl>
-          </Link> 
-        </div>
-        <div className='worker-item'>
-          <Link to='/home/workerInfo'>
-          <dl>
-            <dt><ImgInit src='/statics/img/temp/timg4.jpg' /><i>威远</i></dt>
-            <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
-            <dd><p>木工</p></dd>
-          </dl>
-          </Link> 
-        </div>
-        <div className='worker-item'>
-          <Link to='/home/workerInfo'>
-          <dl>
-            <dt><ImgInit src='/statics/img/temp/timg8.jpg' /><i>威远</i></dt>
-            <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
-            <dd><p>木工</p></dd>
-          </dl>
-          </Link> 
-        </div>
-        <div className='worker-item'>
-          <Link to='/home/workerInfo'>
-          <dl>
-            <dt><ImgInit src='/statics/img/temp/timg9.jpg' /><i>威远</i></dt>
-            <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
-            <dd><p>木工</p></dd>
-          </dl>
-          </Link> 
-        </div>
-        <div className='worker-item'>
-          <Link to='/home/workerInfo'>
-          <dl>
-            <dt><ImgInit src='/statics/img/temp/timg3.jpg' /><i>威远</i></dt>
-            <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
-            <dd><p>木工</p></dd>
-          </dl>
-          </Link> 
-        </div>
-        <div className='worker-item'>
-          <Link to='/home/workerInfo'>
-          <dl>
-            <dt><ImgInit src='/statics/img/temp/timg2.jpg' /><i>威远</i></dt>
-            <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
-            <dd><p>木工</p></dd>
-          </dl>
-          </Link> 
-        </div>
-        <div className='worker-item'>
-          <Link to='/home/workerInfo'>
-          <dl>
-            <dt><ImgInit src='/statics/img/temp/timg5.jpg' /><i>威远</i></dt>
-            <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
-            <dd><p>木工</p></dd>
-          </dl>
-          </Link> 
-        </div>
-        <div className='worker-item'>
-          <Link to='/home/workerInfo'>
-          <dl>
-            <dt><ImgInit src='/statics/img/temp/timg10.jpg' /><i>威远</i></dt>
-            <dd><h4>李师傅</h4><span>5&nbsp;<FontAwesome name='star' /></span></dd>
-            <dd><p>木工</p></dd>
-          </dl>
-          </Link> 
-        </div>
-      </div>
+      <WorkerList />
 
     </div>
 		</div>)
