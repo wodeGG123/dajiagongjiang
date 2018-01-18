@@ -207,7 +207,17 @@
 	.am-navbar{
 		border-bottom: 1px solid #eee;
 	}
-
+	.am-navbar-right{
+		a{
+			font-size: 1rem;
+			display: block;
+			color: #fff;
+			background-color:#108ee9;
+			display: block;
+			padding:5px 10px;
+			border-radius:3px;
+		}
+	}
 	.order-list-filter{
 		display: flex;
 		justify-content:center;
@@ -484,7 +494,40 @@
 			border-top: 1px solid #eee;
 		}
 	}
+	.order-estimate2-img{
+		text-align: center;
+		img{
+			max-height: 150px;
+		}
+	}
+	.order-estimate2-text{
+		h4{
+			padding:0 30px;
+			text-align: center;
+			font-size: 2rem;
+			color: #999;
+			span{
+				color: red;
+			}
+		}
+		h5{
+			padding:0 30px;
+			text-align: center;
+			font-size: 1.2rem;
+			color: #999;
+			span{
+				color: green;
+			}
+		}
+		p{
+			padding:0 30px;
+			text-align: center;
+			font-size: 1.1rem;
+			color: #999;
+		}
+	}
 }
+
 .my-coin{
 	.am-navbar{
 		border-bottom: 1px solid #eee;

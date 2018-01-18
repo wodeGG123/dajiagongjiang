@@ -1,4 +1,4 @@
-.search{
+.search{	
 	.worker-lists{
 		margin-top:6px;
 	}
@@ -21,4 +21,50 @@
 
 		}
 	}
+}
+.pre-search{
+	.am-navbar{
+	border-bottom: 1px solid #eee;
+   }
+   .am-navbar-right{
+	   	span{
+	   		font-size: 1rem;
+	   		color: #999;
+	   	}
+   }
+   .work-list{
+   		dl{
+   			margin:0;
+   			padding:0 0 10px;
+   			border-bottom:1px solid #eee;
+   			dt{
+				margin:0;
+   				padding:10px;
+   				font-size:1.1rem;
+   				color: #999;
+   			}
+   			dd{
+   				margin:0;
+   				padding:0 10px;
+   				display: flex;
+   				justify-content: space-between;
+   				align-items:center;
+   				flex-wrap:wrap;
+
+   				a{
+   					display: block;
+					width: 31%;
+					height: 24px;
+					line-height: 24px;
+					color: #666;
+					border:1px solid #eee;
+					border-radius:3px;
+					text-align: center;
+					font-size:1rem;
+					background-color:#fff;
+					margin-bottom: 6px;
+   				}
+   			}
+   		}
+   }
 }

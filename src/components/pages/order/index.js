@@ -167,6 +167,10 @@ class MakeOrder extends React.Component{
 							<div className='user-form-left'><span>备用手机号</span></div>
 							<div className='user-form-right'><input placeholder='此号码不能是注册号码' type="text"/></div>
 						</div>
+						<div className='user-form-box'>
+							<div className='user-form-left'><span>施工地址</span></div>
+							<div className='user-form-right'><input placeholder='请输入施工详细地址' type="text"/></div>
+						</div>
 					</div>
 
 					<div className="leave-words">
@@ -239,8 +243,16 @@ class MakeSelfOrder extends React.Component{
 							<div className='user-form-left'><span>客户手机号</span></div>
 							<div className='user-form-right'><input placeholder='请输入客户手机号' type="text"/></div>
 						</div>
+						<div className='user-form-box'>
+							<div className='user-form-left'><span>项目地址</span></div>
+							<div className='user-form-right'><input placeholder='请输入项目地址' type="text"/></div>
+						</div>
 					</div>
-
+					<div className="leave-words">
+						<div>
+							<textarea name="" id="">施工内容</textarea>
+						</div>
+					</div>
 					<div className="leave-words">
 						<div>
 							<textarea name="" id="">留言</textarea>

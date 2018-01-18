@@ -26,15 +26,22 @@ class Index extends React.Component{
       freeMode: true,
       loop:true
     });
+
+     var notice = new Swiper('.index-notice .swiper-container', {
+      direction: 'vertical',
+      autoplay:true,
+      loop:true
+    });
   }
 	render(){
 		return(<div className='index-wrap'>
     <div className='index-guiders'>
       <Link to='/home/articleList'><FontAwesome name='book' /><span>装修百科</span></Link>
       <Link to='/home/question'><FontAwesome name='area-chart' /><span>市场数据</span></Link>
-      <Link to='/home/search'><FontAwesome name='search' /><span>找工匠</span></Link>
+      <Link to='/home/search/1'><FontAwesome name='search' /><span>找工匠</span></Link>
       <Link to='/home/articleList'><FontAwesome name='cube' /><span>精品</span></Link>
     </div>
+
     <div className='index-banner'>
       <div className="swiper-container">
         <div className="swiper-wrapper">
@@ -59,6 +66,17 @@ class Index extends React.Component{
         </div>
       <div className="swiper-pagination"></div>
     </div>
+
+    </div>
+       <div className='index-notice'>
+       <div className="swiper-container">
+        <div className="swiper-wrapper">
+          <div className="swiper-slide">公告1公告1公告1公告1</div>
+          <div className="swiper-slide">公告2公告2公告2公告2</div>
+          <div className="swiper-slide">公告3公告3公告3公告3</div>
+          
+        </div>
+      </div>
     </div>
     <div className='index-stars'>
        <div className="swiper-container">
@@ -99,7 +117,7 @@ class Index extends React.Component{
         </div>
       </div>
     </div>
-
+ 
     <div className="index-content">
       <h5>推荐工匠</h5>
       <WorkerList />

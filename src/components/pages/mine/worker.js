@@ -87,7 +87,7 @@ class WorkerManagement extends React.Component{
 		        	</Picker>
 		        	<Link to='/home/mine/orderList'>
 		    		<dl>
-			    		<dt><span>工匠订单</span><font>(100)</font></dt>
+			    		<dt><span>接活订单</span><font>(100)</font></dt>
 			    		<dd><FontAwesome name='angle-right' /></dd>
 		    		</dl>
 		    	</Link>
@@ -361,6 +361,12 @@ class MakeOffers extends React.Component{
 								<h5>报价说明：</h5>
 								<div>
 									<textarea name="" id="">报价说明报价说明报价说明报价说明</textarea>
+								</div>
+							</div>
+							<div className="leave-words">
+								<h5>收方方法：</h5>
+								<div>
+									<textarea name="" id="">收方方法收方方法</textarea>
 								</div>
 							</div>
 							<div className="leave-words">

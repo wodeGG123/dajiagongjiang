@@ -33,7 +33,7 @@ class OrderInfo extends React.Component{
 				<div className='order-control'>
 					<Button type='ghost' size='small' inline>拒绝</Button>
 					<Button type='primary' size='small' inline>接受</Button>
-					<Link to='/home/mine/orderEstimate'>评价</Link>
+					<Link to='/home/mine/orderEstimate/1'>评价</Link>
 				</div>
 			</div>
 

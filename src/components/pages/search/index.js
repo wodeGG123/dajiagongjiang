@@ -8,6 +8,34 @@ var FontAwesome = require('react-fontawesome');
 require('./style.scss')
 
 class Main extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    let that = this;
+    function getComponent(){
+      if(that.props.params.type == 1){
+        return <SearchPre />
+      }else if(that.props.params.type == 2){
+        return <Search />
+      }
+    }
+
+    return(<div>{getComponent()}</div>)
+  }
+
+}
+Main.contextTypes = { 
+  store: PropTypes.object,
+  router: PropTypes.object
+};
+Main.defaultProps = {
+  
+};
+
+
+
+class Search extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -193,11 +221,64 @@ class Main extends React.Component{
 	}
 
 }
-Main.contextTypes = {
+Search.contextTypes = {
   store: PropTypes.object,
   router: PropTypes.object
 };
-Main.defaultProps = {
+Search.defaultProps = {
   
 };
+
+class SearchPre extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return(<div className='pre-search'>
+      <NavBar mode="light" icon={<Icon type="left" />} rightContent={<Link to='/home/search/2'><span>跳过</span></Link>}  onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}>选择地区</NavBar>
+      <div className='work-list'>
+        <dl>
+          <dt>推荐职位</dt>
+          <dd>
+            <Link to='/home/search/2'>木工</Link>
+            <Link to='/home/search/2'>石匠</Link>
+            <Link to='/home/search/2'>水泥工</Link>
+            <Link to='/home/search/2'>木工</Link>
+            <Link to='/home/search/2'>石匠</Link>
+            <Link to='/home/search/2'>水泥工</Link>
+            <Link to='/home/search/2'>木工</Link>
+            <Link to='/home/search/2'>石匠</Link>
+            <Link to='/home/search/2'>水泥工</Link>
+          </dd>
+        </dl>
+        <dl>
+          <dt>职位分类1</dt>
+          <dd>
+            <Link to='/home/search/2'>木工</Link>
+            <Link to='/home/search/2'>石匠</Link>
+            <Link to='/home/search/2'>水泥工</Link>
+          </dd>
+        </dl>
+        <dl>
+          <dt>职位分类1</dt>
+          <dd>
+            <Link to='/home/search/2'>木工</Link>
+            <Link to='/home/search/2'>石匠</Link>
+            <Link to='/home/search/2'>水泥工</Link>
+          </dd>
+        </dl>
+      </div>
+
+    </div>)
+  }
+
+}
+SearchPre.contextTypes = { 
+  store: PropTypes.object,
+  router: PropTypes.object
+};
+SearchPre.defaultProps = {
+  
+};
+
 export default Main

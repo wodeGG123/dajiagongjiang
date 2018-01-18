@@ -11,7 +11,7 @@ class OrderList extends React.Component{
 	render(){
 	
 		return(<div className='order-list'>
-			<NavBar icon={<Icon type="left" />} mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
+			<NavBar icon={<Icon type="left" />} rightContent={<Link to='/home/order/slefMake'>添加订单</Link>} mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
 			 <div className="order-list-filter">
 				<dl>
 					<dt><span>全部</span></dt>

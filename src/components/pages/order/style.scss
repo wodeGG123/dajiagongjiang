@@ -134,6 +134,7 @@
 
 		}
 		.leave-words{
+			margin-top: 6px;
 			padding: 10px;
 			background-color: #fff;
 			h5{
@@ -168,7 +169,9 @@
 			background-color: #fff;
 			position: relative;
 			border-bottom: 1px dashed #eee;
-
+			&:last-child{
+				border-bottom: none;
+			}
 			.user-form-left{
 				flex:1;
 			}

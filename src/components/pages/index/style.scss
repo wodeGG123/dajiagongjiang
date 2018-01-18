@@ -109,6 +109,19 @@
 	      }
 		}
 	}
+	.index-notice{
+		background-color:#fff;
+		.swiper-container{
+			height: 30px;
+			.swiper-slide{
+				height: 100%;
+				line-height: 30px;
+				color: #666;
+				font-size: 1rem;
+				text-align: center;
+			}
+		}
+	}
 	.index-content{
 		h5{
 			font-size: 1.2rem;

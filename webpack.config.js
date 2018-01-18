@@ -41,7 +41,7 @@ module.exports = {
 	    }
 	  },
 	devServer: {
-	  publicPath:'/',//静态目录路径
+	  publicPath:'/dist',//静态目录路径
 	  contentBase: path.join(__dirname, "/"),//静态路径，HTML所在路径
 	  compress: true,
 	  inline: true,

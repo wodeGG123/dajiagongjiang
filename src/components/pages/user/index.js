@@ -99,6 +99,19 @@ CodeLogin.defaultProps = {
 class Regist extends React.Component{
 	constructor(props){
 		super(props)
+		this.state={
+			modal1:false
+		}
+	}
+	onOpen(){
+		this.setState({
+			modal1:true
+		})
+	}
+	onClose(){
+		this.setState({
+			modal1:false
+		})
 	}
 	render(){
 		return(<div>
@@ -115,10 +128,33 @@ class Regist extends React.Component{
 						<Button type='primary'>发送</Button>
 					</div>
 				</div>
+				<div className='regist-allow'>
+					<input type="checkbox"/>
+					<span>我已看过并同意</span>
+					<font onClick={()=>{this.onOpen()}}>《大家工匠平台注册条款》</font>
+				</div>
 				<div className='user-form-bt'>
-					<Button type='primary' onClick={()=>{this.context.router.push('/user/registNext')}}>下一步</Button>
+					<Button type='primary' onClick={()=>{this.context.router.push('/user/registNext')}}>同意并注册</Button>
 				</div>
 			</div>
+
+			<Modal
+	          visible={this.state.modal1}
+	          transparent
+	          maskClosable={false}
+	          onClose={()=>{}}
+	          title="注册条款"
+	          footer={[{ text: '关闭', onPress: () => { console.log('ok'); this.onClose()(); } }]}
+	        >
+	          <div style={{ height: 300, overflow: 'scroll' }}>
+	            条款1：条款内容内容内容<br />
+	            条款1：条款内容内容内容<br />
+	            条款1：条款内容内容内容<br />
+	            条款1：条款内容内容内容<br />
+	            条款1：条款内容内容内容<br />
+	            条款1：条款内容内容内容<br />
+	          </div>
+	        </Modal>
 
 		</div>)
 	}

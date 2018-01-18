@@ -48,7 +48,7 @@ class Main extends React.Component{
 				<div className='workerinfo-top-left-block'>
 					<p><FontAwesome name='map-marker' />&nbsp;<span>威远</span></p>
 					<p><span>高级木工</span></p>
-					<h5><span>信誉值80</span><span>&nbsp;|&nbsp;</span><span>好评率90%</span></h5>
+					<h5><span>空闲</span></h5>
 				</div>
 				<div className="workerinfo-top-right-block">
 					<Button type='primary' onClick={()=>{Toast.info('关注成功', 1);}}>+&nbsp;关注</Button>
@@ -63,6 +63,10 @@ class Main extends React.Component{
 		    	<h5>工匠资料</h5>
 		    	<div>
 		    		<dl>
+		    			<dt><span>关注</span></dt>
+		    			<dd><span>40</span></dd>
+		    		</dl>
+		    		<dl>
 		    			<dt><span>工匠等级</span></dt>
 		    			<dd><span>高级木工</span></dd>
 		    		</dl>
@@ -74,18 +78,18 @@ class Main extends React.Component{
 		    			<dt><span>年龄</span></dt>
 		    			<dd><span>40</span></dd>
 		    		</dl>
-		    		<dl>
-		    			<dt><span>关注</span></dt>
-		    			<dd><span>40</span></dd>
-		    		</dl>
+		    		<Link to='/home/mine/myEvaluate'>
 		    		<dl>
 		    			<dt><span>信誉度</span></dt>
 		    			<dd><span>90</span></dd>
 		    		</dl>
+		    		</Link>
+		    		<Link to='/home/mine/myEvaluate'>
 		    		<dl>
 		    			<dt><span>好评率</span></dt>
 		    			<dd><span>80%</span></dd>
 		    		</dl>
+		    		</Link>
 		    		<dl>
 		    			<dt><span>工龄</span></dt>
 		    			<dd><span>5年</span></dd>

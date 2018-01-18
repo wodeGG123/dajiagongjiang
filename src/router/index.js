@@ -57,7 +57,7 @@ class MyRouter extends React.Component{
 						<Route path="editUser" component={EditUser} />
 						<Route path="orderList" component={OrderList} />
 						<Route path="orderInfo" component={OrderInfo} />
-						<Route path="orderEstimate" component={OrderEstimate} />
+						<Route path="orderEstimate/:step" component={OrderEstimate} />
 						<Route path="myCoin" component={MyCoin} />
 						<Route path="myCare" component={MyCare} />
 						<Route path="myCredit" component={MyCredit} />
@@ -79,7 +79,7 @@ class MyRouter extends React.Component{
 						<Route path="slefMake" component={MakeSelfOrder} />
 					</Route>
 					<Route path="index" component={Index} />
-					<Route path="search" component={Search} />
+					<Route path="search/:type" component={Search} />
 					<Route path="contactUs" component={ContactUs} />
 
 		    	</Route>
