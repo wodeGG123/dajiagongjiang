@@ -27,7 +27,7 @@
 	  </script>
 	  <!-- promis -->
 </head>
-<body>
+<body id='body'>
 	<div id="content">
 		<div id="load">
 		  <div>G</div>
@@ -39,6 +39,14 @@
 		  <div>L</div>
 		</div>
 	</div>
-<script type="text/javascript" src='/dist/bundle.js' async defer></script>
+	<script type="text/javascript" charset="utf-8" >
+		window.onload = function(){
+			var _script = document.createElement('script');
+			_script.src = '/dist/bundle.js'
+			_script.type = 'text/javascript'
+			document.getElementById('body').appendChild(_script);
+		}
+	</script>
+
 </body>
 </html>
