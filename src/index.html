@@ -2,17 +2,18 @@
 <html>
 <head>
 	<title></title>
-	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="/statics/css/loading.css">
 	<link rel="stylesheet" type="text/css" href="/statics/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/statics/css/antd-mobile.min.css">
 	<link rel="stylesheet" type="text/css" href="/statics/plugin/Swiper-4.0.7/dist/css/swiper.min.css">	
-	<link rel="stylesheet" type="text/css" href="/dist/styles.css?hash=db3cf54233fab5eff10b">
+	<link rel="stylesheet" type="text/css" href="/dist/styles.css?hash=<% for (var chunk in htmlWebpackPlugin.files.chunks) { %><%=htmlWebpackPlugin.files.chunks[chunk].hash %>
+<% } %>">
 	
 	<script src="/statics/plugin/Swiper-4.0.7/dist/js/swiper.min.js"></script>
 
 
-	
+	<!-- promis -->
 	<script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
 	  <script>
 	    if ('addEventListener' in document) {
@@ -24,9 +25,9 @@
 	      document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
 	    }
 	  </script>
-	  
+	  <!-- promis -->
 </head>
-<body id="body">
+<body id='body'>
 	<div id="content">
 		<div id="loading">
 		<div id="loading-center">
@@ -40,12 +41,12 @@
 		</div> 
 	</div>
 	</div>
-	<script type="text/javascript" charset="utf-8">
+	<script type="text/javascript" charset="utf-8" >
 		window.onload = function(){
 			var _script = document.createElement('script');
-			
-	        _script.src = '/dist/bundle.js?hash=db3cf54233fab5eff10b'
-
+			<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+	        _script.src = '/dist/bundle.js?hash=<%=htmlWebpackPlugin.files.chunks[chunk].hash %>'
+<% } %>
 			
 			_script.type = 'text/javascript'
 			document.getElementById('body').appendChild(_script);

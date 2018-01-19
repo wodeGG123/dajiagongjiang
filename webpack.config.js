@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: './src/index.js', //入口文件
@@ -48,7 +49,17 @@ module.exports = {
 	  port: 8080
 	},
 	plugins:  [
-      new ExtractTextPlugin("styles.css"),  
+      new ExtractTextPlugin("styles.css"), 
+      new HtmlWebpackPlugin({                        //根据模板插入css/js等生成最终HTML
+             filename:'../index.html',    //生成的html存放路径，相对于 output.path
+             template:'./src/index.html',    //html模板路径
+             inject:false,    //允许插件修改哪些内容，包括head与body
+             hash:true,    //为静态资源生成hash值
+             minify:{    //压缩HTML文件
+                 removeComments:true,    //移除HTML中的注释
+                 collapseWhitespace:false    //删除空白符与换行符
+             },
+         })
 	],
 
 
