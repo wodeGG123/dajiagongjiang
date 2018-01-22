@@ -59,8 +59,16 @@ class MineIndex extends React.Component{
 		    		<div className='user-es'>
 		    			<Link to='/home/mine/myEvaluate'>
 			    			<div>
-			    				<FontAwesome name='hand-peace-o' />
-			    				<span>好评率：96%</span>
+			    				<FontAwesome name='street-view' />
+			    				<span>客户等级：高级用户</span>
+			    			</div>
+		    			</Link>
+		    		</div>
+		    		<div className='user-es' style={{marginTop:'20px'}}>
+		    			<Link to='/home/mine/myEvaluate'>
+			    			<div>
+			    				<FontAwesome name='street-view' />
+			    				<span>工匠等级：高级工匠</span>
 			    			</div>
 		    			</Link>
 		    			<Link to='/home/mine/myCredit'>
@@ -69,6 +77,14 @@ class MineIndex extends React.Component{
 			    				<span>信誉：650</span>
 			    			</div>
 			    		</Link>
+		    		</div>
+		    		<div className='user-es'>
+		    			<Link to='/home/mine/myEvaluate'>
+			    			<div>
+			    				<FontAwesome name='hand-peace-o' />
+			    				<span>好评率：96%</span>
+			    			</div>
+		    			</Link>
 		    		</div>
 		    		
 		    </div>

@@ -9,10 +9,15 @@ class OrderList extends React.Component{
 		super(props)
 	}
 	render(){
-	
+		const tabs = [
+	  { title: '用户订单' },
+	  { title: '接活订单' },
+	];
 		return(<div className='order-list'>
 			<NavBar icon={<Icon type="left" />} rightContent={<Link to='/home/order/slefMake'>添加订单</Link>} mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
-			 <div className="order-list-filter">
+			  <Tabs tabs={tabs} >
+        <div>
+          <div className="order-list-filter">
 				<dl>
 					<dt><span>全部</span></dt>
 					<dd></dd>
@@ -127,6 +132,11 @@ class OrderList extends React.Component{
 					</dl>
 				</Link>
 			</div>
+        </div>
+
+      </Tabs>
+
+			
 
 			
 

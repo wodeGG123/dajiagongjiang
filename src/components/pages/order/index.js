@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavBar, Icon, Carousel, Button, List, Stepper, Tabs } from 'antd-mobile';
+import { NavBar, Icon, Carousel, Button, List, Stepper, Tabs, Modal } from 'antd-mobile';
 import {Link} from 'react-router'
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
 var FontAwesome = require('react-fontawesome');
@@ -29,7 +29,8 @@ class MakeOrder extends React.Component{
 		super(props);
 		this.state = {
 	      val: 3,
-	      priceDetail:false,
+	      priceDetail:true,
+	      modal:false,
 	    };
 	}
 	onChange(val){
@@ -66,93 +67,50 @@ class MakeOrder extends React.Component{
 			      onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
 			    >
 			      <div>
-			       <List>
-				        <List.Item
-				          wrap
-				          extra={
-				            <Stepper
-				              style={{ width: '100%', minWidth: '100px' }}
-				              showNumber
-				              max={3000}
-				              min={1}
-				              value={this.state.val}
-				              onChange={this.onChange.bind(this)}
-				            />}
-				        >
-				        项目1
-				        <span>（㎡）</span>
-				        </List.Item>
-				        <List.Item
-				          wrap
-				          extra={
-				            <Stepper
-				              style={{ width: '100%', minWidth: '100px' }}
-				              showNumber
-				              max={3000}
-				              min={1}
-				              value={this.state.val}
-				              onChange={this.onChange.bind(this)}
-				            />}
-				        >
-				        项目1
-				        <span>（㎡）</span>
-				        </List.Item>
-				        <List.Item
-				          wrap
-				          extra={
-				            <Stepper
-				              style={{ width: '100%', minWidth: '100px' }}
-				              showNumber
-				              max={3000}
-				              min={1}
-				              value={this.state.val}
-				              onChange={this.onChange.bind(this)}
-				            />}
-				        >
-				        项目1
-				        <span>（㎡）</span>
-				        </List.Item>
-					</List>
-					<div className="remarks">
-							<p>收方方法：收方方法收方方法收方方法收方方法收方方法</p>
-						</div>
 					<div className='pre-price'>
 						<h5>预估价格：</h5>
 						<p><font>6543</font><span>元</span><span>（保质期30天）</span></p>
-						<div>
-							<span onClick={()=>{this.priceDetail()}}><FontAwesome name={this.state.priceDetail?'angle-double-up':'angle-double-down'} /></span>
-						</div>
 					</div>
-						<div className={this.state.priceDetail?'price-part price-part-show':'price-part'}>
+						<div className='price-part'>
 						<table>
 							<tr>
 								<th>项目</th>
 								<th>数量（㎡）</th>
 								<th>单价（元）</th>
 								<th>小计（元）</th>
+								<th>查看</th>
 							</tr>
 							<tr>
 								<td>项目1</td>
-								<td>5</td>
+								<td><input type="text" placeholder='0'/></td>
 								<td>10</td>
-								<td>50</td>
+								<td>0</td>
+								<td>
+									<p onClick={()=>{this.setState({modal:true})}}>报价细则</p>
+									<p onClick={()=>{this.setState({modal:true})}}>收方方法</p>
+								</td>
 							</tr>
 							<tr>
 								<td>项目1</td>
-								<td>5</td>
+								<td><input type="text" placeholder='0'/></td>
 								<td>10</td>
-								<td>50</td>
+								<td>0</td>
+								<td>
+									<p onClick={()=>{this.setState({modal:true})}}>报价细则</p>
+									<p onClick={()=>{this.setState({modal:true})}}>收方方法</p>
+								</td>
 							</tr>
 							<tr>
 								<td>项目1</td>
-								<td>5</td>
+								<td><input type="text" placeholder='0'/></td>
 								<td>10</td>
-								<td>50</td>
+								<td style={{color:"#f60"}}>50</td>
+								<td>
+									<p onClick={()=>{this.setState({modal:true})}}>报价细则</p>
+									<p onClick={()=>{this.setState({modal:true})}}>收方方法</p>
+								</td>
 							</tr>
 						</table>
-						<div className='remarks'>
-							<p>报价说明：此报价方式说明</p>
-						</div>
 					</div>
 					<div className='user-form'>
 						<h5>下单信息：</h5>
@@ -188,7 +146,25 @@ class MakeOrder extends React.Component{
 			     
 			    </Tabs>
 		    </div>
-
+			
+			<Modal
+		          visible={this.state.modal}
+		          transparent
+		          maskClosable={false}
+		          onClose={()=>{}}
+		          title="报价细则"
+		          footer={[{ text: '确定', onPress: () => { console.log('ok');this.setState({modal:false}) } }]}
+		        >
+		          <div style={{ height: 200, overflow: 'scroll' }}>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		          </div>
+		        </Modal>
 
 		</div>)
 	}
@@ -246,6 +222,10 @@ class MakeSelfOrder extends React.Component{
 						<div className='user-form-box'>
 							<div className='user-form-left'><span>项目地址</span></div>
 							<div className='user-form-right'><input placeholder='请输入项目地址' type="text"/></div>
+						</div>
+						<div className='user-form-box'>
+							<div className='user-form-left'><span>项目保质期</span></div>
+							<div className='user-form-right'><input placeholder='保质期单位（天）' type="text"/></div>
 						</div>
 					</div>
 					<div className="leave-words">

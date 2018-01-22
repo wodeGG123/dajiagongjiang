@@ -6,6 +6,9 @@ import {Link} from 'react-router'
 class OrderInfo extends React.Component{
 	constructor(props){
 		super(props)
+		this.state={
+			modal:false
+		}
 	}
 	render(){
 		return(<div className='order-info'>
@@ -13,6 +16,47 @@ class OrderInfo extends React.Component{
 			<div className='order-content'>
 				<h3><span>2017年12月07日21:37:09</span>订单号：343873<i>进行中</i></h3>
 				<p>价格：<font>10000元</font></p>
+				<div className='price-part'>
+						<table>
+							<tr>
+								<th>项目</th>
+								<th>数量（㎡）</th>
+								<th>单价（元）</th>
+								<th>小计（元）</th>
+								<th>查看</th>
+							</tr>
+							<tr>
+								<td>项目1</td>
+								<td>0</td>
+								<td>10</td>
+								<td>0</td>
+								<td>
+									<p onClick={()=>{this.setState({modal:true})}}>报价细则</p>
+									<p onClick={()=>{this.setState({modal:true})}}>收方方法</p>
+								</td>
+							</tr>
+							<tr>
+								<td>项目1</td>
+								<td>0</td>
+								<td>10</td>
+								<td>0</td>
+								<td>
+									<p onClick={()=>{this.setState({modal:true})}}>报价细则</p>
+									<p onClick={()=>{this.setState({modal:true})}}>收方方法</p>
+								</td>
+							</tr>
+							<tr>
+								<td>项目1</td>
+								<td>5</td>
+								<td>10</td>
+								<td style={{color:"#f60"}}>50</td>
+								<td>
+									<p onClick={()=>{this.setState({modal:true})}}>报价细则</p>
+									<p onClick={()=>{this.setState({modal:true})}}>收方方法</p>
+								</td>
+							</tr>
+						</table>
+					</div>
 				<div>
 					<h3>工匠信息</h3>
 					<p>姓名：王师傅</p>
@@ -36,6 +80,24 @@ class OrderInfo extends React.Component{
 					<Link to='/home/mine/orderEstimate/1'>评价</Link>
 				</div>
 			</div>
+			<Modal
+		          visible={this.state.modal}
+		          transparent
+		          maskClosable={false}
+		          onClose={()=>{}}
+		          title="报价细则"
+		          footer={[{ text: '确定', onPress: () => { console.log('ok');this.setState({modal:false}) } }]}
+		        >
+		          <div style={{ height: 200, overflow: 'scroll' }}>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		           <p>报价细则内容</p>
+		          </div>
+		        </Modal>
 
 		</div>)
 	}

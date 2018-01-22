@@ -34,34 +34,7 @@ class WorkerManagement extends React.Component{
 		    			<h3>李师傅</h3>
 		    			<p>(高级工匠)</p>
 		    		</div>
-		    		<div className='user-es'>
-		    			<Link to='/home/mine/myLevel'>
-		    			<div>
-		    				<FontAwesome name='street-view' />
-		    				<span>技能等级：高级</span>
-		    			</div>
-		    			</Link>
-		    			<Link to='/home/mine/myCoin'>
-			    			<div>
-			    				<FontAwesome name='database' />
-			    				<span>积分：96</span>
-			    			</div>
-		    			</Link>
-		    		</div>
-		    		<div className='user-es'>
-		    			<Link to='/home/mine/myEvaluate'>
-			    			<div>
-			    				<FontAwesome name='hand-peace-o' />
-			    				<span>好评率：96%</span>
-			    			</div>
-		    			</Link>
-		    			<Link to='/home/mine/myCredit'>
-			    			<div>
-			    				<FontAwesome name='tags' />
-			    				<span>信誉：650</span>
-			    			</div>
-			    		</Link>
-		    		</div>
+		    		
 		    		
 		    </div>
 
@@ -85,12 +58,6 @@ class WorkerManagement extends React.Component{
 				    		<dd><font>{this.state.collocation?'托管':'自主'}</font></dd>
 			    		</dl>
 		        	</Picker>
-		        	<Link to='/home/mine/orderList'>
-		    		<dl>
-			    		<dt><span>接活订单</span><font>(100)</font></dt>
-			    		<dd><FontAwesome name='angle-right' /></dd>
-		    		</dl>
-		    	</Link>
 		        	<a href='https://www.chinalife.com.cn/zhuzhan/index/'>
 				    	<dl>
 				    		<dt><span>保险</span></dt>
@@ -354,10 +321,7 @@ class MakeOffers extends React.Component{
 					    		<dt><span>项目保质期</span></dt>
 					    		<dd><input type="text" placeholder='保质期单位（天）'/></dd>
 					    	</dl>
-				    	</div>)
-					})}
-					<div>
-						<div className="leave-words">
+					    	<div className="leave-words">
 								<h5>报价说明：</h5>
 								<div>
 									<textarea name="" id="">报价说明报价说明报价说明报价说明</textarea>
@@ -369,6 +333,10 @@ class MakeOffers extends React.Component{
 									<textarea name="" id="">收方方法收方方法</textarea>
 								</div>
 							</div>
+				    	</div>)
+					})}
+					<div>
+						
 							<div className="leave-words">
 								<h5>客户需提供：</h5>
 								<div>
