@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { NavBar, Icon, WingBlank, Button, Modal } from 'antd-mobile';
 import {Link} from 'react-router'
+import Member from 'rootsrc/request/member.js'
 var FontAwesome = require('react-fontawesome');
+
 import './style.scss'
 
 class User extends React.Component{
@@ -28,6 +30,11 @@ class Login extends React.Component{
 	constructor(props){
 		super(props)
 	}
+    handleSubmit(){
+		console.log(111)
+        Member.mobileVerify('18181443828',2)
+		.then((data)=>{console.log(data)})
+	}
 	render(){
 		return(<div>
 			<NavBar mode="light" icon={<Icon type="cross" />} rightContent={<Link to='/user/regist'>注册</Link>} onLeftClick={() => {console.log(this.context.router);this.context.router.replace('/home/mine/index')}}>登录</NavBar>
@@ -41,7 +48,7 @@ class Login extends React.Component{
 					<div className='user-form-right'><input placeholder='请输入密码' type="password"/></div>
 				</div>
 				<div className='user-form-bt'>
-					<Button type='primary'>登录</Button>
+					<Button onClick={()=>{this.handleSubmit()}} type='primary'>登录</Button>
 				</div>
 				<div className='user-form-extra'>
 					<Link to='user/codeLogin'>验证码登录</Link>
