@@ -7,6 +7,11 @@
 	flex-wrap:wrap;
 	box-sizing: border-box;
 	background-color:#fff;
+	&:after{
+		display: block;
+		content:' ';
+		width: 30%;
+	}
 	&>div{
 		display: block;
 		width: 30%;

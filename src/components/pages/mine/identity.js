@@ -1,10 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavBar, Icon, WingBlank, Button, Modal, ImagePicker, SegmentedControl, Picker, DatePicker } from 'antd-mobile';
+import { NavBar, Icon, Toast, WingBlank, Button, Modal, ImagePicker, SegmentedControl, Picker, DatePicker } from 'antd-mobile';
+import { createForm } from 'rc-form';
+import Common from '../../../request/common';
+import Member from '../../../request/member';
+import {Link} from 'react-router'
+import address from 'rootstatics/json/sc.js'
+
 const alert = Modal.alert;
 const prompt = Modal.prompt;
 
-import {Link} from 'react-router'
+
 var moment = require('moment');
 
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
@@ -13,78 +19,116 @@ var FontAwesome = require('react-fontawesome');
 require('./style.scss');
 
 
-class ApplyForIdentity extends React.Component{
+class ApplyForIdentityForm extends React.Component{
+	static contextTypes = {
+		router:React.PropTypes.object
+	}
 	constructor(props){
 		super(props);
 		this.state={
-			nickName:'李师傅',
 			sex:1,
-			year:1,
-			date:new Date('2017-01-01'),
-			email:'123@qq.com',
-			mobile:'13990546657',
-			job:'',
-
-			makeOffers:false,
+			date:new Date(),
+			address:['四川省','内江市','威远县'],
 		}
 	}
-	handleConfirm(){
-		alert('确认修改？', '', [
-	      { text: '取消', onPress: () => console.log('cancel') },
-	      { text: '确定', onPress: () => this.context.router.replace('/home/mine') },
-	    ])
-	}
-	dealMakeOffers(action){
-		this.setState({
-			makeOffers:action
+	//设置图片
+	setImg(imgs){
+		this.props.form.setFieldsValue({
+			id_photo:imgs
 		})
 	}
+	handleSubmit(){
+
+		alert('确认提交？', '', [
+	      { text: '取消', onPress: () => console.log('cancel') },
+	      { text: '确定', onPress: () => {
+					//设置获取不到的参数
+					this.props.form.setFieldsValue({
+						birthday:moment(this.state.date).format('YYYY-MM-DD'),
+						sex:this.state.sex,
+						address:this.state.address,
+					})
+					//表单校验
+					this.props.form.validateFields((error, value) => {
+
+						if(!error){
+							console.log(value)
+							var userInfo = store.getState().userInfo
+							Member.realAuth({
+								address:value.address.join('-'),
+								birthday:value.birthday,
+								id_card:value.id_card,
+								id_photo:{
+									above:value.id_photo[0],
+									below:value.id_photo[1]
+								},
+								real_name:value.real_name,
+								sex:value.sex,
+								token:userInfo.token,
+								uid:userInfo.id,
+							})
+							.then((data)=>{
+								console.log(data)
+								if(data){
+									Toast.info('提交成功！')
+									this.context.router.replace('/home/mine/index');
+								}
+							})
+						}else{
+							console.log(error)
+							Toast.info('请完善所有信息！')
+						}
+			
+					});
+
+					
+				
+				} },
+	    ])
+	}
 	render(){
-		const jobList = [
-			{value:0,
-			 label:'工种类0',
-			 children:[{value:0,label:'石匠0'},{value:1,label:'石匠1'},{value:2,label:'石匠2'}]},
-			 {value:1,
-			 label:'工种类1',
-			 children:[{value:0,label:'木匠0'},{value:1,label:'木匠1'},{value:2,label:'木匠2'}]},
-			 {value:2,
-			 label:'工种类2',
-			 children:[{value:0,label:'铁匠0'},{value:1,label:'铁匠1'},{value:2,label:'铁匠2'}]}
+		
+		var {getFieldProps,getFieldError} = this.props.form
 
-		];
-		const location = [
-			{value:0,
-			 label:'四川',
-			 children:[{value:0,label:'成都',children:[{value:0,label:'威远'}]},{value:1,label:'成都',children:[{value:0,label:'威远'}]},{value:2,label:'成都',children:[{value:0,label:'威远'}]}]},
-			 {value:0,
-			 label:'四川',
-			 children:[{value:0,label:'成都',children:[{value:0,label:'威远'}]},{value:1,label:'成都',children:[{value:0,label:'威远'}]},{value:2,label:'成都',children:[{value:0,label:'威远'}]}]},
-			 {value:0,
-			 label:'四川',
-			 children:[{value:0,label:'成都',children:[{value:0,label:'威远'}]},{value:1,label:'成都',children:[{value:0,label:'威远'}]},{value:2,label:'成都',children:[{value:0,label:'威远'}]}]},
-			 
-
-		];
 		return(<div className='apply-for-identity'>
 
-            <NavBar icon={<Icon type="left" />} mode="light" onLeftClick={() => {this.context.router.goBack()}}>实名认证</NavBar>
+        <NavBar icon={<Icon type="left" />} mode="light" onLeftClick={() => {this.context.router.goBack()}}>实名认证</NavBar>
 		     <div className='user-top'>
 		    	<div>
 		    		<p>身份证<span>（需要上传身份证正反面）</span></p>
-		    		<ImagePickerExample length={2} />
+						<input 
+						{...getFieldProps('id_photo',{
+							initialValue:[],
+							rules:[
+								{required:true,type:'array',len:2}
+							]							
+						})}
+						type="hidden"/>
+		    		<ImagePickerExample setImg={(imgs)=>{this.setImg(imgs)}} length={2} />
 		    	</div>
 		    </div>
 
 		    <div className='user-mid'>
 		    	<dl>
 		    		<dt><span>姓名</span></dt>
-		    		<dd><input type="text" placeholder='请输入姓名'/></dd>
+						<dd><input type="text"
+						 {...getFieldProps('real_name',{
+							initialValue:'',
+							rules:[{required:true}]							
+							})}	
+						 placeholder='请输入姓名'
+						 /></dd>
 		    	</dl>
 		    	<dl>
 		    		<dt><span>身份证号</span></dt>
-		    		<dd><input type="text" placeholder='请输入身份证号'/></dd>
+						<dd><input
+						{...getFieldProps('id_card',{
+							initialValue:'',
+							rules:[{required:true}]							
+							})}	
+						 type="text" placeholder='请输入身份证号'/></dd>
 		    	</dl>
-		    	<DatePicker
+		    	<DatePicker						
 		          mode="date"
 		          title="出生日期"
 		          extra="Optional"
@@ -92,60 +136,108 @@ class ApplyForIdentity extends React.Component{
 		          maxDate={new Date()}
 		          value={this.state.date}
 		          onChange={date => this.setState({ date })}
-		        >
+		        >						
 		          <dl>
-		    		<dt><span>出生日期</span></dt>
+		    		<dt>
+							<span>出生日期</span>
+								<input
+								{...getFieldProps('birthday',{
+									initialValue:'',
+									rules:[{required:true}]							
+									})}	
+								type="hidden"/>
+							</dt>
 		    		<dd><font>{moment(this.state.date).format('YYYY年MM月DD日')}</font><FontAwesome name='angle-right' /></dd>
 		    	  </dl>
+					
 		        </DatePicker>
-		    	<Picker value={[this.state.sex]} onChange={value => this.setState({sex:value[0]})} data={[{value:1,label:'男'},{value:0,label:'女'},]} cols={1} className="forss">
-		          	<dl>
-			    		<dt><span>性别</span></dt>
-			    		<dd><font>{this.state.sex?'男':'女'}</font><FontAwesome name='angle-right' /></dd>
+						
+						<Picker							
+						 value={[this.state.sex]}
+						 onChange={value => this.setState({sex:value[0]})} data={[{value:1,label:'男'},{value:2,label:'女'},]} cols={1} className="forss">
+								
+								<dl>
+			    		<dt>
+								<span>性别</span>
+								<input 
+									{...getFieldProps('sex',{
+										initialValue:'1',
+										rules:[{required:true}]							
+										})}	
+								type="hidden"/>
+								</dt>
+			    		<dd><font>{this.state.sex==1?'男':'女'}</font><FontAwesome name='angle-right' /></dd>
 		    		</dl>
+						
 		        </Picker>
+						
 		         <Picker
 		        	  cols={3}
-			          data={location}     
-			          value={this.state.job}
-			          onChange={v => {}}
+			          data={address}     
+			          value={this.state.address}
+			          onChange={v => {
+									this.setState({
+										address:v
+									})
+								}}
 			          onOk={() => {}}
 			          onDismiss={() => {}}
 			          cascade={true}
 			        >
+							
 		        <dl>
-		    		<dt><span>地址</span></dt>
-		    		<dd><font>四川省-内江市-威远县</font><FontAwesome name='angle-right' /></dd>
+		    		<dt>
+							<span>地址</span>
+								<input 
+							{...getFieldProps('address',{
+								initialValue:'',
+								rules:[{required:true}]							
+							})}	
+							type="hidden"/>
+							</dt>
+		    		<dd><font>{this.state.address.join('-')}</font><FontAwesome name='angle-right' /></dd>
 		    	</dl>
+				
         	   </Picker>
 		    </div>
 		    <div className='apply-submit'>
-		    	<Button type='primary'>提交申请</Button>
-		    </div>
-
-		    {this.state.makeOffers?<MakeOffers dealMakeOffers={this.dealMakeOffers.bind(this)} />:null}
-		    
+		    	<Button onClick={()=>{this.handleSubmit()}} type='primary'>提交申请</Button>
+		    </div>		    
 		</div>)
 	}
 
 }
-ApplyForIdentity.contextTypes = {
-  router: PropTypes.object
-};
- const data = [{
-			  url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-			  id: '2121',
-			}];
 
 class ImagePickerExample extends React.Component {
   state = {
-    files: data,
+		files: [],
   }
   onChange = (files, type, index) => {
-    console.log(files, type, index);
-    this.setState({
-      files,
-    });
+		console.log(files, type, index);
+	
+		if(type == 'add'){
+				Common.upload(files[0].file)
+				.then((data)=>{
+					console.log(data)
+					files[files.length-1].img = data.data.src;
+					var imgs = files.map((obj,index)=>{
+						return obj.img
+					})
+					this.props.setImg(imgs)
+					this.setState({
+						files,
+					});
+				})
+		}else if(type == 'remove'){
+				var imgs = files.map((obj,index)=>{
+					return obj.img
+				})
+				this.props.setImg(imgs)
+				this.setState({
+					files,
+				});
+		}
+	
   }
   render() {
     const { files } = this.state;
@@ -161,6 +253,6 @@ class ImagePickerExample extends React.Component {
   }
 }
 
-
+var ApplyForIdentity = createForm()(ApplyForIdentityForm)
 
 export default ApplyForIdentity

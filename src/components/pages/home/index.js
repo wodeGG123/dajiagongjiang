@@ -85,7 +85,7 @@ class Home extends React.Component{
             key="key4"
             selected={this.state.selectedTab === 'Tab4'}
             onPress={() => {
-            	this.context.router.replace('/home/articleList')
+            	this.context.router.replace('/home/articleList/23')
               this.setState({
                 selectedTab: 'Tab4',
               });

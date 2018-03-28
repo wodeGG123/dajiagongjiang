@@ -1,7 +1,26 @@
 let API = {
-    DOMAIN:'http://artisan.dugul.cn/',
+    DOMAIN:'http://www.dajiagongjiang.com:8080/',
+    FILE_UPLOAD:'user/upload',
     LOGIN:'user/login',
+    REGIST:'user/register',
     MOBILE_VERIFY:'user/mobile-verify',
+    RESET_PASSWORD:'user/password/edit',
+    GETBACK_PASSWORD:'user/password/reset',
+    USER_INFO:'user/',
+    USER_REAL:'user/real-auth',
+    WORKER_REAL:'user/artisan-auth',
+    SET_USER_THUM:'user/avatar/edit',
+    SET_USER_NICKNAME:'user/nickname',
+    ORDER_LIST:'user/:id/order',
+    NOTICE_LIST:'user/information/notice',
+    BANNER_LIST:'user/article/banner',
+    WORKER_LIST:'user/artisan/list',
+    MESSAGE_LIST:'user/information/list',
+    JOB_LIST:'user/work-type/list',
+    MAKE_ORDER:'user/order',
+    SET_ORDER:'user/order/',
+    COIN_RECHARGE:'user/integral',
+    COIN_LIST:'user/integral',
 }
 
 export default API

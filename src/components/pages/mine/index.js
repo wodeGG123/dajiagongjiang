@@ -6,6 +6,9 @@ const alert = Modal.alert;
 import {Link} from 'react-router'
 
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
+import Member from '../../../request/member';
+import Order from '../../../request/order';
+import API from '../../../request/api';
 var FontAwesome = require('react-fontawesome');
 
 require('./style.scss');
@@ -17,17 +20,69 @@ class Mine extends React.Component{
 }
 
 class MineIndex extends React.Component{
+	static contextTypes = {
+		router:React.PropTypes.object,
+		store:React.PropTypes.object,
+	}
+	static defaultProps = {
+		isWorker:false
+	}
 	constructor(props){
 		super(props);
+		this.state = {
+			userInfo:false,
+			userInfoDetail:false,
+			orderNum:0,
+		}
 	}
-	handleEXIT(){
+	handleEXIT(){		
+		
+		
 		alert('确定要退出账户？', '', [
-	      { text: '取消', onPress: () => console.log('cancel') },
-	      { text: '确定', onPress: () => console.log('ok') },
+	      { text: '取消', onPress: () => {console.log('cancel')} },
+	      { text: '确定', onPress: () => {
+			this.context.store.dispatch({
+				type:'SET_USERINFO',
+				data:false
+			});
+			localStorage.removeItem('userInfo');
+			
+			window.store.dispatch({
+				type:'SET_USERINFO_DETAIL',
+				data:false
+			});
+			
+			localStorage.removeItem('userInfoDetail');
+			this.setState({
+				userInfo:false,
+				userInfoDetail:false,
+			})	
+		  } },
 	    ])
 	}
 	componentWillMount() {
+		//初始化用户信息
+		var userInfo = this.context.store.getState().userInfo;
+		var userInfoDetail = this.context.store.getState().userInfoDetail;
+		if(userInfo){
+			this.setState({
+				userInfo,
+				userInfoDetail
+			},function(){
+				console.log(this.state)
+			})
+		}
 
+		//获取订单总数
+		Order.list(userInfo.id,0,userInfo.token)
+		.then((data)=>{
+			console.log(data)
+			if(data){
+				this.setState({
+					orderNum:data.paging.total
+				})
+			}
+		})
 	}
 	render(){
 		return(<div className='user-center'>
@@ -36,56 +91,49 @@ class MineIndex extends React.Component{
 		    <div className='user-top'>
 		    	
 		    		<div  className='user-head-img'>
-                   		<ImgInit src=''/>	
+                   		<ImgInit src={this.state.userInfoDetail?API.DOMAIN.substr(0,API.DOMAIN.length-1)+this.state.userInfoDetail.avatar:''}/>	
 		    		</div>
 		    		<div className='user-text'>
-		    			<h3>李师傅</h3>
-		    			<p>(普通会员)</p>
+		    			<h3>{this.state.userInfoDetail?this.state.userInfoDetail.name:'游客'}</h3>
+		    			{/* <p>{this.state.userInfoDetail?this.state.userInfoDetail.custom_level:'(普通客户)'}</p> */}
 		    		</div>
 		    		<div className='user-es'>
-		    			<Link to='/home/mine/myLevel'>
 		    			<div>
 		    				<FontAwesome name='street-view' />
-		    				<span>平台等级：1</span>
+		    				<span>平台等级：{this.state.userInfoDetail?this.state.userInfoDetail.platform_level:'1'}</span>
 		    			</div>
-		    			</Link>
 		    			<Link to='/home/mine/myCoin'>
 			    			<div>
 			    				<FontAwesome name='database' />
-			    				<span>积分：96</span>
+			    				<span>积分：{this.state.userInfoDetail?this.state.userInfoDetail.integral:'0'}</span>
 			    			</div>
 		    			</Link>
 		    		</div>
 		    		<div className='user-es'>
-		    			<Link to='/home/mine/myEvaluate'>
-			    			<div>
-			    				<FontAwesome name='street-view' />
-			    				<span>客户等级：高级用户</span>
-			    			</div>
-		    			</Link>
+						<div>
+							<FontAwesome name='street-view' />
+							<span>客户等级：{this.state.userInfoDetail?this.state.userInfoDetail.custom_level:'普通客户'}</span>
+						</div>
 		    		</div>
-		    		<div className='user-es' style={{marginTop:'20px'}}>
-		    			<Link to='/home/mine/myEvaluate'>
+					{this.props.isWorker&&<div className='user-es' style={{marginTop:'20px'}}>
 			    			<div>
 			    				<FontAwesome name='street-view' />
-			    				<span>工匠等级：高级工匠</span>
+			    				<span>工匠等级：{this.state.userInfoDetail.artisan_level}</span>
 			    			</div>
-		    			</Link>
-		    			<Link to='/home/mine/myCredit'>
 			    			<div>
 			    				<FontAwesome name='tags' />
 			    				<span>信誉：650</span>
 			    			</div>
-			    		</Link>
-		    		</div>
-		    		<div className='user-es'>
+		    		</div>}
+		    		{this.props.isWorker&&<div className='user-es'>
 		    			<Link to='/home/mine/myEvaluate'>
 			    			<div>
 			    				<FontAwesome name='hand-peace-o' />
-			    				<span>好评率：96%</span>
+			    				<span>好评率：{this.state.userInfoDetail.praise_level}</span>
 			    			</div>
 		    			</Link>
-		    		</div>
+		    		</div>}
+		    		
 		    		
 		    </div>
 		    <div className='user-mid'>
@@ -97,36 +145,48 @@ class MineIndex extends React.Component{
 		    	</Link>
 		    	<Link to='/home/mine/orderList'>
 		    		<dl>
-			    		<dt><FontAwesome name='book' /><span>我的订单</span><font>(100)</font></dt>
+			    		<dt><FontAwesome name='book' /><span>我的订单</span><font>({this.state.orderNum})</font></dt>
 			    		<dd><FontAwesome name='angle-right' /></dd>
 		    		</dl>
 		    	</Link>
-		    	<Link to='/home/mine/workerManagement'>
+				
+				{this.props.isWorker?<Link to='/home/mine/workerManagement'>
 		    	<dl>
 		    		<dt><FontAwesome name='address-card' /><span>工匠身份管理</span></dt>
 		    		<dd><FontAwesome name='angle-right' /></dd>
 		    	</dl>
-		    	</Link>
+		    	</Link>:<Link to='/home/mine/applyForWorker'>
+		    	<dl>
+		    		<dt><FontAwesome name='address-card' /><span>申请成为工匠</span></dt>
+		    		<dd><FontAwesome name='angle-right' /></dd>
+		    	</dl>
+		    	</Link>}
+		    	
 		    	<Link to='/home/mine/applyForIdentity'>
 			    	<dl>
-			    		<dt><FontAwesome name='id-card' /><span>实名认证</span></dt>
+			    		<dt><FontAwesome name='id-card' /><span>{this.state.userInfoDetail.is_real==1?'重新实名认证':'实名认证'}</span></dt>
 			    		<dd><FontAwesome name='angle-right' /></dd>
 			    	</dl>
 		    	</Link>
 		    	<Link to='/home/mine/myCare'>
 		    		<dl>
 			    		<dt><FontAwesome name='heart' /><span>我关注的</span></dt>
-			    		<dd><FontAwesome name='angle-right' /></dd>
+			    		<dd><FontAwesome name='angle-right' /></dd> 
 		    		</dl>
 		    	</Link>
 		    	
 		    </div>
 		   
 		    <div className="user-bottom">
-		    	
-		    	<Link to='/user/login'><Button type="ghost">您还没登录</Button></Link>
-		    	<Button type="warning"  onClick={this.handleEXIT}>退出登录</Button>
+		    	{
+					this.state.userInfoDetail?
+					<Button type="warning"  onClick={()=>{this.handleEXIT()}}>退出登录</Button>:
+					<div onClick={()=>{this.context.router.push('/user/login')}} className='user-unlogin-wrap'>
+						您还没登录
+					</div>
+				}
 		    </div>
+			
 		</div>)
 	}
 

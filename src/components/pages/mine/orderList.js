@@ -1,151 +1,127 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavBar, Icon, WingBlank, Tabs} from 'antd-mobile';
+import { NavBar, Icon, WingBlank, Tabs, ListView} from 'antd-mobile';
 import {Link} from 'react-router'
-var FontAwesome = require('react-fontawesome');
+import Order from '../../../request/order';
 import './style.scss'
+import { userInfo } from 'os';
+import moment from 'moment'
+
+var FontAwesome = require('react-fontawesome');
+
 class OrderList extends React.Component{
 	constructor(props){
-		super(props)
+		super(props);
+		var userInfo = store.getState().userInfo;
+		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
+		this.state = {
+			userInfo,
+			data:[],
+			dataSource:ds.cloneWithRows([]),
+			dataType:1,
+			page:1,
+		}
+	}
+	componentWillMount(){
+		this.getData({},true)
+	}
+	getData(param,init){
+		Order.list(this.state.userInfo.id,this.state.dataType,this.state.userInfo.token)
+		.then((data)=>{
+			console.log(data);
+			if(data.state){
+				//如果不是新加载的数据，则数组连起来
+				var ds = this.state.data.concat(data.data.meta);
+				if(init){
+					ds = data.data.meta;
+				}
+				this.setState({
+					dataSource: this.state.dataSource.cloneWithRows(ds),
+					data:ds,
+					page:parseInt(data.paging.page) + 1
+				})
+				
+			}
+		})
+	}
+	onEndReached(){
+
+	}
+	handleClick(data){
+		// store.dispatch({
+		// 	type:'SET_TEMP_DATA',
+		// 	data
+		// })
+		window.sessionStorage.setItem('TEMP_DATA',JSON.stringify(data));
+		this.context.router.push('home/mine/orderInfo');
 	}
 	render(){
 		const tabs = [
 	  { title: '用户订单' },
 	  { title: '接活订单' },
 	];
+	function getStatus(status){
+		let text = ''
+		switch (parseInt(status)) {
+			case 0 : text = '待接单';break;
+			case 1 : text = '进行中';break;
+			case 2 : text = '已完成';break;
+			case 3 : text = '已拒绝';break;
+			default : break;
+		}
+		return text;
+	}
 		return(<div className='order-list'>
 			<NavBar icon={<Icon type="left" />} rightContent={<Link to='/home/order/slefMake'>添加订单</Link>} mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
 			  <Tabs tabs={tabs} >
         <div>
-          <div className="order-list-filter">
-				<dl>
+          	{/* <div className="order-list-filter">
+				<dl onClick={()=>{this.getData({},true)}}>
 					<dt><span>全部</span></dt>
 					<dd></dd>
 				</dl>
-				<dl>
+				<dl onClick={()=>{this.getData({},true)}}>
 					<dt><span>未完成</span></dt>
 					<dd></dd>
 				</dl>
-				<dl>
+				<dl onClick={()=>{this.getData({status:2},true)}}>
 					<dt><span>已完成</span></dt>
 					<dd></dd>
 				</dl>
-			</div>
+			</div> */}
 			<div className='order-list-content'>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
-				<Link to='/home/mine/orderInfo'>
-					<dl>
-						<dt><font>进行中</font><span>订单号：21345</span></dt>
-						<dd>
-							<h3><span>2017年12月06日</span>王师傅</h3>
-							<h4>价格：<span>20000元</span></h4>
-							<p>地址：威远县严陵镇高升花园202</p>
-							<div>项目：<span>防水：3平米</span><span>布线：30米</span><span>布线：30米</span><span>布线：30米</span></div>
-						</dd>
-					</dl>
-				</Link>
+				<ListView
+					ref={el => this.lv = el}
+					initialListSize={5}
+					dataSource={this.state.dataSource}
+					renderRow={(rowData)=>{ if(typeof(rowData.price_type) == 'string'){rowData.price_type=JSON.parse(rowData.price_type)}; return(<dl onClick={()=>{this.handleClick(rowData)}}>
+							<dt><font>{getStatus(rowData.status)}</font><span>订单号：{rowData.order_id}</span></dt>
+							<dd>
+								<h3><span>{rowData.created_at}</span>{rowData.artisan_user_name}</h3>
+								<h4>价格：<span>{rowData.rate_price}元</span></h4>
+								<p>地址：{rowData.construction_address}</p>
+								<div>项目：
+									{rowData.price_type.project.map((obj,index)=>{
+										return (<span key={index}>{obj.name}：{obj.num}{obj.unit}</span>)
+									})}
+									{/* <span>布线：30米</span> */}
+								</div>
+							</dd>
+					</dl>)}
+						}
+					style={{
+						height: document.documentElement.clientHeight - 170 + 'px',
+						overflow: 'auto',
+						}}
+					pageSize={1}
+					onScroll={() => { console.log('scroll'); }}
+					scrollEventThrottle={50}
+					onEndReached={this.onEndReached}
+					onEndReachedThreshold={10}
+				/>
 			</div>
         </div>
-
       </Tabs>
-
-			
-
-			
-
-
-
-
-
-
-			
 		</div>)
 	}
 

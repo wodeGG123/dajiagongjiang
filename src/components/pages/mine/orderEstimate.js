@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router'
 import { NavBar, Icon, WingBlank, Button, Modal, List, Stepper, TextareaItem, Slider} from 'antd-mobile';
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
-
+import Worker from 'rootsrc/request/worker'
+import Order from 'rootsrc/request/order'
+import API from 'rootsrc/request/api'
 
 
 
@@ -75,69 +77,97 @@ class OrderEstimate extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-	      val: 3,
+				data:{},
+				userInfo:false,
+				workerInfo:false,
+				estimate:[
+					{name:'技术过硬',score:6},
+					{name:'时间高效',score:6},
+					{name:'安全施工',score:6},
+					{name:'态度随和',score:6},
+					{name:'爱护现场',score:6},
+					{name:'上下衔接',score:6},
+					{name:'认真负责',score:6},
+					{name:'值得信赖',score:6},
+				]
 	    };
 	}
-	onChange(val){
-    // console.log(val);
-    this.setState({ val });
-  	}
+	componentWillMount(){
+		let data = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
+		let userInfo = store.getState().userInfo;
+
+		Worker.list({
+			user_id:data.artisan_user_id
+		}).then((data2)=>{
+			if(data2.state){
+				 this.setState({data,userInfo,workerInfo:data2.data.meta[0]});
+			}
+		})
+	
+	}
+	onChange(o,index){
+			let estimate = this.state.estimate;
+			estimate[index].score = o;
+
+			this.setState({
+				estimate
+			})
+		
+
+	}
+	handleSubmit(){
+		let score = 0;
+		this.state.estimate.map((obj,index)=>{
+			score += parseInt(obj.score)
+		})
+		Order.estimate(this.state.data.order_id,{
+			artisan_user_id:this.state.workerInfo.id,
+			content:this.state.estimate,
+			score,
+			token:this.state.userInfo.token,
+			uid:this.state.userInfo.id,
+			user_id:this.state.userInfo.id,
+		}).then((data)=>{
+			console.log(data);
+		})
+		// this.context.router.push('/home/mine/orderEstimate/2');
+	}
 	render(){
+		console.log(this.state)
+		let {data,workerInfo,estimate} = this.state
 		return(<div className='order-estimate'>
 				<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>订单评价</NavBar>
 				<div className='order-estimate-content'>
-					<h3>订单号：561345</h3>
+					<h3>订单号：{data.order_id}</h3>
 					<div>
 						<div className='order-estimate-user'>
 							<div>
-								<ImgInit src='' />
+								<ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+workerInfo.avatar} />
 							</div>
 							<div>
-								<h4>王师傅</h4>
-								<p>一级工匠</p>
+								<h4>{workerInfo.name}</h4>
+								<p>{workerInfo.artisan_level}</p>
 							</div>
 						</div>
 						<div className='order-estimate-items'>
-							<div className="order-estimate-item">
-								<h5>评价内容1</h5>
+							{estimate.map((obj,index)=>{
+								return (<div className="order-estimate-item">
+								<h5>{obj.name}</h5>
 								<Slider
 						            style={{ width:'80%',margin:'auto'}}
-						            defaultValue={2}
-						            marks={{0:'满意1',1:'满意1',2:'满意2',3:'满意3',4:'满意4'}}
-						            min={0}
-						            max={4}
+						            defaultValue={3}
+						            marks={{1:'2分满意',2:'4分满意',3:'6分满意',4:'8分满意',5:'10分满意'}}
+						            min={1}
+						            max={5}
 						            onChange={()=>{}}
-						            onAfterChange={()=>{}}
+						            onAfterChange={(o)=>{this.onChange(o,index)}}
 						          />
-							</div>
-							<div className="order-estimate-item">
-								<h5>评价内容2</h5>
-								<Slider
-						            style={{ width:'80%',margin:'auto'}}
-						            defaultValue={2}
-						            marks={{0:'满意1',1:'满意1',2:'满意2',3:'满意3',4:'满意4'}}
-						            min={0}
-						            max={4}
-						            onChange={()=>{}}
-						            onAfterChange={()=>{}}
-						          />
-							</div>
-							<div className="order-estimate-item">
-								<h5>评价内容3</h5>
-								<Slider
-						            style={{ width:'80%',margin:'auto'}}
-						            defaultValue={2}
-						            marks={{0:'满意1',1:'满意1',2:'满意2',3:'满意3',4:'满意4'}}
-						            min={0}
-						            max={4}
-						            onChange={()=>{}}
-						            onAfterChange={()=>{}}
-						          />
-							</div>
+							</div>)
+							})}
 						</div>
 				
 					      <div className='order-submit'>
-					      	<Button href='/#/home/mine/orderEstimate/2' type='primary'>提交评价</Button>
+					      	<Button onClick={()=>{this.handleSubmit.bind(this)()}} type='primary'>提交评价</Button>
 					      </div>
 					</div>
 				</div>

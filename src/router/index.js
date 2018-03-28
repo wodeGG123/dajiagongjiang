@@ -37,10 +37,32 @@ import ContactUs from 'rootsrc/components/pages/contactUs/index.js'
 
 
 class App extends React.Component{
+	static contextTypes = {
+		store:React.PropTypes.object
+	}
+	componentWillMount(){
+		const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+		const userInfoDetail = JSON.parse(localStorage.getItem('userInfoDetail'));
+		if(userInfo){
+			this.context.store.dispatch({
+				type:'SET_USERINFO',
+				data:userInfo
+			})
+		}
+		if(userInfoDetail){
+			this.context.store.dispatch({
+				type:'SET_USERINFO_DETAIL',
+				data:userInfoDetail
+			})
+		}
+	}
 	render(){
 		return(<div>{this.props.children}</div>)
 	}
 }
+
+
+
 
 class MyRouter extends React.Component{
 	constructor(props){
@@ -70,7 +92,7 @@ class MyRouter extends React.Component{
 		    		</Route>
 		    		
 					<Route path="articleInfo" component={ArticleInfo} />
-					<Route path="articleList" component={ArticleList} />
+					<Route path="articleList/:type" component={ArticleList} />
 					<Route path="question" component={Question} />
 					<Route path="message" component={Message} />
 					<Route path="workerInfo" component={WorkerInfo} />

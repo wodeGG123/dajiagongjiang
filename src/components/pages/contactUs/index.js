@@ -25,19 +25,19 @@ class Main extends React.Component{
 				<div className='contact-us-text'>
 					<dl>
 	            		<dt>客服热线</dt>
-	            		<dd><a href="tel:0832-82336541">0832-82336541</a></dd>
+	            		<dd><a href="tel:0832-82336541">15908259701</a></dd>
             		</dl>	
             		<dl>
 	            		<dt>邮箱</dt>
-	            		<dd>123345@qq.com</dd>
+	            		<dd>752681223@qq.com</dd>
             		</dl>
             		<dl>
 	            		<dt>微信</dt>
-	            		<dd>wx123345</dd>
+	            		<dd>15908259701</dd>
             		</dl>
             		<dl>
 	            		<dt>QQ</dt>
-	            		<dd>123345</dd>
+	            		<dd>752681223</dd>
             		</dl>
             		<dl>
 	            		<dt>QQ群</dt>

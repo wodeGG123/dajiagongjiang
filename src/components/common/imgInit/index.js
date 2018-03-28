@@ -6,7 +6,7 @@ class ImgInit extends React.Component{
 		super(props)
 	}
 	render(){
-		return(<img {...this.props} onError={(e)=>{e.target.src=require('./img/default.png')}} />)
+		return(<img {...this.props} onError={(e)=>{e.target.src=require('./img/default2.gif')}} />)
 	}
 
 }

@@ -26,7 +26,7 @@ class Main extends React.Component{
 		        <div className='question-items'>
 				<QItemCheck />
 				<dl>
-					<dt>1.您对装修知识了解吗？</dt>
+					<dt>1.您的性别？</dt>
 					<dd>
 						<input type="text" placeholder='请输入内容'/>
 					</dd>
@@ -44,6 +44,7 @@ class Main extends React.Component{
 				<Button type="primary"  onClick={this.handleEXIT}>提交</Button>
 			</div>
 		      </div>
+			  
 		      <div>
 		         <div>
 				<SearchBar placeholder="输入文章标题" maxLength={8} />
@@ -90,6 +91,27 @@ Main.defaultProps = {
 
 
 class QItemCheck extends React.Component{
+	static defaultProps = {
+		title:'请设置标题',
+		answers:[
+			{
+				title:'不了解',
+				check:false,
+			},
+			{
+				title:'不是了解',
+				check:false,
+			},
+			{
+				title:'了解',
+				check:false,
+			},
+			{
+				title:'非常了解',
+				check:false,
+			},
+		]
+	}
 	constructor(props){
 		super(props);
 		this.state = {
@@ -128,7 +150,7 @@ class QItemCheck extends React.Component{
 	}
 	render(){
 		return(<dl>
-					<dt>1.您对装修知识了解吗？</dt>
+					<dt>1.{this.props.title}</dt>
 					{
 						this.state.answers.map((obj,index)=>{
 							return (<dd onClick={()=>{this.handleClick(obj,index)}}>

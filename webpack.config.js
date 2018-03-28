@@ -39,6 +39,7 @@ module.exports = {
 	resolve: {
 	    alias: {
 	      rootsrc: path.resolve(__dirname, 'src/'),//定义别名 在后面import from中使用很有效
+	      rootstatics: path.resolve(__dirname, 'statics/'),//定义别名 在后面import from中使用很有效
 	    }
 	  },
 	devServer: {

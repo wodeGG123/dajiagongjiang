@@ -2,26 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { NavBar, Icon, WingBlank, Button, Modal} from 'antd-mobile';
 import {Link} from 'react-router'
-
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
+import API from 'rootsrc/request/api'
+import Coin from 'rootsrc/request/coin'
 
 class MyCoin extends React.Component{
 	constructor(props){
-		super(props)
+		super(props);
+		this.state = {
+			userInfo:store.getState().userInfo,
+			data:false,
+		}
 	}
 	componentWillMount() {
+		console.log(this.state)
+		this.getCoinList()
+	}
+	getCoinList(){
+		Coin.list({page:1})
+		.then((data)=>{
+			console.log(data)
+		})
 	}
 	render(){
+		let {userInfo} = this.state;
 		return(<div className='my-coin'>
 			<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>我的积分</NavBar>
 			<div className='my-coin-content'>
 				<div className="my-coin-top">
 					<div className='my-coin-top-img'>
-						<ImgInit src='' />	
+						<ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+userInfo.avatar} />	
 					</div>					
 					<div className='my-coin-top-text'>
 						<p>剩余积分</p>
-						<h3>2575</h3>
+						<h3>{userInfo.integral}</h3>
 					</div>
 				</div>
 				<div className='my-coin-top-buttons'>
