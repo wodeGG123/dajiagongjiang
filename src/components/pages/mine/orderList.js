@@ -55,6 +55,14 @@ class OrderList extends React.Component{
 		window.sessionStorage.setItem('TEMP_DATA',JSON.stringify(data));
 		this.context.router.push('home/mine/orderInfo');
 	}
+	tabChange(index){
+		console.log(index)
+		this.setState({
+			dataType:index+1,
+		},()=>{
+			this.getData({},true)
+		})
+	}
 	render(){
 		const tabs = [
 	  { title: '用户订单' },
@@ -72,8 +80,13 @@ class OrderList extends React.Component{
 		return text;
 	}
 		return(<div className='order-list'>
-			<NavBar icon={<Icon type="left" />} rightContent={<Link to='/home/order/slefMake'>添加订单</Link>} mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
-			  <Tabs tabs={tabs} >
+			<NavBar icon={<Icon type="left" />} 
+			// rightContent={<Link to='/home/order/slefMake'>添加订单</Link>} 
+			mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
+			  <Tabs 
+			  tabs={tabs}
+			  onChange={(tab,index)=>{this.tabChange(index)}}
+			  >
         <div>
           	{/* <div className="order-list-filter">
 				<dl onClick={()=>{this.getData({},true)}}>

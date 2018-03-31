@@ -15,4 +15,30 @@ Worker.list = function(param){
     })
 
 }
+Worker.busy = function(param){
+    param._method = 'PUT'
+    return Request.post(API.WORKER_BUSY,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+
+}
+Worker.collocation = function(param){
+    param._method = 'PUT'
+    return Request.post(API.WORKER_COLLOCATION,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+
+}
 export default Worker

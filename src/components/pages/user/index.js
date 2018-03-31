@@ -76,7 +76,7 @@ class LoginForm extends React.Component{
 						initialValue:'',
 						rules: [{required: true}],
 					  })}
-					 placeholder='请输入手机号' type="text"/></div>
+					 placeholder='请输入手机号' type="number"/></div>
 				</div>
 				<div className='user-form-box'>
 					<div className='user-form-left'><span>密码</span></div>
@@ -194,8 +194,13 @@ class RegistForm extends React.Component{
 			if(!error){
 				Member.regist(value.mobile,value.mobile.toString().substr(-6),value.code)
 				.then((data)=>{
-
-					this.context.router.push({pathname:'/user/registNext',state:{data:data.data}})
+					console.log(data);
+					if(data.state){
+						this.context.router.push({pathname:'/user/registNext',state:{data:data.data}})
+					}else{
+						Toast.info('手机已存在！')
+					}
+					
 				})				
 			}else{
 				Toast.info('手机号或验证码不能为空！')
@@ -206,6 +211,7 @@ class RegistForm extends React.Component{
 	handleSendCode(){
 		this.props.form.validateFields(['mobile','check'],(error, value) => {			
 			if(!error){
+				console.log(value)
 				let i = 60;
 				const _interval = setInterval(()=>{
 				this.setState({
@@ -227,7 +233,9 @@ class RegistForm extends React.Component{
 
 
 			}else{
-				Toast.info('手机号不能为空！')
+				console.log(error)
+				error.mobile?Toast.info('手机号不能为空！'):Toast.info('您还没同意注册条款！')
+				
 			}
 		});
 		
@@ -362,7 +370,7 @@ class RegistNextForm extends React.Component{
 				}
 				
 			}else{
-				Toast.info('密码不能为空！')
+				Toast.info('密码不能少于6位！')
 			}
 		  });
        
@@ -378,7 +386,7 @@ class RegistNextForm extends React.Component{
 					<input 
 					{...getFieldProps('password1', {
 						initialValue:'',
-						rules: [{required: true}],
+						rules: [{required: true,min:6}],
 					})}
 
 					placeholder='请输入密码' type="password"
@@ -391,7 +399,7 @@ class RegistNextForm extends React.Component{
 					<input 
 					{...getFieldProps('password2', {
 						initialValue:'',
-						rules: [{required: true}],
+						rules: [{required: true,min:6}],
 					})}
 					placeholder='请再次输入密码' type="password"/></div>
 				</div>

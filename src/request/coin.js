@@ -15,6 +15,32 @@ Coin.recharge = function(param){
     })
 
 }
+Coin.getCash = function(param){
+
+    return Request.post(API.COIN_GETCASH,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+
+}
+Coin.give = function(param){
+
+    return Request.post(API.COIN_GIVE,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+
+}
 Coin.list = function(param){
 
     return Request.get(API.COIN_LIST,param)

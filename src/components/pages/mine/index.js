@@ -24,15 +24,13 @@ class MineIndex extends React.Component{
 		router:React.PropTypes.object,
 		store:React.PropTypes.object,
 	}
-	static defaultProps = {
-		isWorker:false
-	}
 	constructor(props){
 		super(props);
 		this.state = {
 			userInfo:false,
 			userInfoDetail:false,
 			orderNum:0,
+			isWorker:false,
 		}
 	}
 	handleEXIT(){		
@@ -64,10 +62,13 @@ class MineIndex extends React.Component{
 		//初始化用户信息
 		var userInfo = this.context.store.getState().userInfo;
 		var userInfoDetail = this.context.store.getState().userInfoDetail;
+
 		if(userInfo){
+
 			this.setState({
 				userInfo,
-				userInfoDetail
+				userInfoDetail,
+				isWorker:userInfoDetail.user_info.artisan_status==3?true:false
 			},function(){
 				console.log(this.state)
 			})
@@ -115,34 +116,34 @@ class MineIndex extends React.Component{
 							<span>客户等级：{this.state.userInfoDetail?this.state.userInfoDetail.custom_level:'普通客户'}</span>
 						</div>
 		    		</div>
-					{this.props.isWorker&&<div className='user-es' style={{marginTop:'20px'}}>
+					{this.state.isWorker&&<div className='user-es' style={{marginTop:'20px'}}>
 			    			<div>
 			    				<FontAwesome name='street-view' />
 			    				<span>工匠等级：{this.state.userInfoDetail.artisan_level}</span>
 			    			</div>
 			    			<div>
 			    				<FontAwesome name='tags' />
-			    				<span>信誉：650</span>
+			    				<span>信誉：{this.state.userInfoDetail.user_info&&this.state.userInfoDetail.user_info.reputation_level}</span>
 			    			</div>
 		    		</div>}
-		    		{this.props.isWorker&&<div className='user-es'>
-		    			<Link to='/home/mine/myEvaluate'>
+		    		{this.state.isWorker&&<div className='user-es'>
+
 			    			<div>
 			    				<FontAwesome name='hand-peace-o' />
 			    				<span>好评率：{this.state.userInfoDetail.praise_level}</span>
 			    			</div>
-		    			</Link>
+
 		    		</div>}
 		    		
 		    		
 		    </div>
 		    <div className='user-mid'>
-		    	<Link to='/home/message'>
+		    	{/* <Link to='/home/message'>
 		    		<dl>
 			    		<dt><FontAwesome name='comments' /><span>我的消息</span></dt>
 			    		<dd><FontAwesome name='angle-right' /></dd>
 		    		</dl>
-		    	</Link>
+		    	</Link> */}
 		    	<Link to='/home/mine/orderList'>
 		    		<dl>
 			    		<dt><FontAwesome name='book' /><span>我的订单</span><font>({this.state.orderNum})</font></dt>
@@ -150,7 +151,7 @@ class MineIndex extends React.Component{
 		    		</dl>
 		    	</Link>
 				
-				{this.props.isWorker?<Link to='/home/mine/workerManagement'>
+				{this.state.isWorker?<Link to='/home/mine/workerManagement'>
 		    	<dl>
 		    		<dt><FontAwesome name='address-card' /><span>工匠身份管理</span></dt>
 		    		<dd><FontAwesome name='angle-right' /></dd>

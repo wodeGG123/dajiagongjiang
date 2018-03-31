@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router'
 import { NavBar, Icon, Carousel } from 'antd-mobile';
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
-import WorkerList from 'rootsrc/components/common/workerList/index.js'
 import {WorkerBlock} from 'rootsrc/components/common/workerList/index.js'
 import Common from '../../../request/common';
 import Worker from '../../../request/worker';
@@ -45,7 +44,6 @@ class Index extends React.Component{
 
     Common.bannerList()
     .then((data)=>{
-      console.log(data);
       this.setState({
         banner:data.data.meta
       },()=>{
@@ -59,7 +57,6 @@ class Index extends React.Component{
 
     Worker.list({page:1,id:1})
     .then((data)=>{
-      console.log(data);
       if(data.state){
           this.setState({
             stars:data.data.meta,

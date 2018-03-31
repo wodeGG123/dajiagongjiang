@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { NavBar, Icon, WingBlank, Button, Modal, Toast} from 'antd-mobile';
 import {Link} from 'react-router'
 import Order from '../../../request/order';
+import Worker from '../../../request/worker';
 
 class OrderInfo extends React.Component{
 	constructor(props){
@@ -10,7 +11,8 @@ class OrderInfo extends React.Component{
 		this.state={
 			modal:{visible:false,content:'',title:''},
 			data:{},
-			userInfo:false
+			userInfo:false,
+			workerInfo:false,
 		}
 	}
 	componentWillMount(){
@@ -19,6 +21,14 @@ class OrderInfo extends React.Component{
 		let data = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
 		let userInfo = store.getState().userInfo;
 		this.setState({data,userInfo});
+		Worker.list({
+			user_id:data.artisan_user_id
+		}).then((data2)=>{
+			console.log(data2)
+			if(data2.state){
+				 this.setState({data,userInfo,workerInfo:data2.data.meta[0]});
+			}
+		})
 	}
 	controlOrder(c){
 		Order.set(this.state.data.order_id,{
@@ -33,7 +43,7 @@ class OrderInfo extends React.Component{
 		})
 	}
 	render(){
-		let {data} = this.state;
+		let {data,workerInfo} = this.state;
 		console.log(data);
 		function getStatus(status){
 			let text = ''
@@ -90,14 +100,14 @@ class OrderInfo extends React.Component{
 				<div>
 					<h3>工匠信息</h3>
 					<p>姓名：{data.artisan_user_name}</p>
-					<p>联系电话：139***</p>
+					<p>联系电话：{((data.status == 0 || data.status == 3) && workerInfo)?workerInfo.mobile.substr(0,3)+'***':workerInfo.mobile}</p>
 					{/* <p>工匠备注：</p>
 					<p>备注信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</p> */}
 				</div>
 				<div>
 					<h3>客户信息</h3>
 					<p>姓名：{data.user_name}</p>
-					<p>联系电话：139***/133***</p>
+					<p>联系电话：139***/{(data.status == 0 || data.status == 3)?data.spare_mobile.substr(0,3)+'***':data.spare_mobile}</p>
 					<p>施工地址：{data.construction_address}</p>
 					{/* <p>施工项目：</p>
 					<p>

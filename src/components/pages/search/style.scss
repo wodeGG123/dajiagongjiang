@@ -7,6 +7,7 @@
 		justify-content: space-between;
 		align-items: center;
 		background-color: #fff;
+		margin-bottom: 6px;
 		div{
 			flex:1;
 			text-align: center;
@@ -67,4 +68,12 @@
    			}
    		}
    }
+}
+.worker-block-listview-wrap{
+	.list-view-section-body{
+		display: flex;
+		justify-content:space-between;
+		align-items:center;
+		flex-wrap:wrap;	
+	}
 }

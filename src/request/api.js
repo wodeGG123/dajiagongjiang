@@ -20,7 +20,12 @@ let API = {
     MAKE_ORDER:'user/order',
     SET_ORDER:'user/order/',
     COIN_RECHARGE:'user/integral',
+    COIN_GETCASH:'user/integral/withdraw',
+    COIN_GIVE:'user/integral/transfer',
     COIN_LIST:'user/integral',
+    CARE_CONTROL:'user/attention',
+    WORKER_BUSY:'user/busy',
+    WORKER_COLLOCATION:'user/hosting',
 }
 
 export default API

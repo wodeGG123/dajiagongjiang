@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavBar, Icon, WingBlank, Button, Modal} from 'antd-mobile';
+import { NavBar, Icon, WingBlank, Button, Modal, ListView} from 'antd-mobile';
 import {Link} from 'react-router'
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
 import API from 'rootsrc/request/api'
@@ -9,20 +9,47 @@ import Coin from 'rootsrc/request/coin'
 class MyCoin extends React.Component{
 	constructor(props){
 		super(props);
+
+
+		let dataSource = new ListView.DataSource({
+			rowHasChanged: (row1, row2) => row1 !== row2,
+		  });
+		dataSource = dataSource.cloneWithRows([]);
 		this.state = {
 			userInfo:store.getState().userInfo,
-			data:false,
+			dataSource,
+			data:[],
+			page:1,
 		}
 	}
-	componentWillMount() {
-		console.log(this.state)
-		this.getCoinList()
+
+	componentWillMount(){
+		this.getData({
+			page:1,
+		},true)
 	}
-	getCoinList(){
-		Coin.list({page:1})
+	getData(params,init){
+		Coin.list(params)
 		.then((data)=>{
-			console.log(data)
+			console.log(data);
+			var ds = this.state.data.concat(data.data.meta);
+			if(init){
+				ds = data.data.meta;
+			}
+			if(data){
+				this.setState({
+					dataSource: this.state.dataSource.cloneWithRows(ds),
+					data:ds,
+					page:parseInt(data.data.paging.page) + 1
+				})
+			}
 		})
+	}
+	onEndReached(){
+		console.log('reachend')
+		this.getData({
+			page:this.state.page,
+		},false)
 	}
 	render(){
 		let {userInfo} = this.state;
@@ -52,31 +79,26 @@ class MyCoin extends React.Component{
 						<span>数量</span>
 					</div>
 					<ul>
-						<li>
-							<span>2017年12月09日</span>
-							<span>转赠</span>
-							<span className='my-coin-record-minus'>-800</span>
+						<ListView
+						ref={el => this.lv = el}
+						initialListSize={20}
+						dataSource={this.state.dataSource}
+						renderRow={(rowData)=><li>
+							<span>{rowData.created_at}</span>
+							<span>{rowData.type}</span>
+							<span className='my-coin-record-minus'>{rowData.num}</span>
 						</li>
-						<li>
-							<span>2017年12月09日</span>
-							<span>提现</span>
-							<span className='my-coin-record-minus'>-800</span>
-						</li>
-						<li>
-							<span>2017年12月09日</span>
-							<span>系统扣除</span>
-							<span className='my-coin-record-minus'>-800</span>
-						</li>
-						<li>
-							<span>2017年12月09日</span>
-							<span>充值</span>
-							<span className='my-coin-record-plus'>+800</span>
-						</li>
-						<li>
-							<span>2017年12月09日</span>
-							<span>充值</span>
-							<span className='my-coin-record-plus'>+800</span>
-						</li>
+							}
+						style={{
+							height: document.documentElement.clientHeight - 309 + 'px',
+							overflow: 'auto',
+							}}
+						pageSize={1}
+						onScroll={() => { console.log('scroll'); }}
+						scrollEventThrottle={50}
+						onEndReached={this.onEndReached.bind(this)}
+						onEndReachedThreshold={10}
+						/>						
 					</ul>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavBar, Icon, Carousel, Button, List, Stepper, Tabs, Modal } from 'antd-mobile';
+import { NavBar, Icon, Carousel, Button, List, Stepper, Tabs, Modal, Toast } from 'antd-mobile';
 import {Link} from 'react-router'
 import { createForm } from 'rc-form';
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
@@ -40,7 +40,6 @@ class MakeOrder extends React.Component{
 	componentWillMount(){
 		let data = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
 		data.artisan_offer = JSON.parse(data.artisan_offer);
-		console.log(data)
 		if(data){
 			this.setState({
 				data
@@ -78,7 +77,7 @@ class MakeOrder extends React.Component{
 		const offer = worker.artisan_offer;
 		const tabs = offer.map((obj,index)=> {return ({title:obj.name})} )
 		return(<div className='make-order wrap-box'>
-			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {console.log(this.context.router);this.context.router.replace('/home/workerInfo')}}>我要下单</NavBar>	
+			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {this.context.router.replace('/home/workerInfo')}}>我要下单</NavBar>	
 		    <div className='make-order-top'>
 		    		<div  className='make-order-head-img'>
                    		<ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+worker.avatar}/>	
@@ -106,7 +105,7 @@ class MakeOrder extends React.Component{
 		          maskClosable={false}
 		          onClose={()=>{}}
 		          title={this.state.modal.title}
-		          footer={[{ text: '确定', onPress: () => { console.log('ok');this.setState({modal:{visible:false}}) } }]}
+		          footer={[{ text: '确定', onPress: () => {this.setState({modal:{visible:false}}) } }]}
 		        >
 		          <div style={{ height: 200, overflow: 'scroll' }}>
 		           <p>{this.state.modal.content}</p>
@@ -134,7 +133,6 @@ class MakeSelfOrder extends React.Component{
 	    };
 	}
 	onChange(val){
-    // console.log(val);
     this.setState({ val });
   	}
   	priceDetail(){
@@ -150,7 +148,7 @@ class MakeSelfOrder extends React.Component{
 		  { title: '报价方式3'},
 		];
 		return(<div className='make-order wrap-box'>
-			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {console.log(this.context.router);this.context.router.replace('/home/workerInfo')}}>自主下单</NavBar>	
+			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {this.context.router.replace('/home/workerInfo')}}>自主下单</NavBar>	
 		    <div className="make-order-mid">
 		    	<div className='user-form'>
 						<h5>下单信息：</h5>
@@ -206,7 +204,9 @@ MakeSelfOrder.defaultProps = {
 
 
 class OrderForm extends React.Component {
-	
+	static contextTypes = {
+		router: PropTypes.object,
+	}
 	constructor(props){
 		super(props);
 		this.state = {
@@ -215,16 +215,19 @@ class OrderForm extends React.Component {
 		}
 	}
 	handleSubmit(){
+		if(!store.getState().userInfo){
+			Toast.info('您还没登录！');
+			this.context.router.push('/user/login');
+			return false;
+		}
 		this.props.form.setFieldsValue({
 			rate_price:this.state.sum,
 			price_type:JSON.stringify(this.state.offer),
 			selected_price:0
 		})
-
 		this.props.form.validateFields((error,value)=>{
 			if(!error){
 				let userInfo = store.getState().userInfo
-				console.log(value)
 				let param = {
 					artisan_user_id : this.props.workerId,
 					construction_address : value.construction_address,
@@ -238,7 +241,6 @@ class OrderForm extends React.Component {
 					uid : userInfo.id,
 					user_id : userInfo.id,
 				}
-				console.log(param)
 				OrderRQ.make(param)
 				.then((data)=>{
 					console.log(data)

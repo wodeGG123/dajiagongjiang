@@ -4,6 +4,8 @@ import { NavBar, Icon, WingBlank, Button, Modal, Tabs, List, InputItem, Toast} f
 import {Link} from 'react-router'
 
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
+import Coin from 'rootsrc/request/coin'
+import API from 'rootsrc/request/api'
 
 class MyCoinControl extends React.Component{
 	constructor(props){
@@ -132,82 +134,147 @@ class Recharge extends React.Component {
 }
 
 class Recharged extends React.Component {
+	static contextTypes = {
+		router:React.PropTypes.object
+	}
 	constructor(props){
 		super(props);
 		this.state={
-
+			userInfo:store.getState().userInfo,
+			order_id:'',
+			remark:'',
 		}
+	}
+	handleSubmit(){
+		Coin.recharge({
+			order_id:this.state.order_id,
+			remark:this.state.remark,
+			token:this.state.userInfo.token,
+			uid:this.state.userInfo.id,
+		})
+		.then((data)=>{
+			console.log(data)
+			if(data){
+				Toast.info('提交成功')
+				this.context.router.replace('/home/mine/myCoin')
+			}
+		})
 	}
 	render(){
 		return(<div className='recharged'>
 			<h4>转账信息</h4>
-			<Input title='转账单号' placeholder='输入转账单号后6位' />
-			<Input title='备注' placeholder='输入您的备注' />
+			<Input title='转账单号' getVal={(v)=>{this.setState({order_id:v})}} placeholder='输入转账单号后6位' />
+			<Input title='备注' getVal={(v)=>{this.setState({remark:v})}}  placeholder='输入您的备注' />
 			<p>提示：完成之后24小时内系统会自动将积分转入您的账户。</p>
 			<div className='complete'>
-				<Link to='/home/mine/myCoin'><Button type='primary'>完成</Button></Link>
+				<Button onClick={()=>{this.handleSubmit()}} type='primary'>提交</Button>
 			</div>
 		</div>)
 	}
 }
 class Wd extends React.Component {
+	static contextTypes = {
+		router:React.PropTypes.object
+	}
 	constructor(props){
 		super(props);
 		this.state={
-
+			userInfo:store.getState().userInfo,
+			num:0,
+			password:'',
 		}
 	}
+	componentWillMount(){
+		console.log(this.state.userInfo)
+	}
+	handleSubmit(){
+		Coin.getCash({
+			num:this.state.num,
+			password:this.state.password,
+			token:this.state.userInfo.token,
+			uid:this.state.userInfo.id,
+		})
+		.then((data)=>{
+			console.log(data)
+			if(data){
+				Toast.info('提交成功')
+				this.context.router.replace('/home/mine/myCoin')
+			}
+		})
+	}
 	render(){
+		let {userInfo} = this.state
 		return(<div className='Wd'>
 			<div className="my-coin-top">
 					<div className='my-coin-top-img'>
-						<ImgInit src='' />	
+						<ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+userInfo.avatar} />
 					</div>					
 					<div className='my-coin-top-text'>
 						<p>剩余积分</p>
-						<h3>2575</h3>
+						<h3>{userInfo.integral}</h3>
 					</div>
 				</div>
 				<div className='Wd-content'>
 					<h4>提现信息</h4>
-					<Input title='提现金额' placeholder='输入您要提现的金额' />
-					<Input title='密码' placeholder='输入您的密码' />
-					<Input title='备注' placeholder='输入您的备注' />
+					<Input getVal={(v)=>{this.setState({num:v})}} title='提现金额' placeholder='输入您要提现的金额' />
+					<Input getVal={(v)=>{this.setState({password:v})}} title='密码' placeholder='输入您的密码' />
 					<p>提示：完成之后24小时内系统会自动将积分转入您的账户。</p>
 					<div className='complete'>
-						<Link to='/home/mine/myCoin'><Button type='primary'>完成</Button></Link>
+						<Button onClick={()=>{this.handleSubmit()}} type='primary'>提交</Button>
 					</div>
 				</div>
 		</div>)
 	}
 }
 class Give extends React.Component {
+	static contextTypes = {
+		router:React.PropTypes.object
+	}
 	constructor(props){
 		super(props);
 		this.state={
-
+			userInfo:store.getState().userInfo,
+			mobile:'',
+			num:0,
+			password:'',
 		}
 	}
+	handleSubmit(){
+		Coin.give({
+			num:this.state.num,
+			mobile:this.state.mobile,
+			password:this.state.password,
+			token:this.state.userInfo.token,
+			uid:this.state.userInfo.id,
+		})
+		.then((data)=>{
+			console.log(data)
+			if(data){
+				Toast.info('提交成功')
+				this.context.router.replace('/home/mine/myCoin')
+			}
+		})
+	}
 	render(){
+		let {userInfo} = this.state
 		return(<div className='Give'>
 			<div className="my-coin-top">
 					<div className='my-coin-top-img'>
-						<ImgInit src='' />	
+						<ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+userInfo.avatar} />
 					</div>					
 					<div className='my-coin-top-text'>
 						<p>剩余积分</p>
-						<h3>2575</h3>
+						<h3>{userInfo.integral}</h3>
 					</div>
 				</div>
 				<div className='Give-content'>
 					<h4>转账信息</h4>
-					<Input title='注册电话' placeholder='输入接收积分人的注册电话号' />
-					<Input title='转账积分' placeholder='输入您转账的积分' />
-					<Input title='密码' placeholder='输入您的密码' />
-					<Input title='备注' placeholder='输入您的备注' />
+					<Input getVal={(v)=>{this.setState({mobile:v})}} title='注册电话' placeholder='输入接收积分人的注册电话号' />
+					<Input getVal={(v)=>{this.setState({num:v})}} title='转账积分' placeholder='输入您转账的积分' />
+					<Input getVal={(v)=>{this.setState({password:v})}} title='密码' placeholder='输入您的密码' />
 					<p>提示：完成之后24小时内系统会自动将积分转入您的账户。</p>
 					<div className='complete'>
-						<Link to='/home/mine/myCoin'><Button type='primary'>完成</Button></Link>
+						<Button onClick={()=>{this.handleSubmit()}} type='primary'>提交</Button>
 					</div>
 				</div>
 		</div>)
@@ -225,7 +292,11 @@ class Input extends React.Component {
   onChange = (value) => {
     this.setState({
       value,
-    });
+    },()=>{
+		if(this.props.getVal){
+			this.props.getVal(value)
+		}
+	});
   }
   render() {
     return (

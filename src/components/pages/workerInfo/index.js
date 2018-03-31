@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { NavBar, Icon, Carousel, Button, Toast, Modal } from 'antd-mobile';
 import {Link} from 'react-router'
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
+import Common from '../../../request/common';
 import API from '../../../request/api';
 
 var FontAwesome = require('react-fontawesome');
@@ -15,6 +16,7 @@ class Main extends React.Component{
 			modal1 : false,
 			modal2 : false,
 			data:{},
+			userInfo:store.getState().userInfo,
 		}
 	}
 	showItems(){
@@ -42,9 +44,20 @@ class Main extends React.Component{
 		},1000)
 		
 	}
+	handleCare(){
+		Common.addCare({
+			atten_id:this.state.data.id,
+			token:this.state.userInfo.token,
+			uid:this.state.userInfo.id,
+		})
+		.then((data)=>{
+			if(data){
+				Toast.info('关注成功', 1);
+			}
+		})
+	}
 	componentWillMount(){
 		let data = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
-		console.log(data)
 		if(data){
 			this.setState({
 				data
@@ -63,7 +76,7 @@ class Main extends React.Component{
 					<h5><span>{worker.is_busy==0?'空闲':'忙碌'}</span></h5>
 				</div>
 				<div className="workerinfo-top-right-block">
-					<Button type='primary' onClick={()=>{Toast.info('关注成功', 1);}}>+&nbsp;关注</Button>
+					<Button type='primary' onClick={()=>{this.handleCare()}}>+&nbsp;关注</Button>
 				</div>
 			</div>	
 			 <div className='workerinfo-guiders'>
@@ -94,18 +107,18 @@ class Main extends React.Component{
 		    			<dt><span>年龄</span></dt>
 		    			<dd><span>40</span></dd>
 		    		</dl>
-		    		<Link to='/home/mine/myEvaluate'>
+
 		    		<dl>
 		    			<dt><span>信誉度</span></dt>
 		    			<dd><span>90</span></dd>
 		    		</dl>
-		    		</Link>
-		    		<Link to='/home/mine/myEvaluate'>
+
+
 		    		<dl>
 		    			<dt><span>好评率</span></dt>
 		    			<dd><span>{worker.praise_level}</span></dd>
 		    		</dl>
-		    		</Link>
+
 		    		<dl>
 		    			<dt><span>工龄</span></dt>
 		    			<dd><span>{worker.artisan_work_year}年</span></dd>

@@ -92,11 +92,10 @@ class WorkerBlock extends React.Component{
    }
    render(){
      let {data} = this.props;
-     console.log(data)
      return (<div onClick={()=>{this.handleClick(data)}} className='worker-item'>
      <dl>
        <dt><ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+data.avatar} /><i>{data.address.split('-')[2]}</i></dt>
-       <dd><h4>{data.name}</h4><span><FontAwesome name='thumbs-o-up' />{data.praise_level}</span></dd>
+       <dd><h4>{data.real_name}</h4><span><FontAwesome name='thumbs-o-up' />{data.praise_level}</span></dd>
        <dd><p>{data.artisan_level}</p></dd>
      </dl>
    </div>)

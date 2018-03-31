@@ -11,6 +11,8 @@ import { createForm } from 'rc-form';
 import Common from '../../../request/common';
 import address from 'rootstatics/json/sc.js'
 import Member from '../../../request/member';
+import Worker from '../../../request/worker';
+import API from '../../../request/api';
 import _ from 'lodash'
 
 const alert = Modal.alert;
@@ -24,9 +26,38 @@ class WorkerManagement extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
+			userInfo:store.getState().userInfo,
+			userInfoDetail:store.getState().userInfoDetail,
 			busy:0,
 			collocation:0
 		}
+	}
+	componentWillMount(){
+		let userInfoDetail = this.state.userInfoDetail;
+		this.setState({
+			busy:userInfoDetail.is_busy,
+			collocation:userInfoDetail.is_hosting,
+		})
+	}
+	onBusyChange(value){
+		Worker.busy({
+			is_busy:value,
+			token:this.state.userInfo.token,
+			uid:this.state.userInfo.id,
+		}).then((data)=>{
+			console.log(data)
+		})
+		this.setState({busy:value[0]})
+	}
+	onCollocationChange(value){
+		Worker.collocation({
+			is_hosting:value,
+			token:this.state.userInfo.token,
+			uid:this.state.userInfo.id,
+		}).then((data)=>{
+			console.log(data)
+		})
+		this.setState({collocation:value[0]})
 	}
 	render(){
 		return(<div className='worker-management'>
@@ -34,14 +65,12 @@ class WorkerManagement extends React.Component{
 				 <div className='user-top'>
 		    	
 		    		<div  className='user-head-img'>
-                   		<ImgInit src=''/>	
+					<ImgInit src={this.state.userInfoDetail?API.DOMAIN.substr(0,API.DOMAIN.length-1)+this.state.userInfoDetail.avatar:''}/>	
 		    		</div>
 		    		<div className='user-text'>
-		    			<h3>李师傅</h3>
-		    			<p>(高级工匠)</p>
+		    			<h3>{this.state.userInfoDetail.user_info.real_name}</h3>
+		    			{/* <p>{this.state.userInfoDetail.artisan_level}</p> */}
 		    		</div>
-		    		
-		    		
 		    </div>
 
 
@@ -49,16 +78,16 @@ class WorkerManagement extends React.Component{
 					<div>
 				    	<dl>
 				    		<dt><span>技能等级</span></dt>
-				    		<dd>高级工匠</dd>
+				    		<dd>{this.state.userInfoDetail.artisan_level}</dd>
 				    	</dl>
 					</div>
-			    	<Picker value={[this.state.busy]} onChange={value => this.setState({busy:value[0]})} data={[{value:1,label:'忙碌'},{value:0,label:'空闲'},]} cols={1} className="forss">
+			    	<Picker value={[this.state.busy]} onChange={value => {this.onBusyChange(value)}} data={[{value:1,label:'忙碌'},{value:0,label:'空闲'},]} cols={1} className="forss">
 			          	<dl>
 				    		<dt><span>是否开启忙碌</span></dt>
 				    		<dd><font>{this.state.busy?'忙碌':'空闲'}</font></dd>
 			    		</dl>
 		        	</Picker>
-		        	<Picker value={[this.state.busy]} onChange={value => this.setState({collocation:value[0]})} data={[{value:1,label:'托管'},{value:0,label:'自主'},]} cols={1} className="forss">
+		        	<Picker value={[this.state.busy]} onChange={value => {this.onCollocationChange(value)}} data={[{value:1,label:'托管'},{value:0,label:'自主'},]} cols={1} className="forss">
 			          	<dl>
 				    		<dt><span>是否开启托管</span></dt>
 				    		<dd><font>{this.state.collocation?'托管':'自主'}</font></dd>
@@ -76,17 +105,12 @@ class WorkerManagement extends React.Component{
 				    		<dd><FontAwesome name='angle-right' /></dd>
 				    	</dl>
 			    	</Link>
-			    	<Link to='/home/order/slefMake'>
+			    	{/* <Link to='/home/order/slefMake'>
 				    	<dl>
 				    		<dt><span>自主下单</span></dt>
 				    		<dd><FontAwesome name='angle-right' /></dd>
 				    	</dl>
-			    	</Link>
-			    	<div className="leave-words">
-						<div>
-							<textarea name="" id="">工匠个人备注</textarea>
-						</div>
-					</div>
+			    	</Link> */}
 		    	</div>
 
 		</div>)

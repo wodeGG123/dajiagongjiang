@@ -63,4 +63,39 @@ Common.jobList = function(){
         
     })
 }
+Common.addCare = function(param){
+    return Request.post(API.CARE_CONTROL,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+}
+Common.delCare = function(param){
+    param._method = 'DELETE';
+    return Request.post(API.CARE_CONTROL,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+}
+Common.careList = function(param){
+    return Request.get(API.CARE_CONTROL,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+}
+
 export default Common

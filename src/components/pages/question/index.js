@@ -1,18 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavBar, Icon, Carousel, Button,  SearchBar, Picker, Tabs } from 'antd-mobile';
+import { NavBar, Icon, Carousel, Button,  SearchBar, Picker, Tabs, Toast, ListView } from 'antd-mobile';
 import {Link} from 'react-router'
 import CheckBox from 'rootsrc/components/common/checkbox/index.js'
+import questionData from './questionData'
+import Article from 'rootsrc/request/article'
+
 var FontAwesome = require('react-fontawesome');
 require('./style.scss')
 
 class Main extends React.Component{
 	constructor(props){
 		super(props)
+		this.state = {
+			data: questionData
+		}
+	}
+	componentWillMount(){
+
+	}
+	onDataChange(data){
+		let datas = this.state.data;
+		datas[data.index] = data;
+		this.setState({
+			data:datas
+		},()=>{
+
+		})
+	}
+	handleSubmit(){
+		Toast.info('提交成功，谢谢您的支持！')
+		this.context.router.replace('/home/index');
 	}
 	render(){
+		let {data} = this.state;
 		return(<div className='question-wrap'>
-			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}>市场数据</NavBar>
+			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {this.context.router.goBack()}}>市场数据</NavBar>
 			
 			 <Tabs tabs={[
 				{title:'问卷调查'},
@@ -24,55 +47,21 @@ class Main extends React.Component{
 		    >
 		      <div>
 		        <div className='question-items'>
-				<QItemCheck />
-				<dl>
-					<dt>1.您的性别？</dt>
-					<dd>
-						<input type="text" placeholder='请输入内容'/>
-					</dd>
-					
-				</dl>
-				<dl>
-					<dt>1.您对装修知识了解吗？</dt>
-					<dd>
-						<input type="text" placeholder='请输入内容'/>
-					</dd>
-					
-				</dl>
+				{data.map((obj,index)=>{
+					if(obj.type == 1){
+						return (<QItemCheck key={index} getVal={(data)=>{this.onDataChange(data)}} data={{...obj,index}} />)
+					}else{
+						return (<QItemCheckM key={index} getVal={(data)=>{this.onDataChange(data)}} data={{...obj,index}} />)
+					}
+				})}
 			</div>
 			<div className='question-submit'>
-				<Button type="primary"  onClick={this.handleEXIT}>提交</Button>
+				<Button type="primary"  onClick={()=>{this.handleSubmit()}}>提交</Button>
 			</div>
 		      </div>
 			  
 		      <div>
-		         <div>
-				<SearchBar placeholder="输入文章标题" maxLength={8} />
-			</div>
-		    <div>
-		    	<CheckBox />
-		    </div>
-		    
-		    <div className="article-list">
-		    	<Link to="/home/articleInfo">
-			    	<dl>
-			    		<dt>飘窗知识介绍</dt>
-			    		<dd><FontAwesome name='angle-right' /></dd>
-			    	</dl>
-		    	</Link>
-		    	<Link to="/home/articleInfo">
-			    	<dl>
-			    		<dt>飘窗知识介绍</dt>
-			    		<dd><FontAwesome name='angle-right' /></dd>
-			    	</dl>
-		    	</Link>
-		    	<Link to="/home/articleInfo">
-			    	<dl>
-			    		<dt>飘窗知识介绍</dt>
-			    		<dd><FontAwesome name='angle-right' /></dd>
-			    	</dl>
-		    	</Link>
-		    </div>
+			  <ArticleList {...this.props} />
 		      </div>
 		    </Tabs>
 
@@ -92,68 +81,48 @@ Main.defaultProps = {
 
 class QItemCheck extends React.Component{
 	static defaultProps = {
-		title:'请设置标题',
-		answers:[
-			{
-				title:'不了解',
+		data:{
+			title:'您的性别',
+			type:1,
+			items:[{
+				title:'男',
 				check:false,
 			},
 			{
-				title:'不是了解',
+				title:'女',
 				check:false,
 			},
-			{
-				title:'了解',
-				check:false,
-			},
-			{
-				title:'非常了解',
-				check:false,
-			},
-		]
+			]
+		}
 	}
 	constructor(props){
 		super(props);
 		this.state = {
-			answers:[
-				{
-					title:'不了解',
-					check:false,
-				},
-				{
-					title:'不是了解',
-					check:false,
-				},
-				{
-					title:'了解',
-					check:false,
-				},
-				{
-					title:'非常了解',
-					check:false,
-				},
-			],
-			answerId:-1,
+			data:this.props.data,
+			itemId:-1,
 		}
 	}
-	handleClick(obj,index){
-		let _answers = this.state.answers;
-		let _answerId = this.state.answerId;
-		if(_answerId != -1){
-			_answers[_answerId].check = false
+	handleClick(index){
+		let data = this.state.data,
+		_itemId = this.state.itemId;
+
+		if(_itemId != -1){
+			data.items[_itemId].check = false
 		}
-		_answers[index].check = true;
+		data.items[index].check = true;
 		this.setState({
-			answers : _answers,
-			answerId: index,
+			data,
+			itemId: index,
+		},()=>{
+			this.props.getVal(this.state.data);
 		})
 	}
 	render(){
 		return(<dl>
-					<dt>1.{this.props.title}</dt>
+					<dt>{this.state.data.index+1}. {this.state.data.title}</dt>
 					{
-						this.state.answers.map((obj,index)=>{
-							return (<dd onClick={()=>{this.handleClick(obj,index)}}>
+						this.state.data.items.map((obj,index)=>{
+							return (<dd key={index} onClick={()=>{this.handleClick(index)}}>
 							<i className={obj.check?'check':''}></i>
 							<span>{obj.title}</span>
 							</dd>)
@@ -164,4 +133,186 @@ class QItemCheck extends React.Component{
 }
 
 
+class QItemCheckM extends React.Component{
+	static defaultProps = {
+		data:{
+			title:'您的性别',
+			type:1,
+			items:[{
+				title:'男',
+				check:false,
+			},
+			{
+				title:'女',
+				check:false,
+			},
+			]
+		}
+	}
+	constructor(props){
+		super(props);
+		this.state = {
+			data:this.props.data,
+		}
+	}
+	handleClick(index){
+		let data = this.state.data;
+		data.items[index].check = !data.items[index].check;
+		this.setState({
+			data,
+		},()=>{
+			this.props.getVal(this.state.data);
+		})
+	}
+	render(){
+		return(<dl>
+					<dt>{this.state.data.index+1}. {this.state.data.title}【多选】</dt>
+					{
+						this.state.data.items.map((obj,index)=>{
+							return (<dd key={index} onClick={()=>{this.handleClick(index)}}>
+							<i className={obj.check?'check':''}></i>
+							<span>{obj.title}</span>
+							</dd>)
+						})
+					}
+				</dl>)
+	}
+}
+
+
+class ArticleList extends React.Component{
+	static contextTypes = {
+		router:React.PropTypes.object
+	}
+	constructor(props){
+		super(props);
+	
+		let dataSource = new ListView.DataSource({
+		  rowHasChanged: (row1, row2) => row1 !== row2,
+		});
+		dataSource = dataSource.cloneWithRows([]);
+		this.state = {
+			dataSource,
+			data:[],
+			page:1,
+			tag:'',
+			title:'',
+		}
+	}
+	componentWillMount(){
+		this.getData({
+			page:1,
+		},true)
+	}
+	getData(params,init){
+		params.menu_id = 8;
+		Article.list(params)
+		.then((data)=>{
+			console.log(data);
+			var ds = this.state.data.concat(data.data.meta);
+			if(init){
+				ds = data.data.meta;
+			}
+			if(data){
+				this.setState({
+					dataSource: this.state.dataSource.cloneWithRows(ds),
+					data:ds,
+					page:parseInt(data.data.paging.page) + 1
+				})
+			}
+		})
+	}
+	onEndReached(){
+		console.log('reachend')
+		this.getData({
+			page:this.state.page,
+			title:this.state.title,
+			tag:this.state.tag
+		},false)
+	}
+	onSearch(text){
+		console.log(text)
+		this.setState({
+			title:text,
+		})
+		this.getData({
+			page:1,
+			title:text,
+		},true)
+	}
+	handleCheck(text){
+		console.log(text)
+		if(text == '全部'){
+			this.setState({
+				tag:''
+			})
+			this.getData({
+				page:1,
+			},true)
+		}else{
+			this.setState({
+				tag:text
+			})
+			this.getData({
+				page:1,
+				tag:text,
+			},true)
+		}
+		
+	}
+	handleClick(data){
+		window.sessionStorage.setItem('TEMP_DATA',JSON.stringify(data));
+		this.context.router.push('/home/articleInfo');
+	}
+	render(){
+		function getTitle(type){
+			let text = '';
+			switch(parseInt(type)){
+				case 7:text = '装修百科';break;
+				case 8:text = '市场数据';break;
+				case 24:text = '精品';break;
+				case 23:text = '资讯';break;
+			}
+			return text;
+
+		}
+		return(<div className='article-list-wrap'>
+		    <div>
+				<SearchBar
+				onSubmit={(text)=>{this.onSearch(text)}}
+				placeholder="输入文章标题"
+				maxLength={16} />
+			</div>
+		    <div>
+		    	<CheckBox handleCheck={(text)=>{this.handleCheck(text)}} />
+		    </div>
+			<div className="article-list">
+				<ListView
+					ref={el => this.lv = el}
+					initialListSize={10}
+					dataSource={this.state.dataSource}
+					renderRow={(rowData)=><dl onClick={()=>{this.handleClick(rowData)}}>
+							<dt>{rowData.title}</dt>
+							<dd><FontAwesome name='angle-right' /></dd>
+						</dl>
+						}
+					style={{
+						height: document.documentElement.clientHeight - 271 + 'px',
+						overflow: 'auto',
+						}}
+					pageSize={1}
+					onScroll={() => { console.log('scroll'); }}
+					scrollEventThrottle={50}
+					onEndReached={this.onEndReached}
+					onEndReachedThreshold={10}
+				/>
+			</div>
+
+		</div>)
+	}
+
+}
+ArticleList.contextTypes = {
+	router:PropTypes.object
+}
 export default Main
