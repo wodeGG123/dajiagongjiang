@@ -244,6 +244,10 @@ class OrderForm extends React.Component {
 				OrderRQ.make(param)
 				.then((data)=>{
 					console.log(data)
+					if(data){
+						Toast.info('提交成功！');
+						this.context.router.replace('/home/mine/orderList');
+					}
 				})
 
 			}else{
