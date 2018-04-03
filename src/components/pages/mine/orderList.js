@@ -73,8 +73,10 @@ class OrderList extends React.Component{
 		switch (parseInt(status)) {
 			case 0 : text = '待接单';break;
 			case 1 : text = '进行中';break;
-			case 2 : text = '已完成';break;
+			case 2 : text = '待评价';break;
 			case 3 : text = '已拒绝';break;
+			case 4 : text = '已完成';break;
+			case 5 : text = '售后评价';break;
 			default : break;
 		}
 		return text;

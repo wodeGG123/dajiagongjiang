@@ -188,6 +188,10 @@ class Wd extends React.Component {
 		console.log(this.state.userInfo)
 	}
 	handleSubmit(){
+		if(this.state.userInfo.integral < this.state.num){
+			Toast.info('积分不足')
+			return false
+		}
 		Coin.getCash({
 			num:this.state.num,
 			password:this.state.password,
@@ -240,6 +244,10 @@ class Give extends React.Component {
 		}
 	}
 	handleSubmit(){
+		if(this.state.userInfo.integral < this.state.num){
+			Toast.info('积分不足')
+			return false
+		}
 		Coin.give({
 			num:this.state.num,
 			mobile:this.state.mobile,

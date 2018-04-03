@@ -24,7 +24,6 @@ class OrderInfo extends React.Component{
 		Worker.list({
 			user_id:data.artisan_user_id
 		}).then((data2)=>{
-			console.log(data2)
 			if(data2.state){
 				 this.setState({data,userInfo,workerInfo:data2.data.meta[0]});
 			}
@@ -43,28 +42,45 @@ class OrderInfo extends React.Component{
 		})
 	}
 	render(){
-		let {data,workerInfo} = this.state;
-		console.log(data);
+		let {data,workerInfo,userInfo} = this.state;
 		function getStatus(status){
 			let text = ''
 			switch (parseInt(status)) {
 				case 0 : text = '待接单';break;
 				case 1 : text = '进行中';break;
-				case 2 : text = '已完成';break;
+				case 2 : text = '待评价';break;
 				case 3 : text = '已拒绝';break;
+				case 4 : text = '已完成';break;
+				case 5 : text = '售后评价';break;
 				default : break;
 			}
 			return text;
 		}
 		function setButton(status){
 			var o = <div></div>;
-			switch (parseInt(status)) {
-				case 0 : o = <div><Button onClick={()=>{this.controlOrder(3)}} type='ghost' size='small' inline>拒绝</Button>
-				<Button onClick={()=>{this.controlOrder(1)}} type='primary' size='small' inline>接受</Button></div>;break;
-				case 1 : o = <div><Button onClick={()=>{this.controlOrder(2)}} type='primary' size='small' inline>结单</Button></div>;break;
-				case 2 : o = <div><Button onClick={()=>{this.context.router.push('/home/mine/orderEstimate/1')}} type='primary' size='small' inline>去评价</Button></div>;break;
-				case 3 : break;
-				default : break;
+			//判断目前是哪个角色在看订单
+			if(data.artisan_user_id == userInfo.id){
+				switch (parseInt(status)) {
+					case 0 : o = <div><Button onClick={()=>{this.controlOrder(3)}} type='ghost' size='small' inline>拒绝</Button>
+					<Button onClick={()=>{this.controlOrder(1)}} type='primary' size='small' inline>接单</Button></div>;break;
+					case 1 : break;
+					case 2 : break;
+					case 3 : break;
+					case 4 : break;
+					case 5 : break;
+					default : break;
+				}
+			}
+			if(data.user_id == userInfo.id){
+				switch (parseInt(status)) {
+					case 0 : break;
+					case 1 : o = <div><Button onClick={()=>{this.controlOrder(2)}} type='primary' size='small' inline>结单</Button></div>;break;
+					case 2 : o = <div><Button onClick={()=>{this.context.router.push('/home/mine/orderEstimate/1')}} type='primary' size='small' inline>去评价</Button></div>;break;
+					case 3 : break;
+					case 4 : break;
+					case 5 : o = <div><Button onClick={()=>{this.context.router.push('/home/mine/orderEstimate/2')}} type='primary' size='small' inline>售后评价</Button></div>;break;
+					default : break;
+				}
 			}
 			return o;
 		}

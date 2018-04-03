@@ -58,6 +58,7 @@ class Main extends React.Component{
 	}
 	componentWillMount(){
 		let data = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
+		console.log(data)
 		if(data){
 			this.setState({
 				data

@@ -590,6 +590,17 @@ class MakeOffersForm extends React.Component{
 							type="text" placeholder='请输报价方式名称'/>
 						</dd>
 			    	</dl>
+					<dl>
+						<dt><span>项目保质期</span></dt>
+						<dd><input
+						{...getFieldProps('shelf_life',{
+							initialValue:0,
+							rules:[
+								{required:true,type:'number'}
+							]
+						})}
+						type="text" placeholder='保质期单位（天）'/></dd>
+					</dl>
 				</div>
 				<div className='make-offers-items'>
 						<input
@@ -639,13 +650,13 @@ class ProjectForm extends React.Component{
 				project.price = value.price;
 				project.unit = value.unit;
 				project.num = value.num;
-				project.shelf_life = value.shelf_life;
+				// project.shelf_life = value.shelf_life;
 				project.remark = value.remark;
 				project.method = value.method;
 			}else{
 				console.log(error)
 				project = false;
-				Toast.info('请完善所有信息！')
+				Toast.info('请正确完善所有信息！')
 			}
 		})
 		return project;
@@ -669,9 +680,9 @@ class ProjectForm extends React.Component{
 			<dt><span>项目单价</span></dt>
 			<dd><input 
 			{...getFieldProps('price',{
-				initialValue:'',
+				initialValue:1,
 				rules:[
-					{required:true}
+					{required:true,type:'number'}
 				]
 			})}
 			type="text" placeholder='请输入项目单价'/></dd>
@@ -687,7 +698,7 @@ class ProjectForm extends React.Component{
 			})}
 			type="text" placeholder='请输入项目单位'/></dd>
 		</dl>
-		<dl>
+		{/* <dl>
 			<dt><span>项目保质期</span></dt>
 			<dd><input
 			{...getFieldProps('shelf_life',{
@@ -697,7 +708,7 @@ class ProjectForm extends React.Component{
 				]
 			})}
 			type="text" placeholder='保质期单位（天）'/></dd>
-		</dl>
+		</dl> */}
 		<div className="leave-words">
 			<h5>报价说明：</h5>
 			<div>

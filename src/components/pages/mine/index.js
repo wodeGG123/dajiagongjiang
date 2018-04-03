@@ -122,6 +122,7 @@ class MineIndex extends React.Component{
 			    				<span>工匠等级：{this.state.userInfoDetail.artisan_level}</span>
 			    			</div>
 			    			<div>
+								
 			    				<FontAwesome name='tags' />
 			    				<span>信誉：{this.state.userInfoDetail.user_info&&this.state.userInfoDetail.user_info.reputation_level}</span>
 			    			</div>

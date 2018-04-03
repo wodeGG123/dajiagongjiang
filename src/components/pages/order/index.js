@@ -286,7 +286,7 @@ class OrderForm extends React.Component {
 			<div className='pre-price'>
 				<h5>预估价格：</h5>
 				<p>
-					<font>{this.state.sum}</font><span>元</span><span>（保质期30天）</span>
+					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}天）</span>
 					<input
 					{...getFieldProps('rate_price',{
 						initialValue:0,
