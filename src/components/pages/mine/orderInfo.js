@@ -150,7 +150,7 @@ class OrderInfo extends React.Component{
 		          <div style={{ height: 200, overflow: 'scroll' }}>
 		           <p>{this.state.modal.content}</p>		           
 		          </div>
-		        </Modal>
+		    </Modal>
 
 		</div>)
 	}

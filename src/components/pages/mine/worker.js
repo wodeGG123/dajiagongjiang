@@ -105,6 +105,7 @@ class WorkerManagement extends React.Component{
 				    		<dd><FontAwesome name='angle-right' /></dd>
 				    	</dl>
 			    	</Link>
+		        
 			    	{/* <Link to='/home/order/slefMake'>
 				    	<dl>
 				    		<dt><span>自主下单</span></dt>
@@ -137,6 +138,7 @@ class ApplyForWorkerForm extends React.Component{
 			job:[],
 			makeOffers:false,
 			offers:[],
+			oldData:false,
 		}
 	}
 	handleConfirm(){
@@ -213,6 +215,23 @@ class ApplyForWorkerForm extends React.Component{
 			}
 		})
 		//设置工种
+
+		let userInfoDetail = store.getState().userInfoDetail;
+		console.log(userInfoDetail);
+		if(userInfoDetail.user_info.artisan_status == 3){
+			console.log(1)
+			this.setState({
+				oldData:userInfoDetail.user_info,
+				date:new Date(userInfoDetail.user_info.birthday),
+				address:userInfoDetail.user_info.address.split('-'),
+				workAddress:userInfoDetail.user_info.artisan_address.split('-'),
+				sex:userInfoDetail.user_info.sex,
+				year:userInfoDetail.user_info.artisan_work_year,
+				job:userInfoDetail.user_info.artisan_work_type.split('-'),
+				offers:JSON.parse(userInfoDetail.user_info.artisan_offer),
+
+			},()=>{console.log(this.state)})
+		}
 	}
 	handleAddOffers(data){
 		var offers = this.state.offers
@@ -258,7 +277,16 @@ class ApplyForWorkerForm extends React.Component{
 							]							
 						})}
 						type="hidden"/>
-					<ImagePickerExample setImg={(imgs)=>{this.props.form.setFieldsValue({id_photo:imgs})}} length={2} />
+					<ImagePickerExample 
+					data={
+						this.state.oldData.id_photo.split(',').map((obj,index)=>{
+							return ({
+								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
+								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
+							})
+						})}
+					setImg={(imgs)=>{this.props.form.setFieldsValue({id_photo:imgs})}} 
+					length={2} />
 		    	</div>
 		    	<div>
 		    		<p>项目展示<span>（您的项目展示）</span></p>
@@ -270,7 +298,16 @@ class ApplyForWorkerForm extends React.Component{
 							]							
 						})}
 						type="hidden"/>
-		    		<ImagePickerExample setImg={(imgs)=>{this.props.form.setFieldsValue({artisan_project:imgs})}} length={8} />
+					<ImagePickerExample 
+					data={
+						this.state.oldData.artisan_project.split(',').map((obj,index)=>{
+							return ({
+								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
+								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
+							})
+						})}
+					setImg={(imgs)=>{this.props.form.setFieldsValue({artisan_project:imgs})}} 
+					length={8} />
 		    	</div>
 		    	<div>
 		    		<p>资质证书<span>（您的获奖资质证书）</span></p>
@@ -282,7 +319,16 @@ class ApplyForWorkerForm extends React.Component{
 							]							
 						})}
 						type="hidden"/>
-		    		<ImagePickerExample setImg={(imgs)=>{this.props.form.setFieldsValue({artisan_certificate:imgs})}} length={8} />
+					<ImagePickerExample 
+					data={
+						this.state.oldData.artisan_certificate.split(',').map((obj,index)=>{
+							return ({
+								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
+								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
+							})
+						})}
+					setImg={(imgs)=>{this.props.form.setFieldsValue({artisan_certificate:imgs})}} 
+					length={8} />
 		    	</div>
 		    </div>
 
@@ -291,7 +337,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<dt><span>姓名</span></dt>
 					<dd><input 
 					 {...getFieldProps('real_name',{
-						initialValue:'',
+						initialValue:this.state.oldData.real_name||'',
 						rules:[{required:true}]							
 						})}	
 					type="text" placeholder='请输入姓名'/></dd>
@@ -300,7 +346,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<dt><span>身份证号</span></dt>
 					<dd><input 
 					{...getFieldProps('id_card',{
-						initialValue:'',
+						initialValue:this.state.oldData.id_card||'',
 						rules:[{required:true}]							
 						})}	
 					type="text" placeholder='请输入身份证号'/></dd>
@@ -471,7 +517,7 @@ class ApplyForWorkerForm extends React.Component{
 
 class ImagePickerExample extends React.Component {
 	state = {
-		  files: [],
+		  files: this.props.data||[],
 	}
 	onChange = (files, type, index) => {
 		  console.log(files, type, index);
