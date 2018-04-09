@@ -271,7 +271,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>身份证<span>（需要上传身份证正反面）</span></p>
 		    		<input 
 						{...getFieldProps('id_photo',{
-							initialValue:[],
+							initialValue:this.state.oldData.id_photo.split(',')||[],
 							rules:[
 								{required:true,type:'array',len:2}
 							]							
@@ -292,7 +292,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>项目展示<span>（您的项目展示）</span></p>
 					<input 
 						{...getFieldProps('artisan_project',{
-							initialValue:[],
+							initialValue:this.state.oldData.artisan_project.split(',')||[],
 							rules:[
 								{required:true,type:'array'}
 							]							
@@ -313,7 +313,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>资质证书<span>（您的获奖资质证书）</span></p>
 					<input 
 						{...getFieldProps('artisan_certificate',{
-							initialValue:[],
+							initialValue:this.state.oldData.artisan_certificate.split(',')||[],
 							rules:[
 								{required:true,type:'array'}
 							]							
