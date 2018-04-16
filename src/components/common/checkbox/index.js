@@ -6,7 +6,16 @@ class CheckBox extends React.Component{
 	constructor(props){
 		super(props);
 		this.state ={
-			data:[{name:'全部',checked:true},{name:'环保',checked:false},{name:'材料',checked:false},{name:'工艺',checked:false},{name:'设计',checked:false}],
+			data:[
+				{name:'全部',checked:true},
+				{name:'环保',checked:false},
+				{name:'材料',checked:false},
+				{name:'工艺',checked:false},
+				{name:'设计',checked:false},
+				{name:'明星工匠',checked:false},
+				{name:'经验交流',checked:false},
+				{name:'鉴赏',checked:false}, 
+			],
 			checkId:0
 		}
 	}

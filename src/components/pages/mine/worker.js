@@ -642,7 +642,7 @@ class MakeOffersForm extends React.Component{
 						{...getFieldProps('shelf_life',{
 							initialValue:0,
 							rules:[
-								{required:true,type:'number'}
+								{required:true}
 							]
 						})}
 						type="text" placeholder='保质期单位（天）'/></dd>

@@ -94,7 +94,6 @@ class OrderEstimate extends React.Component{
 					{name:'爱护现场',score:1},
 					{name:'上下衔接',score:1},
 					{name:'认真负责',score:1},
-					{name:'值得信赖',score:1},
 				]
 	    };
 	}
@@ -112,23 +111,74 @@ class OrderEstimate extends React.Component{
 	
 	}
 	onChange(o,index){
-			let estimate = this.state.estimate;
-			estimate[index].score = o;
-
-			this.setState({
-				estimate
-			})
-		
-
+		let estimate = this.state.estimate;
+		estimate[index].score = o;
+		this.setState({
+			estimate
+		})
 	}
 	handleSubmit(){
-		let score = 0;
+		let score = 0,
+		content = {},
+		hasSec = false;
+
+		parseInt(this.state.data.price_type.shelf_life)>0?hasSec=true:null;
+		content = {
+			"type": 1,
+			"content": {
+				"a": {
+					"name": "技术过硬",
+					"score": this.state.estimate[0].score * 5
+				},
+				"b": {
+					"name": "时间高效",
+					"score": this.state.estimate[1].score * 5
+				},
+				"c": {
+					"name": "安全施工",
+					"score": this.state.estimate[2].score * 5
+				},
+				"d": {
+					"name": "态度随和",
+					"score": this.state.estimate[3].score * 5
+				},
+				"e": {
+					"name": "爱护现场",
+					"score": this.state.estimate[4].score * 5
+				},
+				"f": {
+					"name": "上下衔接",
+					"score": this.state.estimate[5].score * 5
+				},
+				"g": {
+					"name": "认真负责",
+					"score": this.state.estimate[6].score * 5
+				},
+				"h": {
+					"name": "全力保障",
+					"score": 10
+				},
+				"i": {
+					"name": "货真价实",
+					"score": 10
+				},
+				"j": {
+					"name": "值得信赖",
+					"score": 10
+				}
+			}
+		}
+		content = JSON.stringify(content)
+
 		this.state.estimate.map((obj,index)=>{
-			score += parseInt(obj.score)
+			score += parseInt(obj.score);
+
 		})
+
+
 		Order.estimate(this.state.data.order_id,{
 			artisan_user_id:this.state.workerInfo.id,
-			content:this.state.estimate,
+			content,
 			score,
 			token:this.state.userInfo.token,
 			uid:this.state.userInfo.id,
@@ -138,7 +188,7 @@ class OrderEstimate extends React.Component{
 			let status = '4';
 			if(data){
 				//判断是否二次评价
-				if(this.state.data.price_type.shelf_life>0){
+				if(hasSec){
 					//5代表还可以进行二次评价
 					status = '5'
 				}
@@ -151,7 +201,7 @@ class OrderEstimate extends React.Component{
 						Toast.info('评价成功！');
 						this.context.router.replace({
 							pathname:'/home/mine/orderEstimate/3',
-							query:{score},
+							query:{score:parseInt(score*5)},
 							state:{worker:this.state.workerInfo.real_name}
 						});
 
@@ -243,23 +293,80 @@ class OrderEstimate2 extends React.Component{
 	
 	}
 	onChange(o,index){
-			let estimate = this.state.estimate;
-			estimate[index].score = o;
+	
+		let estimate = this.state.estimate;
+		estimate[index].score = o;
 
-			this.setState({
-				estimate
-			})
+		this.setState({
+			estimate
+		})
 		
 
 	}
 	handleSubmit(){
-		let score = 0;
+		let score = 0,
+		content = {},
+		hasSec = false;
+
+		parseInt(this.state.data.price_type.shelf_life)>0?hasSec=true:null;
+		content = {
+			"type": 2,
+			"content": {
+				"a": {
+					"name": "技术过硬",
+					"score": 10
+				},
+				"b": {
+					"name": "时间高效",
+					"score": 10
+				},
+				"c": {
+					"name": "安全施工",
+					"score": 10
+				},
+				"d": {
+					"name": "态度随和",
+					"score": 10
+				},
+				"e": {
+					"name": "爱护现场",
+					"score": 10
+				},
+				"f": {
+					"name": "上下衔接",
+					"score": 10
+				},
+				"g": {
+					"name": "认真负责",
+					"score": 10
+				},
+				"h": {
+					"name": "全力保障",
+					"score": this.state.estimate[0].score * 5
+				},
+				"i": {
+					"name": "货真价实",
+					"score": this.state.estimate[1].score * 5
+				},
+				"j": {
+					"name": "值得信赖",
+					"score": this.state.estimate[2].score * 5
+				}
+			}
+		}
+
+		content = JSON.stringify(content)
+
+
 		this.state.estimate.map((obj,index)=>{
 			score += parseInt(obj.score)
 		})
+
+
+		
 		Order.estimate(this.state.data.order_id,{
 			artisan_user_id:this.state.workerInfo.id,
-			content:this.state.estimate,
+			content,
 			score,
 			token:this.state.userInfo.token,
 			uid:this.state.userInfo.id,
@@ -277,7 +384,7 @@ class OrderEstimate2 extends React.Component{
 						Toast.info('评价成功！');
 						this.context.router.replace({
 							pathname:'/home/mine/orderEstimate/3',
-							query:{score},
+							query:{score:parseInt(score*5)},
 							state:{worker:this.state.workerInfo.real_name}
 						});
 					}
@@ -286,7 +393,6 @@ class OrderEstimate2 extends React.Component{
 		})
 	}
 	render(){
-		console.log(this.state)
 		let {data,workerInfo,estimate} = this.state
 		return(<div className='order-estimate'>
 				<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>订单评价</NavBar>

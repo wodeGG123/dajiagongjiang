@@ -5,6 +5,7 @@ import {Link} from 'react-router'
 import CheckBox from 'rootsrc/components/common/checkbox/index.js'
 import questionData from './questionData'
 import Article from 'rootsrc/request/article'
+import Common from 'rootsrc/request/common'
 
 var FontAwesome = require('react-fontawesome');
 require('./style.scss')
@@ -17,7 +18,6 @@ class Main extends React.Component{
 		}
 	}
 	componentWillMount(){
-
 	}
 	onDataChange(data){
 		let datas = this.state.data;
@@ -29,8 +29,32 @@ class Main extends React.Component{
 		})
 	}
 	handleSubmit(){
-		Toast.info('提交成功，谢谢您的支持！')
-		this.context.router.replace('/home/index');
+
+		if(isEmpty(this.state.data)){
+			Toast.info('请全部做完后提交，之后有惊喜！')	
+		}else{
+			Common.questionAdd({option:JSON.stringify(this.state.data)})
+			.then((data)=>{
+				if(data){
+					Toast.info('提交成功，谢谢您的支持！');
+					this.context.router.replace('/home/answer');
+				}
+			})
+			
+		}
+
+		//判断是否有没填的选项
+		function isEmpty(list){
+			let empty = false;
+			list.forEach((obj,index)=>{
+				let _items = JSON.stringify(obj.items);
+				if(_items.indexOf('true') == -1){
+					empty = true;
+				}
+			})
+			return empty;
+		}
+
 	}
 	render(){
 		let {data} = this.state;
@@ -54,10 +78,10 @@ class Main extends React.Component{
 						return (<QItemCheckM key={index} getVal={(data)=>{this.onDataChange(data)}} data={{...obj,index}} />)
 					}
 				})}
-			</div>
-			<div className='question-submit'>
-				<Button type="primary"  onClick={()=>{this.handleSubmit()}}>提交</Button>
-			</div>
+				</div>
+				<div className='question-submit'>
+					<Button type="primary"  onClick={()=>{this.handleSubmit()}}>提交</Button>
+				</div>
 		      </div>
 			  
 		      <div>
@@ -145,8 +169,7 @@ class QItemCheckM extends React.Component{
 			{
 				title:'女',
 				check:false,
-			},
-			]
+			},]
 		}
 	}
 	constructor(props){

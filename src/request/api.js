@@ -26,6 +26,7 @@ let API = {
     CARE_CONTROL:'user/attention',
     WORKER_BUSY:'user/busy',
     WORKER_COLLOCATION:'user/hosting',
+    QUESTION_SUBMIT:'user/questionnaire/1',
 }
 
 export default API

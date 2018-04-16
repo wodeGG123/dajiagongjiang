@@ -97,5 +97,27 @@ Common.careList = function(param){
         
     })
 }
+Common.questionAdd = function(param){
+    return Request.post(API.QUESTION_SUBMIT,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+}
+Common.questionGet = function(){
+    return Request.get(API.QUESTION_SUBMIT)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+}
 
 export default Common

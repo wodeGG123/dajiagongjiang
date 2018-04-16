@@ -12,6 +12,7 @@ import ArticleInfo from 'rootsrc/components/pages/article/index.js'
 import {ArticleList} from 'rootsrc/components/pages/article/index.js'
 import Message from 'rootsrc/components/pages/message/index.js'
 import Question from 'rootsrc/components/pages/question/index.js'
+import Answer from 'rootsrc/components/pages/question/answer.js'
 import WorkerInfo from 'rootsrc/components/pages/workerInfo/index.js'
 import Order from 'rootsrc/components/pages/order/index.js'
 import {MakeOrder,MakeSelfOrder} from 'rootsrc/components/pages/order/index.js'
@@ -94,6 +95,7 @@ class MyRouter extends React.Component{
 					<Route path="articleInfo" component={ArticleInfo} />
 					<Route path="articleList/:type" component={ArticleList} />
 					<Route path="question" component={Question} />
+					<Route path="answer" component={Answer} />
 					<Route path="message" component={Message} />
 					<Route path="workerInfo" component={WorkerInfo} />
 					<Route path="order" component={Order}>

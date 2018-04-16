@@ -45,32 +45,46 @@ MyCredit.defaultProps = {
 
 class MyEvaluate extends React.Component{
 	constructor(props){
-		super(props)
+		super(props);
+		this.state = {
+			userInfo:false,
+			userInfoDetail:false,
+			isWorker:false,
+		}
 	}
 	componentWillMount() {
+			//初始化用户信息
+			var userInfo = this.context.store.getState().userInfo;
+			var userInfoDetail = this.context.store.getState().userInfoDetail;
+	
+			if(userInfo){
+	
+				this.setState({
+					userInfo,
+					userInfoDetail,
+					isWorker:userInfoDetail.user_info.artisan_status==3?true:false
+				})
+			}
 	}
 	render(){
+		let evaluate = this.state.userInfoDetail.user_info.evaluate_info,
+		evaluateList = []
+		;
+		console.log(this.state)
+		for(var key in evaluate){
+			evaluateList.push(evaluate[key])
+		}
 		return(<div className='my-evaluate'>
 			<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>我的评价</NavBar>
 			<div className='my-evaluate-content'>
-				<dl>
-		    		<dt><span>评价选项1</span></dt>
-		    		<dd>98%</dd>
-				</dl>
-				<dl>
-		    		<dt><span>评价选项2</span></dt>
-		    		<dd>98%</dd>
-				</dl>
-				<dl>
-		    		<dt><span>评价选项3</span></dt>
-		    		<dd>98%</dd>
-				</dl>
-				<dl>
-		    		<dt><span>评价选项3</span></dt>
-		    		<dd>98%</dd>
-				</dl>
+				{evaluateList.map((obj,index)=>{
+					return (<dl key={index}>
+						<dt><span>{obj.name}</span></dt>
+						<dd>{obj.num}次 满意</dd>
+					</dl>)
+				})}
 				<div>
-					<h3>98%</h3>					
+					<h3>{this.state.userInfoDetail.praise_level}</h3>					
 				</div>
 			</div>
 
