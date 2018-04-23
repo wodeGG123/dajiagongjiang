@@ -58,7 +58,6 @@ class Main extends React.Component{
 	}
 	componentWillMount(){
 		let data = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
-		console.log(data)
 		if(data){
 			this.setState({
 				data
@@ -68,7 +67,7 @@ class Main extends React.Component{
 	render(){
 		const worker = this.state.data;	
 		return(<div className='workerinfo wrap-box'>
-			<NavBar mode="light" icon={<Icon type="left" />} rightContent={<Link to='/home/order/make'>预算一下</Link>} onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}>{worker.real_name}</NavBar>
+			<NavBar mode="light" icon={<Icon type="left" />} rightContent={<Link to='/home/order/make'>预算一下</Link>} onLeftClick={() => {this.context.router.goBack()}}>{worker.real_name}</NavBar>
 			<div className='workerinfo-top'>
 				<div className='workerinfo-top-img'><ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+worker.avatar} /><i></i></div>
 				<div className='workerinfo-top-left-block'>
@@ -81,7 +80,6 @@ class Main extends React.Component{
 				</div>
 			</div>	
 			 <div className='workerinfo-guiders'>
-		      <Link to=''>工伤保险&nbsp;<FontAwesome name='check' /></Link>
 		      <a onClick={this.showItems.bind(this)}>项目展示</a>
 		      <a onClick={this.showItems2.bind(this)}>资质证书</a>
 		    </div>	
@@ -115,7 +113,7 @@ class Main extends React.Component{
 		    		</dl>
 
 
-		    		<dl>
+		    		<dl onClick={()=>{this.context.router.push('/home/mine/myEvaluate')}}>
 		    			<dt><span>好评率</span></dt>
 		    			<dd><span>{worker.praise_level}</span></dd>
 		    		</dl>
@@ -144,7 +142,7 @@ class Main extends React.Component{
           maskClosable={false}
           onClose={()=>{}}
           title="项目展示"
-          footer={[{ text: 'Ok', onPress: () => { console.log('ok');this.setState({modal1:false}) } }]}
+          footer={[{ text: 'Ok', onPress: () => {this.setState({modal1:false}) } }]}
           wrapProps={{ onTouchStart: ()=>{} }}
         >
          <div className='show-worker-items'>

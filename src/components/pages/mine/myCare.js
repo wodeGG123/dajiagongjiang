@@ -55,7 +55,6 @@ class WorkerList extends React.Component{
 		token:this.state.userInfo.token,
 		uid:this.state.userInfo.id,
 	}).then((data)=>{
-		console.log(data)
 	})
 
     let param = this.state.param;

@@ -52,7 +52,7 @@ class ApplyForIdentityForm extends React.Component{
 					this.props.form.validateFields((error, value) => {
 
 						if(!error){
-							console.log(value)
+
 							var userInfo = store.getState().userInfo
 							Member.realAuth({
 								address:value.address.join('-'),
@@ -68,14 +68,12 @@ class ApplyForIdentityForm extends React.Component{
 								uid:userInfo.id,
 							})
 							.then((data)=>{
-								console.log(data)
 								if(data){
 									Toast.info('提交成功！')
 									this.context.router.replace('/home/mine/index');
 								}
 							})
 						}else{
-							console.log(error)
 							Toast.info('请完善所有信息！')
 						}
 			
@@ -213,12 +211,11 @@ class ImagePickerExample extends React.Component {
 		files: [],
   }
   onChange = (files, type, index) => {
-		console.log(files, type, index);
+
 	
 		if(type == 'add'){
 				Common.upload(files[0].file)
 				.then((data)=>{
-					console.log(data)
 					files[files.length-1].img = data.data.src;
 					var imgs = files.map((obj,index)=>{
 						return obj.img

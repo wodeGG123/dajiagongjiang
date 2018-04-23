@@ -194,7 +194,6 @@ class RegistForm extends React.Component{
 			if(!error){
 				Member.regist(value.mobile,value.mobile.toString().substr(-6),value.code)
 				.then((data)=>{
-					console.log(data);
 					if(data.state){
 						this.context.router.push({pathname:'/user/registNext',state:{data:data.data}})
 					}else{
@@ -211,7 +210,6 @@ class RegistForm extends React.Component{
 	handleSendCode(){
 		this.props.form.validateFields(['mobile','check'],(error, value) => {			
 			if(!error){
-				console.log(value)
 				let i = 60;
 				const _interval = setInterval(()=>{
 				this.setState({
@@ -233,7 +231,6 @@ class RegistForm extends React.Component{
 
 
 			}else{
-				console.log(error)
 				error.mobile?Toast.info('手机号不能为空！'):Toast.info('您还没同意注册条款！')
 				
 			}
@@ -321,6 +318,7 @@ class RegistForm extends React.Component{
 				对于用户通过大家工匠网站平台发布的可公开的任何信息，用户同意大家工匠拥有免费许可、可完全转授的权利。
 				<p>七、在用户之间发生交易后，用户会对对方用户进行服务评价，对此评价任何一方用户必须全部无条件的接受对方给出的评价结果。如果对此次服务评价结果不满意，不得使用任何非法手段解决，平台方不参与调解，也不承担任何后果。</p>
 				<p>八、在用户之间发生交易的过程中，大家工匠网站对其中存在的任何安全问题不承担任何责任。</p>
+				<p>九、本平台的所有内容，不代表平台方观点。</p>
 				
 	          </div>
 	        </Modal>

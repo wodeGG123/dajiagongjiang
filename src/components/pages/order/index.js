@@ -251,6 +251,7 @@ class OrderForm extends React.Component {
 				})
 
 			}else{
+				Toast.info('请完善信息！')
 				console.log(error)
 			}
 		})
@@ -333,9 +334,9 @@ class OrderForm extends React.Component {
 			</div>
 			<div className='user-form'>
 				<h5>下单信息：</h5>
-				{/* <div className="remarks">
-					<p>客户需提供：管子、乳胶漆、石灰、水、电</p>
-				</div> */}
+				<div className="remarks">
+					<p>实际收益以用户双方实际结算为准</p>
+				</div>
 				{/* <div className='user-form-box'>
 					<div className='user-form-left'><span>姓名</span></div>
 					<div className='user-form-right'><input placeholder='请输入姓名' type="text"/></div>

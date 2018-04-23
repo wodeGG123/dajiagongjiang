@@ -731,6 +731,7 @@ class ProjectForm extends React.Component{
 					{required:true,type:'number'}
 				]
 			})}
+			onClick={(e)=>{e.target.select()}}
 			type="text" placeholder='请输入项目单价'/></dd>
 		</dl>
 		<dl>

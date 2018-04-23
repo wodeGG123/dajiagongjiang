@@ -31,7 +31,6 @@ class MyCoin extends React.Component{
 	getData(params,init){
 		Coin.list(params)
 		.then((data)=>{
-			console.log(data);
 			var ds = this.state.data.concat(data.data.meta);
 			if(init){
 				ds = data.data.meta;
@@ -46,7 +45,6 @@ class MyCoin extends React.Component{
 		})
 	}
 	onEndReached(){
-		console.log('reachend')
 		this.getData({
 			page:this.state.page,
 		},false)

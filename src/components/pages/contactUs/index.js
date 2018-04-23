@@ -17,7 +17,7 @@ class Main extends React.Component{
 	
 	render(){
 		return(<div className='contact-us wrap-box'>
-			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}>客服</NavBar>
+			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {this.context.router.goBack()}}>客服</NavBar>
 			<div>
 				<div className='contact-us-img'>
 					<ImgInit src={require("./img/kfmm.jpg")} />

@@ -33,7 +33,7 @@ class ArticleInfo extends React.Component{
 			<NavBar
 		      mode="light"
 		      icon={<Icon type="left" />}
-		      onLeftClick={() => {console.log(this.context.router);this.context.router.goBack()}}
+		      onLeftClick={() => {this.context.router.goBack()}}
 		    >{this.state.data.title}</NavBar>
 		    <div className="content-box article-content">
 		    	<div dangerouslySetInnerHTML={{__html:this.state.data.content}}></div>
@@ -73,7 +73,7 @@ class ArticleList extends React.Component{
 		params.menu_id = this.props.params.type;
 		Article.list(params)
 		.then((data)=>{
-			console.log(data);
+			console.log(data)
 			var ds = this.state.data.concat(data.data.meta);
 			if(init){
 				ds = data.data.meta;
@@ -88,7 +88,6 @@ class ArticleList extends React.Component{
 		})
 	}
 	onEndReached(){
-		console.log('reachend')
 		this.getData({
 			page:this.state.page,
 			title:this.state.title,
@@ -96,7 +95,6 @@ class ArticleList extends React.Component{
 		},false)
 	}
 	onSearch(text){
-		console.log(text)
 		this.setState({
 			title:text,
 		})
@@ -106,7 +104,6 @@ class ArticleList extends React.Component{
 		},true)
 	}
 	handleCheck(text){
-		console.log(text)
 		if(text == '全部'){
 			this.setState({
 				tag:''
@@ -123,7 +120,6 @@ class ArticleList extends React.Component{
 				tag:text,
 			},true)
 		}
-		
 	}
 	handleClick(data){
 		window.sessionStorage.setItem('TEMP_DATA',JSON.stringify(data));
@@ -141,21 +137,27 @@ class ArticleList extends React.Component{
 			return text;
 
 		}
+		function getListHeight(){
+			 return document.documentElement.clientHeight - 261 + 'px'
+			
+		}
 		return(<div className='article-list-wrap'>
-			<NavBar
-		      mode="light"
-		      icon={<Icon type="left" />}
-		      onLeftClick={() => {this.context.router.replace('/home/index')}}
-		    >{getTitle(this.props.params.type)}</NavBar>
-		    <div>
-				<SearchBar
-				onSubmit={(text)=>{this.onSearch(text)}}
-				placeholder="输入文章标题"
-				maxLength={16} />
+			<div id='article-list-top'>
+				<NavBar
+				mode="light"
+				icon={<Icon type="left" />}
+				onLeftClick={() => {this.context.router.replace('/home/index')}}
+				>{getTitle(this.props.params.type)}</NavBar>
+				<div>
+					<SearchBar
+					onSubmit={(text)=>{this.onSearch(text)}}
+					placeholder="输入文章标题"
+					maxLength={16} />
+				</div>
+				<div>
+					<CheckBox handleCheck={(text)=>{this.handleCheck(text)}} />
+				</div>
 			</div>
-		    <div>
-		    	<CheckBox handleCheck={(text)=>{this.handleCheck(text)}} />
-		    </div>
 			<div className="article-list">
 				<ListView
 					ref={el => this.lv = el}
@@ -167,13 +169,12 @@ class ArticleList extends React.Component{
 						</dl>
 						}
 					style={{
-						height: document.documentElement.clientHeight - 229 + 'px',
+						height: getListHeight(),
 						overflow: 'auto',
 						}}
-					pageSize={1}
 					onScroll={() => { console.log('scroll'); }}
 					scrollEventThrottle={50}
-					onEndReached={this.onEndReached}
+					onEndReached={this.onEndReached.bind(this)}
 					onEndReachedThreshold={10}
 				/>
 			</div>

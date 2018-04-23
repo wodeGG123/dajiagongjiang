@@ -16,7 +16,7 @@ class Home extends React.Component{
 	    };
 	}
   componentWillMount() {
-    console.log(this.context.router.isActive('/home/mine'))
+  
   }
 	render(){
 		return(<div className='home-wrap'>
@@ -24,11 +24,13 @@ class Home extends React.Component{
       <div className='home-content'>
           {this.props.children}
       </div>
-        <TabBar
+      
+      <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
           barTintColor="white"
           hidden={this.state.hidden}
+          id='bottom'
         >
          <TabBar.Item
             icon={<FontAwesome name='medkit' />}
@@ -109,6 +111,8 @@ class Home extends React.Component{
            
           </TabBar.Item>
         </TabBar>
+
+        
 
       </div>
 		</div>)

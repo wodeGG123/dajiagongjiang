@@ -30,7 +30,6 @@ class Main extends React.Component{
 			uid:this.state.userInfo.id,
 		})
 		.then((data)=>{
-			console.log(data)
 			this.setState({
 				page:data.data.paging.page+1
 			})

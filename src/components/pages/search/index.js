@@ -1,13 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { NavBar, Icon, Carousel, Button,  SearchBar, Picker, ListView } from 'antd-mobile';
-import {Link} from 'react-router'
-import ImgInit from 'rootsrc/components/common/imgInit/index.js'
-import CheckBox from 'rootsrc/components/common/checkbox/index.js'
-import Common from 'rootsrc/request/common'
-import {WorkerBlock} from 'rootsrc/components/common/workerList/index.js'
+import {Link} from 'react-router';
+import ImgInit from 'rootsrc/components/common/imgInit/index.js';
+import CheckBox from 'rootsrc/components/common/checkbox/index.js';
+import Common from 'rootsrc/request/common';
+import {WorkerBlock} from 'rootsrc/components/common/workerList/index.js';
 import Worker from '../../../request/worker';
-import address from 'rootstatics/json/sc.js'
+import address from 'rootstatics/json/sc.js';
+
+
 
 var FontAwesome = require('react-fontawesome');
 require('./style.scss')
@@ -63,7 +65,7 @@ class Search extends React.Component{
 	componentWillMount(){
     let param = this.state.param;
     if(this.props.location.query.job){
-      param.work_type = this.props.location.query.job;
+      param.work_type = this.props.location.query.job.split(',');
     }
     //设置工种
 		Common.jobList()
@@ -92,7 +94,9 @@ class Search extends React.Component{
     //设置工种
     this.getData(param,true)
   }
+  transferArea(){
 
+  }
 	getData(param,init){
 		Worker.list({
       ...param,
@@ -214,7 +218,7 @@ class Search extends React.Component{
 					pageSize={1}
 					onScroll={() => { console.log('scroll'); }}
 					scrollEventThrottle={50}
-					onEndReached={this.onEndReached}
+					onEndReached={this.onEndReached.bind(this)}
 					onEndReachedThreshold={10}
 				/>
 
@@ -253,7 +257,7 @@ class SearchPre extends React.Component{
     return(<div className='pre-search'>
       <NavBar mode="light" icon={<Icon type="left" />} rightContent={<Link to='/home/search/2'><span>跳过</span></Link>}  onLeftClick={() => {this.context.router.goBack()}}>职位搜索</NavBar>
       <div className='work-list'>
-        <dl>
+        {/* <dl>
           <dt>推荐职位</dt>          
           <dd>
           <Link to='/home/search/2?job=木工'>木工</Link>
@@ -264,13 +268,13 @@ class SearchPre extends React.Component{
           <Link to='/home/search/2?job=木工'>木工</Link>
          
           </dd>
-        </dl>
+        </dl> */}
         {data.map((obj,index)=>{
               return (<dl key={index}>
                   <dt>{obj.name}</dt>
                   <dd>
                     {obj.children.length>0&&obj.children.map((obj2,index2)=>{
-                      return (<Link key={index2} to={'/home/search/2?job='+obj2.name}>{obj2.name}</Link>)
+                      return (<Link key={index2} to={'/home/search/2?job='+obj.name+','+obj2.name}>{obj2.name}</Link>)
                     })}
                   </dd>
                 </dl>)

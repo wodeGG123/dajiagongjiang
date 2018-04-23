@@ -110,7 +110,7 @@ class OrderList extends React.Component{
 					initialListSize={5}
 					dataSource={this.state.dataSource}
 					renderRow={(rowData)=>{ if(typeof(rowData.price_type) == 'string'){rowData.price_type=JSON.parse(rowData.price_type)}; return(<dl onClick={()=>{this.handleClick(rowData)}}>
-							<dt><font>{getStatus(rowData.status)}</font><span>订单号：{rowData.order_id}</span></dt>
+							<dt><font className={rowData.status==3||rowData.status==4?'':'undone'}>{getStatus(rowData.status)}</font><span>订单号：{rowData.order_id}</span></dt>
 							<dd>
 								<h3><span>{rowData.created_at}</span>{rowData.artisan_user_name}</h3>
 								<h4>价格：<span>{rowData.rate_price}元</span></h4>

@@ -117,13 +117,8 @@ class Recharge extends React.Component {
       	</div>, },
       { title: '现金充值',
       	content:<div className='my-coin-control-tabs-content'>
-      		<p>充值说明：</p>
-      		<p>1、直接联系站长</p>
-      		<div className='my-coin-control-tabs-text'>
-      			<p>手机号：18181443335</p>
-      		</div>
       		<div className="my-coin-control-tabs-submit">
-      			<Link to='/home/mine/myCoinControl/recharged?type=cash'>下一步</Link>
+      			<Link to='/home/contactUs'>联系客服</Link>
       		</div>
       	</div>, },
     ];

@@ -289,6 +289,9 @@
 					font-size: 1.1rem;
 					float: right;
 					color: #999;
+					&.undone{
+						color: #f60;
+					}
 				}
 			}
 			dd{

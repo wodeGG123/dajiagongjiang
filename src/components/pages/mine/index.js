@@ -69,15 +69,12 @@ class MineIndex extends React.Component{
 				userInfo,
 				userInfoDetail,
 				isWorker:userInfoDetail.user_info.artisan_status==3?true:false
-			},function(){
-				console.log(this.state)
 			})
 		}
 
 		//获取订单总数
 		Order.list(userInfo.id,0,userInfo.token)
 		.then((data)=>{
-			console.log(data)
 			if(data){
 				this.setState({
 					orderNum:data.paging.total
