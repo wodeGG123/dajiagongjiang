@@ -35,6 +35,14 @@ Member.regist = function(mobile,password,verify){
     .then((data)=>{return data})
 
 }
+Member.isExist = function(mobile){
+
+    return Request.get(API.PHONE_EXIST,{
+        mobile
+    })
+    .then((data)=>{return data})
+
+}
 Member.mobileVerify = function(mobile,type){
 
     return Request.get(API.MOBILE_VERIFY,{

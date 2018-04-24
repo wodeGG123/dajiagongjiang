@@ -113,7 +113,7 @@ class Main extends React.Component{
 		    		</dl>
 
 
-		    		<dl onClick={()=>{this.context.router.push('/home/mine/myEvaluate')}}>
+		    		<dl onClick={()=>{this.context.router.push({pathname:'/home/mine/myEvaluate?type=1',state:{data:worker.evaluate_info}})}}>
 		    			<dt><span>好评率</span></dt>
 		    			<dd><span>{worker.praise_level}</span></dd>
 		    		</dl>

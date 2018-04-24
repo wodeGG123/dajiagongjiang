@@ -210,24 +210,34 @@ class RegistForm extends React.Component{
 	handleSendCode(){
 		this.props.form.validateFields(['mobile','check'],(error, value) => {			
 			if(!error){
-				let i = 60;
-				const _interval = setInterval(()=>{
-				this.setState({
-					buttonText:i--,
-					buttonDisabled:true,
-				})
-				if(i<0){
-					clearInterval(_interval);
-					this.setState({
-						buttonText:'发送',
-						buttonDisabled:false
-						})
-					}
-				},1000)
-				Member.mobileVerify(value.mobile,1)
+				Member.isExist(value.mobile)
 				.then((data)=>{
+					console.log(data);
+					if(!data.data.already){
+						let i = 60;
+						const _interval = setInterval(()=>{
+						this.setState({
+							buttonText:i--,
+							buttonDisabled:true,
+						})
+						if(i<0){
+							clearInterval(_interval);
+							this.setState({
+								buttonText:'发送',
+								buttonDisabled:false
+								})
+							}
+						},1000)
+						Member.mobileVerify(value.mobile,1)
+						.then((data)=>{
 
+						})
+					}else{
+						Toast.info('手机号已经存在！')
+					}
 				})
+
+				
 
 
 			}else{

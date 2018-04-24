@@ -27,6 +27,7 @@ let API = {
     WORKER_BUSY:'user/busy',
     WORKER_COLLOCATION:'user/hosting',
     QUESTION_SUBMIT:'user/questionnaire/1',
+    PHONE_EXIST:'user/already',
 }
 
 export default API

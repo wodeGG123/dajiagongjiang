@@ -53,29 +53,31 @@ class MyEvaluate extends React.Component{
 		}
 	}
 	componentWillMount() {
-			//初始化用户信息
-			var userInfo = this.context.store.getState().userInfo;
-			var userInfoDetail = this.context.store.getState().userInfoDetail;
-	
-			if(userInfo){
-	
-				this.setState({
-					userInfo,
-					userInfoDetail,
-					isWorker:userInfoDetail.user_info.artisan_status==3?true:false
-				})
-			}
+		console.log(this.props)
+		
+		//初始化用户信息
+		let userInfo = this.context.store.getState().userInfo;
+		let userInfoDetail = this.context.store.getState().userInfoDetail;
+
+		if(userInfo){
+			this.setState({
+				userInfo,
+				userInfoDetail,
+				isWorker:userInfoDetail.user_info.artisan_status==3?true:false
+			})
+		}
+		
+			
 	}
 	render(){
 		let evaluate = this.state.userInfoDetail.user_info.evaluate_info,
-		evaluateList = []
-		;
-		console.log(this.state)
+		evaluateList = [];
+		this.props.location.query.type == 1 ? evaluate = JSON.parse(this.props.location.state.data):null;
 		for(var key in evaluate){
 			evaluateList.push(evaluate[key])
 		}
 		return(<div className='my-evaluate'>
-			<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>我的评价</NavBar>
+			<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>{this.props.location.query.type == 0?'我':'工匠'}的评价</NavBar>
 			<div className='my-evaluate-content'>
 				{evaluateList.map((obj,index)=>{
 					return (<dl key={index}>

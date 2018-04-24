@@ -123,7 +123,7 @@ class OrderInfo extends React.Component{
 				<div>
 					<h3>客户信息</h3>
 					<p>姓名：{data.user_name}</p>
-					<p>联系电话：139***/{(data.status == 0 || data.status == 3)?data.spare_mobile.substr(0,3)+'***':data.spare_mobile}</p>
+					<p>联系电话：{(data.status == 0 || data.status == 3)?data.user_mobile.substr(0,3)+'***':data.user_mobile}/{(data.status == 0 || data.status == 3)?data.spare_mobile.substr(0,3)+'***':data.spare_mobile}</p>
 					<p>施工地址：{data.construction_address}</p>
 					{/* <p>施工项目：</p>
 					<p>

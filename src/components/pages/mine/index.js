@@ -128,7 +128,7 @@ class MineIndex extends React.Component{
 
 			    			<div>
 			    				<FontAwesome name='hand-peace-o' />
-			    				<span onClick={()=>{this.context.router.push('/home/mine/myEvaluate')}}>好评率：{this.state.userInfoDetail.praise_level}</span>
+			    				<span onClick={()=>{this.context.router.push('/home/mine/myEvaluate?type=0')}}>好评率：{this.state.userInfoDetail.praise_level}</span>
 			    			</div>
 
 		    		</div>}
