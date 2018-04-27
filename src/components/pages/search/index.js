@@ -7,7 +7,7 @@ import CheckBox from 'rootsrc/components/common/checkbox/index.js';
 import Common from 'rootsrc/request/common';
 import {WorkerBlock} from 'rootsrc/components/common/workerList/index.js';
 import Worker from '../../../request/worker';
-import address from 'rootstatics/json/sc.js';
+import address from 'rootstatics/json/areas.js';
 
 
 

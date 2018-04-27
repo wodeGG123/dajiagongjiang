@@ -43,7 +43,8 @@ class LoginForm extends React.Component{
 				Member.login(value.mobile,value.password)
 				.then((data)=>{
 					if(!data.state){
-						Toast.info(data.error.description)
+						Toast.info('手机号或密码错误！');
+						
 					}else{
 						Toast.info('登录成功！')
 						

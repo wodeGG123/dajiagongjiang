@@ -215,9 +215,14 @@ class OrderForm extends React.Component {
 		}
 	}
 	handleSubmit(){
+		let userInfo = store.getState().userInfo;
 		if(!store.getState().userInfo){
 			Toast.info('您还没登录！');
 			this.context.router.push('/user/login');
+			return false;
+		}
+		if(userInfo.id == this.props.workerId){
+			Toast.info('自己不能对自己下单！');
 			return false;
 		}
 		this.props.form.setFieldsValue({
@@ -227,7 +232,7 @@ class OrderForm extends React.Component {
 		})
 		this.props.form.validateFields((error,value)=>{
 			if(!error){
-				let userInfo = store.getState().userInfo
+				
 				let param = {
 					artisan_user_id : this.props.workerId,
 					construction_address : value.construction_address,

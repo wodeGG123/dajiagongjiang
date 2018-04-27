@@ -5,6 +5,7 @@ import {Link} from 'react-router'
 
 var FontAwesome = require('react-fontawesome');
 import { TabBar } from 'antd-mobile';
+import e from 'rootstatics/json/areas1.js';
 require('./style.scss');
 
 class Home extends React.Component{
@@ -16,7 +17,7 @@ class Home extends React.Component{
 	    };
 	}
   componentWillMount() {
-  
+    console.log(e);
   }
 	render(){
 		return(<div className='home-wrap'>

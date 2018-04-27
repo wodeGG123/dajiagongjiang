@@ -5,7 +5,7 @@ import { createForm } from 'rc-form';
 import Common from '../../../request/common';
 import Member from '../../../request/member';
 import {Link} from 'react-router'
-import address from 'rootstatics/json/sc.js'
+import address from 'rootstatics/json/areas.js'
 
 const alert = Modal.alert;
 const prompt = Modal.prompt;

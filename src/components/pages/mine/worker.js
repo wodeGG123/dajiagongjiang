@@ -9,7 +9,7 @@ import {Link} from 'react-router'
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
 import { createForm } from 'rc-form';
 import Common from '../../../request/common';
-import address from 'rootstatics/json/sc.js'
+import address from 'rootstatics/json/areas.js'
 import Member from '../../../request/member';
 import Worker from '../../../request/worker';
 import API from '../../../request/api';
@@ -155,7 +155,7 @@ class ApplyForWorkerForm extends React.Component{
 				artisan_work_year:this.state.year,
 				address:this.state.address.join('-'),
 				artisan_address:this.state.workAddress.join('-'),
-				artisan_offer:JSON.stringify(this.state.offers),
+				artisan_offer:this.state.offers,
 			  })
 			  //确定提交
 			  this.props.form.validateFields((error, value)=>{
@@ -163,6 +163,7 @@ class ApplyForWorkerForm extends React.Component{
 					console.log(value)
 					Member.realWorker({
 						...value,
+						artisan_offer:JSON.stringify(value.artisan_offer),
 						artisan_offer_type:'dd',
 						uid:userInfo.id,
 						token:userInfo.token,
@@ -271,20 +272,20 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>身份证<span>（需要上传身份证正反面）</span></p>
 		    		<input 
 						{...getFieldProps('id_photo',{
-							initialValue:this.state.oldData.id_photo.split(',')||[],
+							initialValue:this.state.oldData?this.state.oldData.id_photo.split(',')||[]:[],
 							rules:[
 								{required:true,type:'array',len:2}
 							]							
 						})}
 						type="hidden"/>
 					<ImagePickerExample 
-					data={
+					data={this.state.oldData?
 						this.state.oldData.id_photo.split(',').map((obj,index)=>{
 							return ({
 								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 							})
-						})}
+						}):[]}
 					setImg={(imgs)=>{this.props.form.setFieldsValue({id_photo:imgs})}} 
 					length={2} />
 		    	</div>
@@ -292,20 +293,20 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>项目展示<span>（您的项目展示）</span></p>
 					<input 
 						{...getFieldProps('artisan_project',{
-							initialValue:this.state.oldData.artisan_project.split(',')||[],
+							initialValue:this.state.oldData?this.state.oldData.artisan_project.split(',')||[]:[],
 							rules:[
 								{required:true,type:'array'}
 							]							
 						})}
 						type="hidden"/>
 					<ImagePickerExample 
-					data={
+					data={this.state.oldData?
 						this.state.oldData.artisan_project.split(',').map((obj,index)=>{
 							return ({
 								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 							})
-						})}
+						}):[]}
 					setImg={(imgs)=>{this.props.form.setFieldsValue({artisan_project:imgs})}} 
 					length={8} />
 		    	</div>
@@ -313,20 +314,20 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>资质证书<span>（您的获奖资质证书）</span></p>
 					<input 
 						{...getFieldProps('artisan_certificate',{
-							initialValue:this.state.oldData.artisan_certificate.split(',')||[],
+							initialValue:this.state.oldData?this.state.oldData.artisan_certificate.split(',')||[]:[],
 							rules:[
 								{required:true,type:'array'}
 							]							
 						})}
 						type="hidden"/>
 					<ImagePickerExample 
-					data={
+					data={this.state.oldData?
 						this.state.oldData.artisan_certificate.split(',').map((obj,index)=>{
 							return ({
 								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 							})
-						})}
+						}):[]}
 					setImg={(imgs)=>{this.props.form.setFieldsValue({artisan_certificate:imgs})}} 
 					length={8} />
 		    	</div>
@@ -337,7 +338,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<dt><span>姓名</span></dt>
 					<dd><input 
 					 {...getFieldProps('real_name',{
-						initialValue:this.state.oldData.real_name||'',
+						initialValue:this.state.oldData?this.state.oldData.real_name||'':'',
 						rules:[{required:true}]							
 						})}	
 					type="text" placeholder='请输入姓名'/></dd>
@@ -346,7 +347,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<dt><span>身份证号</span></dt>
 					<dd><input 
 					{...getFieldProps('id_card',{
-						initialValue:this.state.oldData.id_card||'',
+						initialValue:this.state.oldData?this.state.oldData.id_card||'':'',
 						rules:[{required:true}]							
 						})}	
 					type="text" placeholder='请输入身份证号'/></dd>
@@ -487,8 +488,8 @@ class ApplyForWorkerForm extends React.Component{
 		    		<dt><span>项目报价</span>
 					<input 
 							{...getFieldProps('artisan_offer',{
-								initialValue:'',
-								rules:[{required:true}]							
+								initialValue:[],
+								rules:[{required:true,type:'array',min:1,max:3}]							
 							})}	
 							type="hidden"/>
 					</dt>
@@ -652,7 +653,7 @@ class MakeOffersForm extends React.Component{
 						<input
 							{...getFieldProps('project',{
 								rules:[
-									{required:true,type:'array',max:5}
+									{required:true,type:'array',max:5,min:1}
 								]
 							})}
 							type="hidden"/>		
@@ -728,7 +729,7 @@ class ProjectForm extends React.Component{
 			{...getFieldProps('price',{
 				initialValue:1,
 				rules:[
-					{required:true,type:'number'}
+					{required:true}
 				]
 			})}
 			onClick={(e)=>{e.target.select()}}
