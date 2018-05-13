@@ -5,17 +5,32 @@ require('./style.scss')
 class CheckBox extends React.Component{
 	constructor(props){
 		super(props);
-		this.state ={
-			data:[
+		let data = [];
+		switch(parseInt(this.props.type)){
+			case 7:data = [
 				{name:'全部',checked:true},
 				{name:'环保',checked:false},
 				{name:'材料',checked:false},
 				{name:'工艺',checked:false},
 				{name:'设计',checked:false},
+			];break;
+			case 8:data = [
+				{name:'全部',checked:true},
+				{name:'市场数据',checked:false},
+			];break;
+			case 24:data = [
+				{name:'全部',checked:true},
 				{name:'明星工匠',checked:false},
 				{name:'经验交流',checked:false},
 				{name:'鉴赏',checked:false}, 
-			],
+			];break;
+			case 23:data = [
+				{name:'全部',checked:true},
+				{name:'资讯',checked:false},
+			];break;
+		}
+		this.state ={
+			data,
 			checkId:0
 		}
 	}

@@ -67,13 +67,13 @@ class ArticleList extends React.Component{
 	componentWillMount(){
 		this.getData({
 			page:1,
+			perPage:20,
 		},true)
 	}
 	getData(params,init){
 		params.menu_id = this.props.params.type;
 		Article.list(params)
 		.then((data)=>{
-			console.log(data)
 			var ds = this.state.data.concat(data.data.meta);
 			if(init){
 				ds = data.data.meta;
@@ -138,7 +138,14 @@ class ArticleList extends React.Component{
 
 		}
 		function getListHeight(){
-			 return document.documentElement.clientHeight - 261 + 'px'
+			let height = 0;
+			switch(parseInt(this.props.params.type)){
+				case 7:height = document.documentElement.clientHeight - 230 + 'px';break;
+				case 8:height = '市场数据';break;
+				case 24:height = document.documentElement.clientHeight - 230 + 'px';break;
+				case 23:height = document.documentElement.clientHeight - 198 + 'px';break;
+			}
+			return height;
 			
 		}
 		return(<div className='article-list-wrap'>
@@ -155,13 +162,13 @@ class ArticleList extends React.Component{
 					maxLength={16} />
 				</div>
 				<div>
-					<CheckBox handleCheck={(text)=>{this.handleCheck(text)}} />
+					<CheckBox type={this.props.params.type} handleCheck={(text)=>{this.handleCheck(text)}} />
 				</div>
 			</div>
 			<div className="article-list">
 				<ListView
 					ref={el => this.lv = el}
-					initialListSize={10}
+					initialListSize={20}
 					dataSource={this.state.dataSource}
 					renderRow={(rowData)=><dl onClick={()=>{this.handleClick(rowData)}}>
 							<dt>{rowData.title}</dt>
@@ -169,7 +176,7 @@ class ArticleList extends React.Component{
 						</dl>
 						}
 					style={{
-						height: getListHeight(),
+						height: getListHeight.bind(this)(),
 						overflow: 'auto',
 						}}
 					onScroll={() => { console.log('scroll'); }}

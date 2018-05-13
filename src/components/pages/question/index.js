@@ -225,6 +225,7 @@ class ArticleList extends React.Component{
 	componentWillMount(){
 		this.getData({
 			page:1,
+			perPage:20,
 		},true)
 	}
 	getData(params,init){
@@ -307,12 +308,12 @@ class ArticleList extends React.Component{
 				maxLength={16} />
 			</div>
 		    <div>
-		    	<CheckBox handleCheck={(text)=>{this.handleCheck(text)}} />
+		    	<CheckBox type={8} handleCheck={(text)=>{this.handleCheck(text)}} />
 		    </div>
 			<div className="article-list">
 				<ListView
 					ref={el => this.lv = el}
-					initialListSize={10}
+					initialListSize={20}
 					dataSource={this.state.dataSource}
 					renderRow={(rowData)=><dl onClick={()=>{this.handleClick(rowData)}}>
 							<dt>{rowData.title}</dt>
@@ -320,7 +321,7 @@ class ArticleList extends React.Component{
 						</dl>
 						}
 					style={{
-						height: document.documentElement.clientHeight - 271 + 'px',
+						height: document.documentElement.clientHeight - 239 + 'px',
 						overflow: 'auto',
 						}}
 					pageSize={1}

@@ -404,7 +404,7 @@ class OrderEstimate2 extends React.Component{
 								<ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+workerInfo.avatar} />
 							</div>
 							<div>
-								<h4>{workerInfo.name}</h4>
+						  		<h4>{workerInfo.name}</h4>
 								<p>{workerInfo.artisan_level}</p>
 							</div>
 						</div>

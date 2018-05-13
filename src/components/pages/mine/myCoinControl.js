@@ -16,8 +16,6 @@ class MyCoinControl extends React.Component{
 		}
 	}
 	componentWillMount() {
-		console.log(this.props.params.do)
-
 		switch(this.props.params.do){
 			case 'recharge': this.setState({title:'积分充值',content:<Recharge />});break;
 			case 'recharged': this.setState({title:'填写单号',content:<Recharged />});break;
@@ -184,7 +182,11 @@ class Wd extends React.Component {
 	}
 	handleSubmit(){
 		if(this.state.userInfo.integral < this.state.num){
-			Toast.info('积分不足')
+			Toast.info('积分不足！')
+			return false
+		}
+		if(this.state.num==''){
+			Toast.info('请输入积分！')
 			return false
 		}
 		Coin.getCash({
@@ -194,10 +196,11 @@ class Wd extends React.Component {
 			uid:this.state.userInfo.id,
 		})
 		.then((data)=>{
-			console.log(data)
 			if(data){
-				Toast.info('提交成功')
+				Toast.info('提交成功！')
 				this.context.router.replace('/home/mine/myCoin')
+			}else{
+				Toast.info('密码错误！')
 			}
 		})
 	}
@@ -216,7 +219,7 @@ class Wd extends React.Component {
 				<div className='Wd-content'>
 					<h4>提现信息</h4>
 					<Input getVal={(v)=>{this.setState({num:v})}} title='提现金额' placeholder='输入您要提现的金额' />
-					<Input getVal={(v)=>{this.setState({password:v})}} title='密码' placeholder='输入您的密码' />
+					<Input type='password' getVal={(v)=>{this.setState({password:v})}} title='密码' placeholder='输入您的密码' />
 					<p>提示：完成之后24小时内系统会自动将积分转入您的账户。</p>
 					<div className='complete'>
 						<Button onClick={()=>{this.handleSubmit()}} type='primary'>提交</Button>
@@ -240,7 +243,11 @@ class Give extends React.Component {
 	}
 	handleSubmit(){
 		if(this.state.userInfo.integral < this.state.num){
-			Toast.info('积分不足')
+			Toast.info('积分不足！')
+			return false
+		}
+		if(this.state.num == ''){
+			Toast.info('请输入积分！')
 			return false
 		}
 		Coin.give({
@@ -251,10 +258,11 @@ class Give extends React.Component {
 			uid:this.state.userInfo.id,
 		})
 		.then((data)=>{
-			console.log(data)
 			if(data){
-				Toast.info('提交成功')
+				Toast.info('提交成功！')
 				this.context.router.replace('/home/mine/myCoin')
+			}else{
+				Toast.info('请输入正确信息！')
 			}
 		})
 	}
@@ -274,7 +282,7 @@ class Give extends React.Component {
 					<h4>转账信息</h4>
 					<Input getVal={(v)=>{this.setState({mobile:v})}} title='注册电话' placeholder='输入接收积分人的注册电话号' />
 					<Input getVal={(v)=>{this.setState({num:v})}} title='转账积分' placeholder='输入您转账的积分' />
-					<Input getVal={(v)=>{this.setState({password:v})}} title='密码' placeholder='输入您的密码' />
+					<Input type='password' getVal={(v)=>{this.setState({password:v})}} title='密码' placeholder='输入您的密码' />
 					<p>提示：完成之后24小时内系统会自动将积分转入您的账户。</p>
 					<div className='complete'>
 						<Button onClick={()=>{this.handleSubmit()}} type='primary'>提交</Button>
@@ -306,7 +314,7 @@ class Input extends React.Component {
       <div>
         <List>
           <InputItem
-            type="text"
+            type={this.props.type||'text'}
             placeholder={this.props.placeholder}
             error={this.state.hasError}
             onErrorClick={this.onErrorClick}

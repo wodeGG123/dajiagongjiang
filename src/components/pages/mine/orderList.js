@@ -83,7 +83,7 @@ class OrderList extends React.Component{
 	}
 		return(<div className='order-list'>
 			<NavBar icon={<Icon type="left" />} 
-			// rightContent={<Link to='/home/order/slefMake'>添加订单</Link>} 
+			rightContent={<Link to='/home/order/slefMake'>自主下单</Link>} 
 			mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
 			  <Tabs 
 			  tabs={tabs}

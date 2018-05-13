@@ -26,6 +26,8 @@ class MyCoin extends React.Component{
 	componentWillMount(){
 		this.getData({
 			page:1,
+			uid:this.state.userInfo.id,
+			token:this.state.userInfo.token,
 		},true)
 	}
 	getData(params,init){
@@ -75,6 +77,7 @@ class MyCoin extends React.Component{
 						<span>日期</span>
 						<span>交易方式</span>
 						<span>数量</span>
+						<span>说明</span>
 					</div>
 					<ul>
 						<ListView
@@ -85,6 +88,7 @@ class MyCoin extends React.Component{
 							<span>{rowData.created_at}</span>
 							<span>{rowData.type}</span>
 							<span className='my-coin-record-minus'>{rowData.num}</span>
+							<span>{rowData.remark}</span>
 						</li>
 							}
 						style={{

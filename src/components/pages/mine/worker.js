@@ -593,7 +593,7 @@ class MakeOffersForm extends React.Component{
 				return false;
 			}
 		})
-
+		console.log(projects);
 		this.props.form.setFieldsValue({
 			project:projects
 		})
@@ -635,6 +635,17 @@ class MakeOffersForm extends React.Component{
 								]
 							})}
 							type="text" placeholder='请输报价方式名称'/>
+						</dd>
+			    	</dl>
+					<dl>
+			    		<dt><span>客户需提供</span></dt>
+			    		<dd>
+							<input
+							{...getFieldProps('supply',{
+								initialValue:'',
+								rules:[]
+							})}
+							type="text" placeholder='请输客户需提供的东西'/>
 						</dd>
 			    	</dl>
 					<dl>
