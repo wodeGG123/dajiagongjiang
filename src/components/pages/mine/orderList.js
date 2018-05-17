@@ -40,13 +40,15 @@ class OrderList extends React.Component{
 			if(data.state){
 				//如果不是新加载的数据，则数组连起来
 				var ds = this.state.data.concat(data.data.meta);
+				var page = parseInt(data.paging.current_page) + 1;
 				if(init){
 					ds = data.data.meta;
+					page = 1
 				}
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(ds),
 					data:ds,
-					page:parseInt(data.paging.current_page) + 1
+					page
 				})
 				
 			}
