@@ -4,6 +4,7 @@ import { NavBar, Icon, WingBlank, Button, Modal, Toast} from 'antd-mobile';
 import {Link} from 'react-router'
 import Order from '../../../request/order';
 import Worker from '../../../request/worker';
+import Coin from '../../../request/coin';
 
 class OrderInfo extends React.Component{
 	constructor(props){
@@ -30,6 +31,46 @@ class OrderInfo extends React.Component{
 		})
 	}
 	controlOrder(c){
+		
+		if(c == 1){
+			//接单
+			console.log(this.state)
+			// this.state.userInfo.integral
+			let price = parseInt(parseInt(this.state.data.rate_price)*0.01);
+			//积分不足提示
+			if(parseInt(this.state.userInfo.integral) < price){
+				Modal.alert('提示','您的积分不够'+ price +'，请充值！', [
+					{ text: '取消', onPress: () => console.log('cancel') },
+					{ text: '确认', onPress: () => {} },
+				  ])
+				  return false;
+			}
+			//扣除积分接单
+			Modal.alert('接单', '扣除'+price+'积分接单？', [
+				{ text: '取消', onPress: () => console.log('cancel') },
+				{ text: '确认', onPress: () => {
+					Order.set(this.state.data.order_id,{
+						status:c,
+						uid:this.state.userInfo.id,
+						token:this.state.userInfo.token,
+					}).then((data)=>{
+						if(data.state){
+							Toast.info('操作成功！');
+							//扣除积分
+							Coin.set({
+								num:-price,
+								remark:'下单扣除'+ price +'积分',
+								token:this.state.userInfo.token,
+								uid:this.state.userInfo.id,
+							}).then((data)=>{console.log(data)})
+							this.context.router.goBack();
+						}
+					});
+				} },
+			  ])
+			return false;
+		}
+
 		Order.set(this.state.data.order_id,{
 			status:c,
 			uid:this.state.userInfo.id,

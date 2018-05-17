@@ -2,13 +2,10 @@ import Request from './index.js'
 import API from './api.js'
 let Order = new Object()
 
-Order.list = function(id,type,token){
+Order.list = function(param){
 
-    return Request.get('user/'+ id +'/order',{
-        uid:id,
-        type,
-        token,
-    })
+
+    return Request.get('user/'+ param.uid +'/order',param)
     .then((data)=>{      
         if(data.state){
             return data;

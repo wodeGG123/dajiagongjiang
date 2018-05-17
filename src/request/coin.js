@@ -41,6 +41,19 @@ Coin.give = function(param){
     })
 
 }
+Coin.set = function(param){
+    param._method = 'PUT';
+    return Request.post(API.COIN_LIST,param)
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+
+}
 Coin.list = function(param){
 
     return Request.get(API.COIN_LIST,param)

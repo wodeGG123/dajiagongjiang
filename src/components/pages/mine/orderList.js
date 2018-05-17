@@ -13,9 +13,11 @@ class OrderList extends React.Component{
 	constructor(props){
 		super(props);
 		var userInfo = store.getState().userInfo;
+		var userInfoDetail = store.getState().userInfoDetail;
 		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
 		this.state = {
 			userInfo,
+			userInfoDetail,
 			data:[],
 			dataSource:ds.cloneWithRows([]),
 			dataType:1,
@@ -23,10 +25,16 @@ class OrderList extends React.Component{
 		}
 	}
 	componentWillMount(){
-		this.getData({},true)
+		this.getData({},true);
+		console.log(this.state)
 	}
 	getData(param,init){
-		Order.list(this.state.userInfo.id,this.state.dataType,this.state.userInfo.token)
+		Order.list({
+			uid:this.state.userInfo.id,
+			type:this.state.dataType,
+			token:this.state.userInfo.token,
+			page:this.state.page,
+		})
 		.then((data)=>{
 			console.log(data);
 			if(data.state){
@@ -38,14 +46,14 @@ class OrderList extends React.Component{
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(ds),
 					data:ds,
-					page:parseInt(data.paging.page) + 1
+					page:parseInt(data.paging.current_page) + 1
 				})
 				
 			}
 		})
 	}
 	onEndReached(){
-
+		this.getData({},false)
 	}
 	handleClick(data){
 		// store.dispatch({
@@ -56,7 +64,6 @@ class OrderList extends React.Component{
 		this.context.router.push('home/mine/orderInfo');
 	}
 	tabChange(index){
-		console.log(index)
 		this.setState({
 			dataType:index+1,
 		},()=>{
@@ -68,6 +75,7 @@ class OrderList extends React.Component{
 	  { title: '用户订单' },
 	  { title: '接活订单' },
 	];
+	const {userInfoDetail} = this.state;
 	function getStatus(status){
 		let text = ''
 		switch (parseInt(status)) {
@@ -83,7 +91,7 @@ class OrderList extends React.Component{
 	}
 		return(<div className='order-list'>
 			<NavBar icon={<Icon type="left" />} 
-			rightContent={<Link to='/home/order/slefMake'>自主下单</Link>} 
+			rightContent={userInfoDetail.user_info.status == 3?<Link to='/home/order/slefMake'>自主下单</Link>:null} 
 			mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
 			  <Tabs 
 			  tabs={tabs}
@@ -131,7 +139,7 @@ class OrderList extends React.Component{
 					pageSize={1}
 					onScroll={() => { console.log('scroll'); }}
 					scrollEventThrottle={50}
-					onEndReached={this.onEndReached}
+					onEndReached={this.onEndReached.bind(this)}
 					onEndReachedThreshold={10}
 				/>
 			</div>

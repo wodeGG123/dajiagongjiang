@@ -138,7 +138,7 @@ class MakeSelfOrder extends React.Component{
 		data.user_info.artisan_offer = JSON.parse(data.user_info.artisan_offer);
 		if(data){
 			this.setState({
-				data:data.user_info
+				data:data
 			})
 		}
 	}
@@ -170,8 +170,10 @@ class MakeSelfOrder extends React.Component{
 	}
 	render(){
 		const worker = this.state.data;
-		const offer = worker.artisan_offer;
+		console.log(worker.avatar);
+		const offer = worker.user_info.artisan_offer;
 		const tabs = offer.map((obj,index)=> {return ({title:obj.name})} )
+		console.log(worker)
 		return(<div className='make-order wrap-box'>
 			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {this.context.router.replace('/home/mine/orderList')}}>自主下单</NavBar>	
 		    <div className='make-order-top'>
@@ -179,7 +181,7 @@ class MakeSelfOrder extends React.Component{
                    		<ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+worker.avatar}/>	
 		    		</div>
 		    		<div className='make-order-text'>
-		    			<h3>{worker.real_name}</h3>
+		    			<h3>{worker.user_info.real_name}</h3>
 		    			{/* <p>(高级木工)</p> */}
 		    		</div>
 		    </div>
@@ -536,6 +538,7 @@ class OrderSelfForm extends React.Component {
 			<div className='user-form'>
 				<h5>下单信息：</h5>
 				<div className="remarks">
+					<p>客户需提供：{offer.supply||'无'}</p>
 					<p>实际收益以用户双方实际结算为准</p>
 				</div>
 				{/* <div className='user-form-box'>

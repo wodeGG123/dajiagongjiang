@@ -73,7 +73,11 @@ class MineIndex extends React.Component{
 		}
 
 		//获取订单总数
-		Order.list(userInfo.id,0,userInfo.token)
+		Order.list({
+			uid:userInfo.id,
+			type:0,
+			token:userInfo.token,
+		})
 		.then((data)=>{
 			if(data){
 				this.setState({
@@ -180,8 +184,9 @@ class MineIndex extends React.Component{
 		    	{
 					this.state.userInfoDetail?
 					<Button type="warning"  onClick={()=>{this.handleEXIT()}}>退出登录</Button>:
-					<div onClick={()=>{this.context.router.push('/user/login')}} className='user-unlogin-wrap'>
-						您还没登录
+					<div className='user-unlogin-wrap'>
+						<h4>您还没<span onClick={()=>{this.context.router.push('/user/login')}} >登录</span></h4>
+						<p onClick={()=>{this.context.router.push('/home/index')}} >返回首页</p>
 					</div>
 				}
 		    </div>

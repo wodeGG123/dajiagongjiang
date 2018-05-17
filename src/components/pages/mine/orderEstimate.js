@@ -94,6 +94,9 @@ class OrderEstimate extends React.Component{
 					{name:'爱护现场',score:1},
 					{name:'上下衔接',score:1},
 					{name:'认真负责',score:1},
+					{name:'全力保障',score:1},
+					{name:'货真价实',score:1},
+					{name:'值得信赖',score:1},
 				]
 	    };
 	}
@@ -156,15 +159,15 @@ class OrderEstimate extends React.Component{
 				},
 				"h": {
 					"name": "全力保障",
-					"score": 10
+					"score": this.state.estimate[7].score * 5
 				},
 				"i": {
 					"name": "货真价实",
-					"score": 10
+					"score": this.state.estimate[8].score * 5
 				},
 				"j": {
 					"name": "值得信赖",
-					"score": 10
+					"score": this.state.estimate[9].score * 5
 				}
 			}
 		}
