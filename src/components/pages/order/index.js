@@ -7,6 +7,7 @@ import ImgInit from 'rootsrc/components/common/imgInit/index.js'
 import _ from 'lodash'
 import OrderRQ from '../../../request/order';
 import API from '../../../request/api';
+import member from '../../../request/member';
 
 var FontAwesome = require('react-fontawesome');
 require('./style.scss')
@@ -170,10 +171,8 @@ class MakeSelfOrder extends React.Component{
 	}
 	render(){
 		const worker = this.state.data;
-		console.log(worker.avatar);
 		const offer = worker.user_info.artisan_offer;
 		const tabs = offer.map((obj,index)=> {return ({title:obj.name})} )
-		console.log(worker)
 		return(<div className='make-order wrap-box'>
 			<NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => {this.context.router.replace('/home/mine/orderList')}}>自主下单</NavBar>	
 		    <div className='make-order-top'>
@@ -434,7 +433,7 @@ class OrderSelfForm extends React.Component {
 				let param = {
 					artisan_user_id : this.props.workerId,
 					construction_address : value.construction_address,
-					is_manually : 0,
+					is_manually : 1,
 					price_type : value.price_type,
 					rate_price : value.rate_price,
 					selected_price : 0,
@@ -444,14 +443,26 @@ class OrderSelfForm extends React.Component {
 					uid : userInfo.id,
 					user_id : userInfo.id,
 				}
-				OrderRQ.make(param)
+				member.isExist(value.spare_mobile)
 				.then((data)=>{
-					console.log(data)
-					if(data){
-						Toast.info('提交成功！');
-						this.context.router.replace('/home/mine/orderList');
+					if(data.state){
+						param.uid = data.data.uid;
+						param.user_id = data.data.uid;
+
+						OrderRQ.make(param)
+						.then((data)=>{
+							console.log(data)
+							if(data){
+								Toast.info('提交成功！');
+								this.context.router.replace('/home/mine/orderList');
+							}
+						})
+					}else{
+						Toast.info('该用户不存在！');
 					}
 				})
+
+				
 
 			}else{
 				Toast.info('请完善信息！')

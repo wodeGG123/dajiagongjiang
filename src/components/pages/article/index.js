@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { NavBar, Icon, SearchBar, ListView } from 'antd-mobile';
+import { NavBar, Icon, SearchBar, ListView,Modal } from 'antd-mobile';
 import {Link} from 'react-router'
 import CheckBox from 'rootsrc/components/common/checkbox/index.js'
 import Article from '../../../request/article';
+import Coin from '../../../request/coin';
 var FontAwesome = require('react-fontawesome');
 let _html = '<p>暂无内容</p>'
 require('./style.scss');
@@ -21,11 +22,70 @@ class ArticleInfo extends React.Component{
 		}
 	}
 	componentWillMount(){
-		let data = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
-		if(data){
+		
+		let articleData = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
+		let userInfo = store.getState().userInfo;
+		if(this.isPaid(articleData.id)){
 			this.setState({
-				data
+				data:articleData
+			});
+			return
+		}
+		//判断是否是收费文章
+		if(articleData.is_pay){
+			Modal.alert('付费阅读', '此文章为付费文章，扣取2积分阅读？', [
+				{ text: '取消', onPress: () => console.log('cancel') },
+				{
+				  text: '确认',
+				  onPress: () =>{
+					//积分不足提示
+					if(parseInt(userInfo.integral) < 2){
+						Modal.alert('提示','您的积分不够，请充值！', [
+							{ text: '取消', onPress: () => console.log('cancel') },
+							{ text: '确认', onPress: () => {
+								this.props.history.replace('/home/mine/myCoinControl/recharge')
+							} },
+						  ])
+						  return false;
+					}else{
+						//扣除积分
+						Coin.set({
+							num:-2,
+							remark:'阅读扣除2积分',
+							token:userInfo.token,
+							uid:userInfo.id,
+						}).then((data)=>{
+							if(data.state){
+								this.setState({
+									data:articleData
+								});
+								this.savePaidArticle(articleData.id);
+							}
+						})
+					}
+				  },
+				},
+			  ])
+		}
+	}
+	savePaidArticle(articleId){
+		let paidArticle = '';
+		if(localStorage.getItem('paidArticle')){
+			paidArticle = localStorage.getItem('paidArticle');
+		}
+		paidArticle += articleId + ',';
+		localStorage.setItem('paidArticle',paidArticle);
+	}
+	isPaid(articleId){
+		if(localStorage.getItem('paidArticle')){
+			let tag = false;
+			let	paidIds = localStorage.getItem('paidArticle').split(',');
+			paidIds.forEach((v)=>{
+				if(v==articleId)tag=true
 			})
+			return tag;
+		}else{
+			return false
 		}
 	}
 	render(){
@@ -45,6 +105,9 @@ class ArticleInfo extends React.Component{
 ArticleInfo.contextTypes = {
 	router:PropTypes.object,
 }
+
+
+
 class ArticleList extends React.Component{
 	static contextTypes = {
 		router:React.PropTypes.object

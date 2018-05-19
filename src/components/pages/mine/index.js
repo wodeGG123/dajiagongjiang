@@ -30,6 +30,7 @@ class MineIndex extends React.Component{
 			userInfo:false,
 			userInfoDetail:false,
 			orderNum:0,
+			dealingNum:0,
 			isWorker:false,
 		}
 	}
@@ -82,6 +83,20 @@ class MineIndex extends React.Component{
 			if(data){
 				this.setState({
 					orderNum:data.paging.total
+				})
+			}
+		})
+		//获取待处理订单数
+		Order.list({
+			status:'0,1,2,5',
+			uid:userInfo.id,
+			type:0,
+			token:userInfo.token,
+		})
+		.then((data)=>{
+			if(data){
+				this.setState({
+					dealingNum:data.paging.total
 				})
 			}
 		})
@@ -148,7 +163,7 @@ class MineIndex extends React.Component{
 		    	</Link> */}
 		    	<Link to='/home/mine/orderList'>
 		    		<dl>
-			    		<dt><FontAwesome name='book' /><span>我的订单</span><font>({this.state.orderNum})</font></dt>
+			    		<dt><FontAwesome name='book' /><span>我的订单</span><font>(<b style={{color:'#f60'}}>{this.state.dealingNum}</b>/{this.state.orderNum})</font></dt>
 			    		<dd><FontAwesome name='angle-right' /></dd>
 		    		</dl>
 		    	</Link>

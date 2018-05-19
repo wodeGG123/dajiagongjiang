@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavBar, Icon, WingBlank, Tabs, ListView} from 'antd-mobile';
+import { NavBar, Icon, WingBlank, Tabs, ListView, Badge} from 'antd-mobile';
 import {Link} from 'react-router'
 import Order from '../../../request/order';
 import './style.scss'
@@ -22,11 +22,28 @@ class OrderList extends React.Component{
 			dataSource:ds.cloneWithRows([]),
 			dataType:1,
 			page:1,
+			dealingNum:0,
 		}
 	}
 	componentWillMount(){
+		let userInfo = this.state.userInfo;
 		this.getData({},true);
+
 		console.log(this.state)
+			//获取待处理订单数
+			Order.list({
+				status:'0,1,2,5',
+				uid:userInfo.id,
+				type:0,
+				token:userInfo.token,
+			})
+			.then((data)=>{
+				if(data){
+					this.setState({
+						dealingNum:data.paging.total
+					})
+				}
+			})
 	}
 	getData(param,init){
 		Order.list({
@@ -74,7 +91,7 @@ class OrderList extends React.Component{
 	}
 	render(){
 		const tabs = [
-	  { title: '用户订单' },
+	  { title: <Badge text={this.state.dealingNum}>用户订单</Badge> },
 	  { title: '接活订单' },
 	];
 	const {userInfoDetail} = this.state;
