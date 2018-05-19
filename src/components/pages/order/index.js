@@ -448,7 +448,10 @@ class OrderSelfForm extends React.Component {
 					if(data.state){
 						param.uid = data.data.uid;
 						param.user_id = data.data.uid;
-
+						if(param.artisan_user_id == param.uid){
+							Toast.info('不能给自己下单！');
+							return
+						}
 						OrderRQ.make(param)
 						.then((data)=>{
 							console.log(data)
