@@ -66,6 +66,10 @@ class ArticleInfo extends React.Component{
 				  },
 				},
 			  ])
+		}else{
+			this.setState({
+				data:articleData
+			});
 		}
 	}
 	savePaidArticle(articleId){
