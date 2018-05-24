@@ -56,7 +56,7 @@ class ShowOrderEstimate extends React.Component{
 							<ImgInit src={require('./img/redbag.png')} />
 						</div>
 						<div className='order-estimate2-text'>
-							<h4>恭喜您，您得到<span>2积分</span></h4>
+							<h4>恭喜您，您得到<span>1积分</span></h4>
 							<p>感谢您对{this.props.location.state.worker}做出的真实评价，我们将竭力为您提供更好的工匠资源</p>
 							<h5>此次评价得分为：<span>{this.props.location.query.score}分</span></h5>
 						</div>
@@ -396,11 +396,21 @@ class OrderEstimate2 extends React.Component{
 				}).then((data)=>{
 					if(data.state){
 						Toast.info('评价成功！');
-						this.context.router.replace({
-							pathname:'/home/mine/orderEstimate/3',
-							query:{score:parseInt(score*5)},
-							state:{worker:this.state.workerInfo.real_name}
-						});
+
+						//添加积分
+						Coin.set({
+							num:1,
+							remark:'评价增加1积分',
+							token:this.state.userInfo.token,
+							uid:this.state.userInfo.id,
+						}).then((data)=>{
+							this.context.router.replace({
+								pathname:'/home/mine/orderEstimate/3',
+								query:{score:parseInt(score*5)},
+								state:{worker:this.state.workerInfo.real_name}
+							});
+						})
+						
 					}
 				})
 			}

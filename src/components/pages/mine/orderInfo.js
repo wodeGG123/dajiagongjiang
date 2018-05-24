@@ -125,11 +125,13 @@ class OrderInfo extends React.Component{
 			}
 			return o;
 		}
+		console.log(data);
 		return(<div className='order-info'>
 			<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>订单详情</NavBar>
 			<div className='order-content'>
 				<h3>订单号：{data.order_id}<i>{getStatus(data.status)}</i></h3>
 				<p>发起日期：{data.created_at}</p>
+				<p>最后操作日期：{data.updated_at}</p>
 				<p>价格：<font>{data.rate_price}元</font></p>
 				<div className='price-part'>
 						<table>

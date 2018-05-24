@@ -36,6 +36,7 @@ import Index from 'rootsrc/components/pages/index/index.js'
 import Search from 'rootsrc/components/pages/search/index.js'
 import ContactUs from 'rootsrc/components/pages/contactUs/index.js'
 
+import member from '../request/member'
 
 class App extends React.Component{
 	static contextTypes = {
@@ -68,6 +69,15 @@ class App extends React.Component{
 class MyRouter extends React.Component{
 	constructor(props){
 		super(props)	
+	}
+	componentWillMount(){
+		if(localStorage.getItem('userInfo')){
+			let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+			setInterval(()=>{
+				member.info(userInfo.id,userInfo.token).then((data)=>{
+				})
+			},5000)
+		}
 	}
 	render(){
 		return(<Router history={hashHistory}>

@@ -41,7 +41,7 @@ class MyCoin extends React.Component{
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(ds),
 					data:ds,
-					page:parseInt(data.data.paging.page) + 1
+					page:parseInt(data.data.paging.current_page) + 1
 				})
 			}
 		})

@@ -23,24 +23,37 @@ class OrderList extends React.Component{
 			dataType:1,
 			page:1,
 			dealingNum:0,
+			dealingNum2:0,
 		}
 	}
 	componentWillMount(){
 		let userInfo = this.state.userInfo;
 		this.getData({},true);
-
-		console.log(this.state)
-			//获取待处理订单数
+			//获取待处理订单数1
 			Order.list({
 				status:'0,1,2,5',
 				uid:userInfo.id,
-				type:0,
+				type:1,
 				token:userInfo.token,
 			})
 			.then((data)=>{
 				if(data){
 					this.setState({
 						dealingNum:data.paging.total
+					})
+				}
+			})
+			//获取待处理订单数2
+			Order.list({
+				status:'0,1,2,5',
+				uid:userInfo.id,
+				type:2,
+				token:userInfo.token,
+			})
+			.then((data)=>{
+				if(data){
+					this.setState({
+						dealingNum2:data.paging.total
 					})
 				}
 			})
@@ -53,7 +66,6 @@ class OrderList extends React.Component{
 			page:this.state.page,
 		})
 		.then((data)=>{
-			console.log(data);
 			if(data.state){
 				//如果不是新加载的数据，则数组连起来
 				var ds = this.state.data.concat(data.data.meta);
@@ -65,7 +77,7 @@ class OrderList extends React.Component{
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(ds),
 					data:ds,
-					page
+					page:page+1
 				})
 				
 			}
@@ -86,13 +98,18 @@ class OrderList extends React.Component{
 		this.setState({
 			dataType:index+1,
 		},()=>{
-			this.getData({},true)
+			this.setState({
+				page:1
+			},()=>{
+				this.getData({},true)
+			})
+			
 		})
 	}
 	render(){
 		const tabs = [
 	  { title: <Badge text={this.state.dealingNum}>用户订单</Badge> },
-	  { title: '接活订单' },
+	  { title: <Badge text={this.state.dealingNum2}>接活订单</Badge> },
 	];
 	const {userInfoDetail} = this.state;
 	function getStatus(status){
@@ -156,7 +173,6 @@ class OrderList extends React.Component{
 						overflow: 'auto',
 						}}
 					pageSize={1}
-					onScroll={() => { console.log('scroll'); }}
 					scrollEventThrottle={50}
 					onEndReached={this.onEndReached.bind(this)}
 					onEndReachedThreshold={10}

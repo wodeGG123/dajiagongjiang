@@ -32,6 +32,7 @@ class MineIndex extends React.Component{
 			orderNum:0,
 			dealingNum:0,
 			isWorker:false,
+			unSubscribe:()=>{}
 		}
 	}
 	handleEXIT(){		
@@ -60,18 +61,30 @@ class MineIndex extends React.Component{
 	    ])
 	}
 	componentWillMount() {
-		//初始化用户信息
+		//初始化信息
 		var userInfo = this.context.store.getState().userInfo;
 		var userInfoDetail = this.context.store.getState().userInfoDetail;
-
 		if(userInfo){
-
 			this.setState({
 				userInfo,
 				userInfoDetail,
-				isWorker:userInfoDetail.user_info.artisan_status==3?true:false
+				isWorker:userInfoDetail.user_info.artisan_status==3?true:false,
 			})
 		}
+		//定时更新信息
+		let unSubscribe = store.subscribe(()=>{
+			userInfo = this.context.store.getState().userInfo;
+			userInfoDetail = this.context.store.getState().userInfoDetail;
+			if(userInfo){
+				this.setState({
+					userInfo,
+					userInfoDetail,
+					unSubscribe
+				})
+			}
+		})
+		
+
 
 		//获取订单总数
 		Order.list({
@@ -101,6 +114,9 @@ class MineIndex extends React.Component{
 			}
 		})
 	}
+	componentWillUnmount(){
+		this.state.unSubscribe()
+	}
 	render(){
 		return(<div className='user-center'>
 
@@ -111,7 +127,7 @@ class MineIndex extends React.Component{
                    		<ImgInit src={this.state.userInfoDetail?API.DOMAIN.substr(0,API.DOMAIN.length-1)+this.state.userInfoDetail.avatar:''}/>	
 		    		</div>
 		    		<div className='user-text'>
-		    			<h3>{this.state.userInfoDetail?this.state.userInfoDetail.name:'游客'}</h3>
+		    			<h3>{this.state.userInfoDetail?(this.state.userInfoDetail.user_info.real_name||this.state.userInfoDetail.name):'游客'}</h3>
 		    			{/* <p>{this.state.userInfoDetail?this.state.userInfoDetail.custom_level:'(普通客户)'}</p> */}
 		    		</div>
 		    		<div className='user-es'>
