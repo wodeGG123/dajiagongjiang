@@ -16,7 +16,6 @@ class CheckBox extends React.Component{
 			];break;
 			case 8:data = [
 				{name:'全部',checked:true},
-				{name:'市场数据',checked:false},
 			];break;
 			case 24:data = [
 				{name:'全部',checked:true},
@@ -26,7 +25,6 @@ class CheckBox extends React.Component{
 			];break;
 			case 23:data = [
 				{name:'全部',checked:true},
-				{name:'资讯',checked:false},
 			];break;
 		}
 		this.state ={

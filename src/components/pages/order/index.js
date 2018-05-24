@@ -310,7 +310,7 @@ class OrderForm extends React.Component {
 			<div className='pre-price'>
 				<h5>预估价格：</h5>
 				<p>
-					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}天）</span>
+					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}月）</span>
 					<input
 					{...getFieldProps('rate_price',{
 						initialValue:0,
@@ -358,8 +358,8 @@ class OrderForm extends React.Component {
 			<div className='user-form'>
 				<h5>下单信息：</h5>
 				<div className="remarks">
-					<p>客户需提供：{offer.supply||'无'}</p>
-					<p>实际价格以用户双方实际结算为准</p>
+					<p>客户提供参考：{offer.supply||'无'}</p>
+					<p>实际收益以用户双方实际结算为准，请输入正确的真实信息，否则有可能会下单失败!</p>
 				</div>
 				{/* <div className='user-form-box'>
 					<div className='user-form-left'><span>姓名</span></div>
@@ -504,7 +504,7 @@ class OrderSelfForm extends React.Component {
 			<div className='pre-price'>
 				<h5>预估价格：</h5>
 				<p>
-					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}天）</span>
+					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}月）</span>
 					<input
 					{...getFieldProps('rate_price',{
 						initialValue:0,
@@ -552,8 +552,8 @@ class OrderSelfForm extends React.Component {
 			<div className='user-form'>
 				<h5>下单信息：</h5>
 				<div className="remarks">
-					<p>客户需提供：{offer.supply||'无'}</p>
-					<p>实际收益以用户双方实际结算为准</p>
+					<p>客户提供参考：{offer.supply||'无'}</p>
+					<p>实际收益以用户双方实际结算为准，请输入正确的真实信息，否则有可能会下单失败!</p>
 				</div>
 				{/* <div className='user-form-box'>
 					<div className='user-form-left'><span>姓名</span></div>

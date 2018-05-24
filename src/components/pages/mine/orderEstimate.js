@@ -6,7 +6,7 @@ import ImgInit from 'rootsrc/components/common/imgInit/index.js'
 import Worker from 'rootsrc/request/worker'
 import Order from 'rootsrc/request/order'
 import API from 'rootsrc/request/api'
-
+import Coin from 'rootsrc/request/coin';
 
 
 
@@ -202,11 +202,22 @@ class OrderEstimate extends React.Component{
 				}).then((data)=>{
 					if(data.state){
 						Toast.info('评价成功！');
-						this.context.router.replace({
-							pathname:'/home/mine/orderEstimate/3',
-							query:{score:parseInt(score*5)},
-							state:{worker:this.state.workerInfo.real_name}
-						});
+
+						//添加积分
+						Coin.set({
+							num:1,
+							remark:'评价增加1积分',
+							token:this.state.userInfo.token,
+							uid:this.state.userInfo.id,
+						}).then((data)=>{
+							this.context.router.replace({
+								pathname:'/home/mine/orderEstimate/3',
+								query:{score:parseInt(score*5)},
+								state:{worker:this.state.workerInfo.real_name}
+							});
+						})
+
+						
 
 					}
 				})

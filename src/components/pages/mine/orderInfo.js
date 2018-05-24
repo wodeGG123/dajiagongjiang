@@ -36,7 +36,7 @@ class OrderInfo extends React.Component{
 			//接单
 			console.log(this.state)
 			// this.state.userInfo.integral
-			let price = parseInt(parseInt(this.state.data.rate_price)*0.01);
+			let price = parseInt(parseInt(this.state.data.rate_price)*0.015);
 			//积分不足提示
 			if(parseInt(this.state.userInfo.integral) < price){
 				Modal.alert('提示','您的积分不够'+ price +'，请充值！', [
@@ -78,7 +78,7 @@ class OrderInfo extends React.Component{
 		}).then((data)=>{
 			if(data.state){
 				Toast.info('操作成功！');
-				this.context.router.goBack();
+				// this.context.router.goBack();
 			}
 		})
 	}

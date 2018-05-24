@@ -307,7 +307,7 @@ class RegistForm extends React.Component{
 	          maskClosable={false}
 	          onClose={()=>{}}
 	          title="大家工匠免责声明"
-	          footer={[{ text: '关闭', onPress: () => { this.onClose()(); } }]}
+	          footer={[{ text: '关闭', onPress: () => { this.onClose(); } }]}
 	        >
 	          <div className='statement' style={{ height: 300, overflow: 'scroll' }}>
 	        	

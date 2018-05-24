@@ -37,6 +37,9 @@ class Main extends React.Component{
 			.then((data)=>{
 				if(data){
 					Toast.info('提交成功，谢谢您的支持！');
+					this.setState({
+						data:questionData
+					})
 					this.context.router.replace('/home/answer');
 				}
 			})

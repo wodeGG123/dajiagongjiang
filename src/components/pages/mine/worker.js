@@ -143,7 +143,6 @@ class ApplyForWorkerForm extends React.Component{
 	}
 	handleConfirm(){
 		let userInfo = store.getState().userInfo;
-		console.log(userInfo);
 		alert('确认提交？', '', [
 	      { text: '取消', onPress: () => console.log('cancel') },
 	      { text: '确定', onPress: () => {
@@ -157,10 +156,22 @@ class ApplyForWorkerForm extends React.Component{
 				artisan_address:this.state.workAddress.join('-'),
 				artisan_offer:this.state.offers,
 			  })
+			  //让资质证书和项目展示为选填
+			  let a = this.props.form.getFieldsValue(['artisan_certificate','artisan_project']);
+			  if(a.artisan_certificate.length == 0){
+				this.props.form.setFieldsValue({
+					artisan_certificate:['false']
+				})
+			 }
+			 if(a.artisan_project.length == 0){
+				this.props.form.setFieldsValue({
+					artisan_project:['false']
+				})
+			 }
 			  //确定提交
 			  this.props.form.validateFields((error, value)=>{
+				 
 				 if(!error){
-					console.log(value)
 					Member.realWorker({
 						...value,
 						artisan_offer:JSON.stringify(value.artisan_offer),
@@ -657,7 +668,7 @@ class MakeOffersForm extends React.Component{
 								{required:true}
 							]
 						})}
-						type="text" placeholder='保质期单位（天）'/></dd>
+						type="text" placeholder='保质期单位（月）'/></dd>
 					</dl>
 				</div>
 				<div className='make-offers-items'>

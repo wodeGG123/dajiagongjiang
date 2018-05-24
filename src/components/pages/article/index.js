@@ -33,13 +33,13 @@ class ArticleInfo extends React.Component{
 		}
 		//判断是否是收费文章
 		if(articleData.is_pay){
-			Modal.alert('付费阅读', '此文章为付费文章，扣取2积分阅读？', [
+			Modal.alert('付费阅读', '此文章为付费文章，扣取1积分阅读？', [
 				{ text: '取消', onPress: () => console.log('cancel') },
 				{
 				  text: '确认',
 				  onPress: () =>{
 					//积分不足提示
-					if(parseInt(userInfo.integral) < 2){
+					if(parseInt(userInfo.integral) < 1){
 						Modal.alert('提示','您的积分不够，请充值！', [
 							{ text: '取消', onPress: () => console.log('cancel') },
 							{ text: '确认', onPress: () => {
@@ -50,8 +50,8 @@ class ArticleInfo extends React.Component{
 					}else{
 						//扣除积分
 						Coin.set({
-							num:-2,
-							remark:'阅读扣除2积分',
+							num:-1,
+							remark:'阅读扣除1积分',
 							token:userInfo.token,
 							uid:userInfo.id,
 						}).then((data)=>{
@@ -208,7 +208,7 @@ class ArticleList extends React.Component{
 			let height = 0;
 			switch(parseInt(this.props.params.type)){
 				case 7:height = document.documentElement.clientHeight - 230 + 'px';break;
-				case 8:height = '市场数据';break;
+				case 8:height = document.documentElement.clientHeight - 198 + 'px';break;
 				case 24:height = document.documentElement.clientHeight - 230 + 'px';break;
 				case 23:height = document.documentElement.clientHeight - 198 + 'px';break;
 			}
