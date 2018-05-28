@@ -1,65 +1,65 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavBar, Icon, WingBlank, Button, Modal, ListView} from 'antd-mobile';
-import {Link} from 'react-router'
+import { NavBar, Icon, WingBlank, Button, Modal, ListView } from 'antd-mobile';
+import { Link } from 'react-router'
 import ImgInit from 'rootsrc/components/common/imgInit/index.js'
 import API from 'rootsrc/request/api'
 import Coin from 'rootsrc/request/coin'
 
-class MyCoin extends React.Component{
-	constructor(props){
+class MyCoin extends React.Component {
+	constructor(props) {
 		super(props);
 
 
 		let dataSource = new ListView.DataSource({
 			rowHasChanged: (row1, row2) => row1 !== row2,
-		  });
+		});
 		dataSource = dataSource.cloneWithRows([]);
 		this.state = {
-			userInfo:store.getState().userInfo,
+			userInfo: store.getState().userInfo,
 			dataSource,
-			data:[],
-			page:1,
+			data: [],
+			page: 1,
 		}
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 		this.getData({
-			page:1,
-			uid:this.state.userInfo.id,
-			token:this.state.userInfo.token,
-		},true)
+			page: 1,
+			uid: this.state.userInfo.id,
+			token: this.state.userInfo.token,
+		}, true)
 	}
-	getData(params,init){
+	getData(params, init) {
 		Coin.list(params)
-		.then((data)=>{
-			var ds = this.state.data.concat(data.data.meta);
-			if(init){
-				ds = data.data.meta;
-			}
-			if(data){
-				this.setState({
-					dataSource: this.state.dataSource.cloneWithRows(ds),
-					data:ds,
-					page:parseInt(data.data.paging.current_page) + 1
-				})
-			}
-		})
+			.then((data) => {
+				var ds = this.state.data.concat(data.data.meta);
+				if (init) {
+					ds = data.data.meta;
+				}
+				if (data) {
+					this.setState({
+						dataSource: this.state.dataSource.cloneWithRows(ds),
+						data: ds,
+						page: parseInt(data.data.paging.current_page) + 1
+					})
+				}
+			})
 	}
-	onEndReached(){
+	onEndReached() {
 		this.getData({
-			page:this.state.page,
-		},false)
+			page: this.state.page,
+		}, false)
 	}
-	render(){
-		let {userInfo} = this.state;
-		return(<div className='my-coin'>
-			<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>我的积分</NavBar>
+	render() {
+		let { userInfo } = this.state;
+		return (<div className='my-coin'>
+			<NavBar icon={<Icon type="left" />} mode="light" onLeftClick={() => { this.context.router.goBack() }}>我的积分</NavBar>
 			<div className='my-coin-content'>
 				<div className="my-coin-top">
 					<div className='my-coin-top-img'>
-						<ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+userInfo.avatar} />	
-					</div>					
+						<ImgInit src={API.DOMAIN.substr(0, API.DOMAIN.length - 1) + userInfo.avatar} />
+					</div>
 					<div className='my-coin-top-text'>
 						<p>剩余积分</p>
 						<h3>{userInfo.integral}</h3>
@@ -81,26 +81,26 @@ class MyCoin extends React.Component{
 					</div>
 					<ul>
 						<ListView
-						ref={el => this.lv = el}
-						initialListSize={20}
-						dataSource={this.state.dataSource}
-						renderRow={(rowData)=><li>
-							<span>{rowData.created_at}</span>
-							<span>{rowData.type}</span>
-							<span className='my-coin-record-minus'>{rowData.num}</span>
-							<span>{rowData.remark}</span>
-						</li>
+							ref={el => this.lv = el}
+							initialListSize={20}
+							dataSource={this.state.dataSource}
+							renderRow={(rowData) => <li>
+								<span>{rowData.created_at}</span>
+								<span>{rowData.type}</span>
+								<span className='my-coin-record-minus'>{rowData.num}</span>
+								<span>{rowData.remark}</span>
+							</li>
 							}
-						style={{
-							height: document.documentElement.clientHeight - 309 + 'px',
-							overflow: 'auto',
+							style={{
+								height: document.documentElement.clientHeight - 309 + 'px',
+								overflow: 'auto',
 							}}
-						pageSize={1}
-						onScroll={() => { console.log('scroll'); }}
-						scrollEventThrottle={50}
-						onEndReached={this.onEndReached.bind(this)}
-						onEndReachedThreshold={10}
-						/>						
+							pageSize={1}
+							onScroll={() => { console.log('scroll'); }}
+							scrollEventThrottle={50}
+							onEndReached={this.onEndReached.bind(this)}
+							onEndReachedThreshold={10}
+						/>
 					</ul>
 				</div>
 			</div>
@@ -110,11 +110,11 @@ class MyCoin extends React.Component{
 
 }
 MyCoin.contextTypes = {
-  store: PropTypes.object,
-  router: PropTypes.object,
+	store: PropTypes.object,
+	router: PropTypes.object,
 
 };
 MyCoin.defaultProps = {
-  
+
 };
 export default MyCoin
