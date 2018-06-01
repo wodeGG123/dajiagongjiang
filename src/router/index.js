@@ -82,8 +82,8 @@ class MyRouter extends React.Component{
 	render(){
 		return(<Router history={hashHistory}>
 		    <Route path="/" component={App}>
-		    	<IndexRedirect to="guider" />
-		    	<Route path="guider" component={Guider} />
+		    	<IndexRedirect to="home/index" />
+		    	{/* <Route path="guider" component={Guider} /> */}
 		    	<Route path="home" component={Home}>
 		    		<Route path="mine" component={Mine}>
 						<Route path="index" component={MineIndex} />

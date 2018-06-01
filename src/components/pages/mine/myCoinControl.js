@@ -81,7 +81,7 @@ class Recharge extends React.Component {
       		<p>2、支付宝把您想充值的金额转账到该账户</p>
       		<p>3、记录账单号</p>
       		<p>4、点击下一步</p>
-      		<div className='my-coin-control-tabs-img'><ImgInit src={require('./img/qrcode.jpg')} /></div>
+      		<div className='my-coin-control-tabs-img'><ImgInit src={require('./img/zfb.jpg')} /></div>
       		<div className="my-coin-control-tabs-submit">
       			<Link to='/home/mine/myCoinControl/recharged?type=zfb'>下一步</Link>
       		</div>
@@ -94,7 +94,7 @@ class Recharge extends React.Component {
       		<p>2、微信把您想充值的金额转账到该账户</p>
       		<p>3、记录账单号</p>
       		<p>4、点击下一步</p>
-      		<div className='my-coin-control-tabs-img'><ImgInit src={require('./img/qrcode.jpg')} /></div>
+      		<div className='my-coin-control-tabs-img'><ImgInit src={require('./img/wx.jpg')} /></div>
       		<div className="my-coin-control-tabs-submit">
       			<Link to='/home/mine/myCoinControl/recharged?type=wx'>下一步</Link>
       		</div>

@@ -94,9 +94,6 @@ class OrderEstimate extends React.Component {
 				{ name: '爱护现场', score: 1 },
 				{ name: '上下衔接', score: 1 },
 				{ name: '认真负责', score: 1 },
-				{ name: '全力保障', score: 1 },
-				{ name: '货真价实', score: 1 },
-				{ name: '值得信赖', score: 1 },
 			]
 		};
 	}
@@ -121,7 +118,7 @@ class OrderEstimate extends React.Component {
 		})
 	}
 	handleSubmit() {
-		let score = 0,
+		let score = 30,
 			content = {},
 			hasSec = false;
 
@@ -159,25 +156,22 @@ class OrderEstimate extends React.Component {
 				},
 				"h": {
 					"name": "全力保障",
-					"score": this.state.estimate[7].score * 5
+					"score": 10
 				},
 				"i": {
 					"name": "货真价实",
-					"score": this.state.estimate[8].score * 5
+					"score": 10
 				},
 				"j": {
 					"name": "值得信赖",
-					"score": this.state.estimate[9].score * 5
+					"score": 10
 				}
 			}
 		}
 		content = JSON.stringify(content)
-
 		this.state.estimate.map((obj, index) => {			
 			score += (parseInt(obj.score)*5);
 		})
-
-
 		Order.estimate(this.state.data.order_id, {
 			artisan_user_id: this.state.workerInfo.id,
 			content,

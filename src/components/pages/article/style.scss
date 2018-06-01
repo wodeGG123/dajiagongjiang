@@ -27,6 +27,15 @@
 		}
 	}
 }
+.article-wrap{
+
+	.am-navbar-light .am-navbar-title{
+		flex: 5;
+		overflow: hidden;
+		text-align: left;
+		justify-content: flex-start;
+	}
+}
 .article-content{
 	overflow: hidden;
 	table,tr,td{

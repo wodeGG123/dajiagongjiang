@@ -41,11 +41,15 @@ class Main extends React.Component{
             		</dl>
             		<dl>
 	            		<dt>QQ群</dt>
-	            		<dd>123345</dd>
+	            		<dd>521723685</dd>
+            		</dl>
+					<dl>
+	            		<dt>微信群</dt>
+	            		<dd>DJGG10001</dd>
             		</dl>
             		<div className='contact-us-qr'>
             			<p>扫码关注公众号</p>
-            			<ImgInit src={require('./img/qrcode.jpg')} />
+            			<ImgInit src={require('./img/gzh.jpg')} />
             		</div>
 				</div>
             	

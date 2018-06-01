@@ -127,7 +127,7 @@ class OrderList extends React.Component{
 	}
 		return(<div className='order-list'>
 			<NavBar icon={<Icon type="left" />} 
-			rightContent={userInfoDetail.user_info.status == 3&&userInfoDetail.user_info.own_order?<Link to='/home/order/slefMake'>自主下单</Link>:null} 
+			rightContent={userInfoDetail.user_info.status == 3&&userInfoDetail.user_info.own_order?<Link to='/home/order/slefMake'>工匠添加订单</Link>:null} 
 			mode="light" onLeftClick={() => {this.context.router.goBack()}}>我的订单</NavBar>
 			  <Tabs 
 			  tabs={tabs}

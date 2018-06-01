@@ -59,7 +59,7 @@ class Main extends React.Component{
           <Link to='/home/workerInfo'>
           <dl>
             <dt><ImgInit src={obj.img} /><i>{obj.place}</i></dt>
-            <dd><h4>{obj.name}</h4><span><FontAwesome name='thumbs-o-up' />{obj.goodE}</span></dd>
+            <dd><h4>{obj.name}({obj.is_busy?'忙碌':'空闲'})</h4><span><FontAwesome name='thumbs-o-up' />{obj.goodE}</span></dd>
             <dd><p>{obj.level}</p></dd>
           </dl>
           </Link> 
@@ -95,7 +95,7 @@ class WorkerBlock extends React.Component{
      return (<div onClick={()=>{this.handleClick(data)}} className='worker-item'>
      <dl>
        <dt><ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+data.avatar} /><i>{data.address.split('-')[2]}</i></dt>
-       <dd><h4>{data.real_name}</h4><span><FontAwesome name='thumbs-o-up' />{data.praise_level}</span></dd>
+       <dd><h4>{data.real_name}({data.is_busy?'忙碌':'空闲'})</h4><span><FontAwesome name='thumbs-o-up' />{data.praise_level}</span></dd>
        <dd><p>{data.artisan_level}</p></dd>
      </dl>
    </div>)

@@ -668,6 +668,7 @@ class MakeOffersForm extends React.Component{
 								{required:true}
 							]
 						})}
+						onClick={(e)=>{e.target.select()}}
 						type="text" placeholder='保质期单位（月）'/></dd>
 					</dl>
 				</div>

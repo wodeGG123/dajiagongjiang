@@ -61,9 +61,9 @@ class MakeOrder extends React.Component{
 		let data = _.cloneDeep(this.state.data);
 		let sum = 0;
 		data.artisan_offer[offerIndex].project.map((obj,index)=>{
-			sum += parseInt(obj.num) * parseFloat(obj.price)
+			sum += parseFloat(obj.num) * parseFloat(obj.price)
 		})
-		data.sum = sum;
+		data.sum = parseInt(sum);
 		this.setState({
 			data
 		})
@@ -157,9 +157,9 @@ class MakeSelfOrder extends React.Component{
 		let data = _.cloneDeep(this.state.data);
 		let sum = 0;
 		data.artisan_offer[offerIndex].project.map((obj,index)=>{
-			sum += parseInt(obj.num) * parseFloat(obj.price)
+			sum += parseFloat(obj.num) * parseFloat(obj.price)
 		})
-		data.sum = sum;
+		data.sum = parseInt(sum);
 		this.setState({
 			data
 		})
@@ -285,7 +285,7 @@ class OrderForm extends React.Component {
 		if(num == ''){
 			num = 0;
 		}
-		offer.project[projectIndex].num = parseInt(num);
+		offer.project[projectIndex].num = num;
 		this.setState({
 			offer
 		},()=>{
@@ -297,10 +297,10 @@ class OrderForm extends React.Component {
 		let offer = _.cloneDeep(this.state.offer);
 		let sum = 0;
 		offer.project.map((obj,index)=>{
-			sum += parseInt(obj.num||0) * parseFloat(obj.price)
+			sum += parseFloat(obj.num||0) * parseFloat(obj.price)
 		})
 		this.setState({
-			sum
+			sum:parseInt(sum)
 		})
 	}
 	render(){
@@ -344,9 +344,9 @@ class OrderForm extends React.Component {
 					{offer.project.map((project,projectIndex)=>{
 						return (<tr>
 							<td>{project.name}</td>
-							<td><input type="text" value={project.num} placeholder={0} onChange={(e)=>{this.onNumChange(projectIndex,e.target.value)}}/></td>
+							<td><input onClick={(e)=>{e.target.select()}} type="text" value={project.num} placeholder={0} onChange={(e)=>{this.onNumChange(projectIndex,e.target.value)}}/></td>
 							<td>{project.price}({project.unit})</td>
-							<td>{project.price*(project.num||0)}({project.unit})</td>
+							<td>{parseInt(project.price*(project.num||0))}({project.unit})</td>
 							<td>
 								<p onClick={()=>{this.props.handleModal({visible:true,title:'报价细则',content:project.remark})}}>报价细则</p>
 								<p onClick={()=>{this.props.handleModal({visible:true,title:'收方方法',content:project.method})}}>收方方法</p>
@@ -461,7 +461,7 @@ class OrderSelfForm extends React.Component {
 							}
 						})
 					}else{
-						Toast.info('该用户不存在！');
+						Toast.info('手机号错误！');
 					}
 				})
 
@@ -478,7 +478,7 @@ class OrderSelfForm extends React.Component {
 		if(num == ''){
 			num = 0;
 		}
-		offer.project[projectIndex].num = parseInt(num);
+		offer.project[projectIndex].num = num;
 		this.setState({
 			offer
 		},()=>{
@@ -490,10 +490,10 @@ class OrderSelfForm extends React.Component {
 		let offer = _.cloneDeep(this.state.offer);
 		let sum = 0;
 		offer.project.map((obj,index)=>{
-			sum += parseInt(obj.num||0) * parseFloat(obj.price)
+			sum += parseFloat(obj.num||0) * parseFloat(obj.price)
 		})
 		this.setState({
-			sum
+			sum:parseInt(sum)
 		})
 	}
 	render(){
@@ -538,9 +538,9 @@ class OrderSelfForm extends React.Component {
 					{offer.project.map((project,projectIndex)=>{
 						return (<tr>
 							<td>{project.name}</td>
-							<td><input type="text" value={project.num} placeholder={0} onChange={(e)=>{this.onNumChange(projectIndex,e.target.value)}}/></td>
+							<td><input onClick={(e)=>{e.target.select()}} type="text" value={project.num} placeholder={0} onChange={(e)=>{this.onNumChange(projectIndex,e.target.value)}}/></td>
 							<td>{project.price}({project.unit})</td>
-							<td>{project.price*(project.num||0)}({project.unit})</td>
+							<td>{parseInt(project.price*(project.num||0))}({project.unit})</td>
 							<td>
 								<p onClick={()=>{this.props.handleModal({visible:true,title:'报价细则',content:project.remark})}}>报价细则</p>
 								<p onClick={()=>{this.props.handleModal({visible:true,title:'收方方法',content:project.method})}}>收方方法</p>
