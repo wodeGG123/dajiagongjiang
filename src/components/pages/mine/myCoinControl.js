@@ -146,7 +146,6 @@ class Recharged extends React.Component {
 			uid:this.state.userInfo.id,
 		})
 		.then((data)=>{
-			console.log(data)
 			if(data){
 				Toast.info('提交成功')
 				this.context.router.replace('/home/mine/myCoin')
@@ -178,7 +177,6 @@ class Wd extends React.Component {
 		}
 	}
 	componentWillMount(){
-		console.log(this.state.userInfo)
 	}
 	handleSubmit(){
 		if(this.state.userInfo.integral < this.state.num){

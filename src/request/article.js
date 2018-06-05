@@ -15,4 +15,17 @@ Article.list = function(params){
     })
 
 }
+Article.info = function(params){
+
+    return Request.get('/user/article/'+params.id,params||{})
+    .then((data)=>{      
+        if(data.state){
+            return data;
+        }else{
+            return false;
+        } 
+        
+    })
+
+}
 export default Article

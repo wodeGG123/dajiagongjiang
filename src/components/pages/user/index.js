@@ -213,7 +213,6 @@ class RegistForm extends React.Component{
 			if(!error){
 				Member.isExist(value.mobile)
 				.then((data)=>{
-					console.log(data);
 					if(!data.data.already){
 						let i = 60;
 						const _interval = setInterval(()=>{

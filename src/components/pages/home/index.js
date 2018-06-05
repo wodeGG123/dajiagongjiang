@@ -17,7 +17,6 @@ class Home extends React.Component{
 	    };
 	}
   componentWillMount() {
-    console.log(e);
   }
 	render(){
 		return(<div className='home-wrap'>

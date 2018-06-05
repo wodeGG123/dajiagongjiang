@@ -45,7 +45,6 @@ class WorkerManagement extends React.Component{
 			token:this.state.userInfo.token,
 			uid:this.state.userInfo.id,
 		}).then((data)=>{
-			console.log(data)
 		})
 		this.setState({busy:value[0]})
 	}
@@ -55,7 +54,6 @@ class WorkerManagement extends React.Component{
 			token:this.state.userInfo.token,
 			uid:this.state.userInfo.id,
 		}).then((data)=>{
-			console.log(data)
 		})
 		this.setState({collocation:value[0]})
 	}
@@ -89,7 +87,7 @@ class WorkerManagement extends React.Component{
 		        	</Picker>
 		        	<Picker value={[this.state.busy]} onChange={value => {this.onCollocationChange(value)}} data={[{value:1,label:'托管'},{value:0,label:'自主'},]} cols={1} className="forss">
 			          	<dl>
-				    		<dt><span>是否开启托管</span></dt>
+				    		<dt><span>是否开启站长关注服务</span></dt>
 				    		<dd><font>{this.state.collocation?'托管':'自主'}</font></dd>
 			    		</dl>
 		        	</Picker>
@@ -180,14 +178,12 @@ class ApplyForWorkerForm extends React.Component{
 						token:userInfo.token,
 					})
 					.then((data)=>{
-						console.log(data)
 						if(data.state){
 							Toast.info('提交成功！');
 							this.context.router.replace('/home/mine/index');
 						}
 					})
 				 }else{
-					console.log(error)
 					Toast.info('请完善所有信息！');
 				 }
 
@@ -205,7 +201,6 @@ class ApplyForWorkerForm extends React.Component{
 		//设置工种
 		Common.jobList()
 		.then((data)=>{
-			console.log(data);
 			var jobList = data.data.meta.map((obj,index)=>{
 				let job = {};
 				job.value = obj.name
@@ -229,9 +224,7 @@ class ApplyForWorkerForm extends React.Component{
 		//设置工种
 
 		let userInfoDetail = store.getState().userInfoDetail;
-		console.log(userInfoDetail);
 		if(userInfoDetail.user_info.artisan_status == 3){
-			console.log(1)
 			this.setState({
 				oldData:userInfoDetail.user_info,
 				date:new Date(userInfoDetail.user_info.birthday),
@@ -242,7 +235,7 @@ class ApplyForWorkerForm extends React.Component{
 				job:userInfoDetail.user_info.artisan_work_type.split('-'),
 				offers:JSON.parse(userInfoDetail.user_info.artisan_offer),
 
-			},()=>{console.log(this.state)})
+			})
 		}
 	}
 	handleAddOffers(data){
@@ -531,13 +524,10 @@ class ImagePickerExample extends React.Component {
 	state = {
 		  files: this.props.data||[],
 	}
-	onChange = (files, type, index) => {
-		  console.log(files, type, index);
-	  
+	onChange = (files, type, index) => {	  
 		  if(type == 'add'){
 				  Common.upload(files[0].file)
 				  .then((data)=>{
-					  console.log(data)
 					  files[files.length-1].img = data.data.src;
 					  var imgs = files.map((obj,index)=>{
 						  return obj.img
@@ -604,16 +594,11 @@ class MakeOffersForm extends React.Component{
 				return false;
 			}
 		})
-		console.log(projects);
 		this.props.form.setFieldsValue({
 			project:projects
 		})
-
-		
 		this.props.form.validateFields((error,value)=>{
 			if(!error){
-				console.log(value)
-				
 				//判断新增项目数量是否一致，因为新增后不填信息的情况project返回值为false，不会添加进projects
 				if(projects.length == this.state.project.length){
 					this.props.handleAdd(value);
@@ -621,13 +606,8 @@ class MakeOffersForm extends React.Component{
 				}
 
 			}else{
-				console.log(error)
 			}
 		})
-		
-		// console.log(this.refs.project0.refs.wrappedComponent.getProject);
-		// this.props.dealMakeOffers(false);
-		// this.props.handleAdd({});
 	}
 	render(){
 		var {getFieldProps,getFieldError} = this.props.form
@@ -670,6 +650,28 @@ class MakeOffersForm extends React.Component{
 						})}
 						onClick={(e)=>{e.target.select()}}
 						type="text" placeholder='保质期单位（月）'/></dd>
+					</dl>
+					<dl>
+						<dt><span>保质期说明</span></dt>
+						<dd>
+							<input
+							{...getFieldProps('shelf_life_explain',{
+								initialValue:'',
+								rules:[]
+							})}
+							type="text" placeholder='保质期说明'/>
+						</dd>
+					</dl>
+					<dl>
+						<dt><span>备注</span></dt>
+						<dd>
+							<input
+							{...getFieldProps('remarks',{
+								initialValue:'',
+								rules:[]
+							})}
+							type="text" placeholder='备注'/>
+						</dd>
 					</dl>
 				</div>
 				<div className='make-offers-items'>
@@ -724,7 +726,6 @@ class ProjectForm extends React.Component{
 				project.remark = value.remark;
 				project.method = value.method;
 			}else{
-				console.log(error)
 				project = false;
 				Toast.info('请正确完善所有信息！')
 			}

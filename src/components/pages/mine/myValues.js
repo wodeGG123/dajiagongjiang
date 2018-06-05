@@ -53,8 +53,6 @@ class MyEvaluate extends React.Component{
 		}
 	}
 	componentWillMount() {
-		console.log(this.props)
-		
 		//初始化用户信息
 		let userInfo = this.context.store.getState().userInfo;
 		let userInfoDetail = this.context.store.getState().userInfoDetail;
@@ -70,9 +68,10 @@ class MyEvaluate extends React.Component{
 			
 	}
 	render(){
+		console.log(this.props)
 		let evaluate = this.state.userInfoDetail.user_info.evaluate_info,
 		evaluateList = [];
-		this.props.location.query.type == 1 ? evaluate = JSON.parse(this.props.location.state.data):null;
+		this.props.location.query.type == 1 ? evaluate = JSON.parse(this.props.location.state.data.evaluate_info):null;
 		for(var key in evaluate){
 			evaluateList.push(evaluate[key])
 		}
@@ -86,7 +85,7 @@ class MyEvaluate extends React.Component{
 					</dl>)
 				})}
 				<div>
-					<h3>{this.state.userInfoDetail.praise_level}</h3>					
+					<h3>{this.props.location.query.type == 1?this.props.location.state.data.praise_level : this.state.userInfoDetail.praise_level}</h3>					
 				</div>
 			</div>
 

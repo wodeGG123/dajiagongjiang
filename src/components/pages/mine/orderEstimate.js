@@ -44,7 +44,6 @@ class ShowOrderEstimate extends React.Component {
 		super(props)
 	}
 	componentWillMount() {
-		console.log(this.props)
 	}
 	render() {
 		return (<div className='order-estimate order-estimate2'>
@@ -90,7 +89,7 @@ class OrderEstimate extends React.Component {
 				{ name: '技术过硬', score: 1 },
 				{ name: '时间高效', score: 1 },
 				{ name: '安全施工', score: 1 },
-				{ name: '态度随和', score: 1 },
+				{ name: '态度良好', score: 1 },
 				{ name: '爱护现场', score: 1 },
 				{ name: '上下衔接', score: 1 },
 				{ name: '认真负责', score: 1 },
@@ -139,7 +138,7 @@ class OrderEstimate extends React.Component {
 					"score": this.state.estimate[2].score * 5
 				},
 				"d": {
-					"name": "态度随和",
+					"name": "态度良好",
 					"score": this.state.estimate[3].score * 5
 				},
 				"e": {
@@ -222,7 +221,6 @@ class OrderEstimate extends React.Component {
 		})
 	}
 	render() {
-		console.log(this.state)
 		let { data, workerInfo, estimate } = this.state
 		return (<div className='order-estimate'>
 			<NavBar icon={<Icon type="left" />} mode="light" onLeftClick={() => { this.context.router.goBack() }}>订单评价</NavBar>
@@ -332,7 +330,7 @@ class OrderEstimate2 extends React.Component {
 					"score": 10
 				},
 				"d": {
-					"name": "态度随和",
+					"name": "态度良好",
 					"score": 10
 				},
 				"e": {

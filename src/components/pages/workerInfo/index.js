@@ -113,7 +113,7 @@ class Main extends React.Component{
 		    		</dl>
 
 
-		    		<dl onClick={()=>{this.context.router.push({pathname:'/home/mine/myEvaluate?type=1',state:{data:worker.evaluate_info}})}}>
+		    		<dl onClick={()=>{this.context.router.push({pathname:'/home/mine/myEvaluate?type=1',state:{data:worker}})}}>
 		    			<dt><span>好评率</span></dt>
 		    			<dd><span>{worker.praise_level}</span></dd>
 		    		</dl>
@@ -133,7 +133,7 @@ class Main extends React.Component{
 		    	</div>
 		    </div>
 		    <div className="submit">
-		    	<Link to='/home/order/make'><Button type="primary"  onClick={()=>{}}>预算一下</Button></Link>
+		    	<Button type="primary"  onClick={()=>{this.context.router.push('/home/order/make')}}>预算一下</Button>
 		    </div>
 
 		    <Modal

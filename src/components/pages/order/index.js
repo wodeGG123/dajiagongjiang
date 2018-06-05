@@ -135,7 +135,6 @@ class MakeSelfOrder extends React.Component{
 	}
 	componentWillMount(){
 		let data = JSON.parse(window.localStorage.getItem('userInfoDetail'));
-		console.log(data);
 		data.user_info.artisan_offer = JSON.parse(data.user_info.artisan_offer);
 		if(data){
 			this.setState({
@@ -267,7 +266,6 @@ class OrderForm extends React.Component {
 				}
 				OrderRQ.make(param)
 				.then((data)=>{
-					console.log(data)
 					if(data){
 						Toast.info('提交成功！');
 						this.context.router.replace('/home/mine/orderList');
@@ -276,7 +274,6 @@ class OrderForm extends React.Component {
 
 			}else{
 				Toast.info('请完善信息！')
-				console.log(error)
 			}
 		})
 	}
@@ -310,7 +307,7 @@ class OrderForm extends React.Component {
 			<div className='pre-price'>
 				<h5>预估价格：</h5>
 				<p>
-					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}月）</span>
+					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}月，保质期说明：{offer.shelf_life_explain||'无'}）</span>
 					<input
 					{...getFieldProps('rate_price',{
 						initialValue:0,
@@ -359,6 +356,7 @@ class OrderForm extends React.Component {
 				<h5>下单信息：</h5>
 				<div className="remarks">
 					<p>客户提供参考：{offer.supply||'无'}</p>
+					<p>备注：{offer.remarks||'无'}</p>
 					<p>实际收益以用户双方实际结算为准，请输入正确的真实信息，否则有可能会下单失败!</p>
 				</div>
 				{/* <div className='user-form-box'>
@@ -454,7 +452,6 @@ class OrderSelfForm extends React.Component {
 						}
 						OrderRQ.make(param)
 						.then((data)=>{
-							console.log(data)
 							if(data){
 								Toast.info('提交成功！');
 								this.context.router.replace('/home/mine/orderList');
@@ -469,7 +466,6 @@ class OrderSelfForm extends React.Component {
 
 			}else{
 				Toast.info('请完善信息！')
-				console.log(error)
 			}
 		})
 	}
@@ -504,7 +500,7 @@ class OrderSelfForm extends React.Component {
 			<div className='pre-price'>
 				<h5>预估价格：</h5>
 				<p>
-					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}月）</span>
+					<font>{this.state.sum}</font><span>元</span><span>（保质期{offer.shelf_life}月，保质期说明：{offer.shelf_life_explain||'无'}）</span>
 					<input
 					{...getFieldProps('rate_price',{
 						initialValue:0,
@@ -553,6 +549,7 @@ class OrderSelfForm extends React.Component {
 				<h5>下单信息：</h5>
 				<div className="remarks">
 					<p>客户提供参考：{offer.supply||'无'}</p>
+					<p>备注：{offer.remarks||'无'}</p>
 					<p>实际收益以用户双方实际结算为准，请输入正确的真实信息，否则有可能会下单失败!</p>
 				</div>
 				{/* <div className='user-form-box'>

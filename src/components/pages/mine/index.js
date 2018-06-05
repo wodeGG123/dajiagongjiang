@@ -120,7 +120,7 @@ class MineIndex extends React.Component{
 	render(){
 		return(<div className='user-center'>
 
-              <NavBar mode="light" rightContent={<Link to='/home/mine/editUser'><FontAwesome name='gear' /></Link>} onLeftClick={() => {console.log(this.context.router)}}>个人中心</NavBar>
+              <NavBar mode="light" rightContent={<Link to='/home/mine/editUser'><FontAwesome name='gear' /></Link>} onLeftClick={() => {}}>个人中心</NavBar>
 		    <div className='user-top'>
 		    	
 		    		<div  className='user-head-img'>

@@ -235,7 +235,7 @@ class ArticleList extends React.Component{
 		params.menu_id = 8;
 		Article.list(params)
 		.then((data)=>{
-			console.log(data);
+
 			var ds = this.state.data.concat(data.data.meta);
 			if(init){
 				ds = data.data.meta;
@@ -250,7 +250,7 @@ class ArticleList extends React.Component{
 		})
 	}
 	onEndReached(){
-		console.log('reachend')
+
 		this.getData({
 			page:this.state.page,
 			title:this.state.title,
@@ -258,7 +258,7 @@ class ArticleList extends React.Component{
 		},false)
 	}
 	onSearch(text){
-		console.log(text)
+
 		this.setState({
 			title:text,
 		})
@@ -268,7 +268,6 @@ class ArticleList extends React.Component{
 		},true)
 	}
 	handleCheck(text){
-		console.log(text)
 		if(text == '全部'){
 			this.setState({
 				tag:''

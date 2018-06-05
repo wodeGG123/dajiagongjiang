@@ -5,7 +5,7 @@ import {Link} from 'react-router'
 import Order from '../../../request/order';
 import Worker from '../../../request/worker';
 import Coin from '../../../request/coin';
-
+import _ from 'lodash';
 class OrderInfo extends React.Component{
 	constructor(props){
 		super(props)
@@ -34,7 +34,6 @@ class OrderInfo extends React.Component{
 		
 		if(c == 1){
 			//接单
-			console.log(this.state)
 			// this.state.userInfo.integral
 			let price = parseInt(parseInt(this.state.data.rate_price)*0.015);
 			//积分不足提示
@@ -62,7 +61,7 @@ class OrderInfo extends React.Component{
 								remark:'下单扣除'+ price +'积分',
 								token:this.state.userInfo.token,
 								uid:this.state.userInfo.id,
-							}).then((data)=>{console.log(data)})
+							}).then((data)=>{})
 							this.context.router.goBack();
 						}
 					});
@@ -78,6 +77,15 @@ class OrderInfo extends React.Component{
 		}).then((data)=>{
 			if(data.state){
 				Toast.info('操作成功！');
+				if(c == 2){
+					let {data:data2} = _.cloneDeep(this.state);
+					data2.status = c;
+					window.sessionStorage.setItem('TEMP_DATA',JSON.stringify(data2))
+					this.setState({
+						data:data2
+					})
+				}
+				
 				// this.context.router.goBack();
 			}
 		})
@@ -115,7 +123,7 @@ class OrderInfo extends React.Component{
 			if(data.user_id == userInfo.id){
 				switch (parseInt(status)) {
 					case 0 : break;
-					case 1 : o = <div><Button onClick={()=>{this.controlOrder(2)}} type='primary' size='small' inline>结单</Button></div>;break;
+					case 1 : o = <div><Button onClick={()=>{this.controlOrder.call(this,2)}} type='primary' size='small' inline>结单</Button></div>;break;
 					case 2 : o = <div><Button onClick={()=>{this.context.router.push('/home/mine/orderEstimate/1')}} type='primary' size='small' inline>去评价</Button></div>;break;
 					case 3 : break;
 					case 4 : break;
@@ -125,14 +133,16 @@ class OrderInfo extends React.Component{
 			}
 			return o;
 		}
-		console.log(data);
 		return(<div className='order-info'>
 			<NavBar icon={<Icon type="left" />} mode="light"  onLeftClick={() => {this.context.router.goBack()}}>订单详情</NavBar>
 			<div className='order-content'>
 				<h3>订单号：{data.order_id}<i>{getStatus(data.status)}</i></h3>
 				<p>发起日期：{data.created_at}</p>
 				<p>最后操作日期：{data.updated_at}</p>
-				<p>价格：<font>{data.rate_price}元</font></p>
+				<p>保质期：{data.price_type.shelf_life}个月</p>
+				<p>保质期说明：{data.price_type.shelf_life_explain}</p>
+				<p>客户提供参考：{data.price_type.supply}</p>
+				<p>价格：<font>{data.rate_price}元</font>（实际收益以用户双方实际结算为准！）</p>
 				<div className='price-part'>
 						<table>
 							<tr>
@@ -160,8 +170,8 @@ class OrderInfo extends React.Component{
 					<h3>工匠信息</h3>
 					<p>姓名：{data.artisan_user_name}</p>
 					<p>联系电话：{((data.status == 0 || data.status == 3) && workerInfo)?workerInfo.mobile.substr(0,3)+'***':workerInfo.mobile}</p>
-					{/* <p>工匠备注：</p>
-					<p>备注信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</p> */}
+					<p>工匠备注：</p>
+					<p>{data.price_type.remarks}</p>
 				</div>
 				<div>
 					<h3>客户信息</h3>
@@ -175,8 +185,8 @@ class OrderInfo extends React.Component{
 						<span>布线：30米</span>
 						<span>布线：30米</span>
 					</p> */}
-					<p>详细需求：</p>
-					<p>{data.remark}</p>
+					{/* <p>详细需求：</p>
+					<p>{data.remark}</p> */}
 				</div>
 				<div className='order-control'>
 					{setButton.bind(this)(data.status)}

@@ -22,55 +22,120 @@ class ArticleInfo extends React.Component{
 		}
 	}
 	componentWillMount(){
-		
-		let articleData = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
 		let userInfo = store.getState().userInfo;
-		if(this.isPaid(articleData.id)){
-			this.setState({
-				data:articleData
-			});
-			return
-		}
-		//判断是否是收费文章
-		if(articleData.is_pay){
-			Modal.alert('付费阅读', '此文章为付费文章，扣取1积分阅读？', [
-				{ text: '取消', onPress: () => console.log('cancel') },
-				{
-				  text: '确认',
-				  onPress: () =>{
-					//积分不足提示
-					if(parseInt(userInfo.integral) < 1){
-						Modal.alert('提示','您的积分不够，请充值！', [
-							{ text: '取消', onPress: () => console.log('cancel') },
-							{ text: '确认', onPress: () => {
-								this.props.history.replace('/home/mine/myCoinControl/recharge')
-							} },
-						  ])
-						  return false;
-					}else{
-						//扣除积分
-						Coin.set({
-							num:-1,
-							remark:'阅读扣除1积分',
-							token:userInfo.token,
-							uid:userInfo.id,
-						}).then((data)=>{
-							if(data.state){
-								this.setState({
-									data:articleData
-								});
-								this.savePaidArticle(articleData.id);
-							}
-						})
-					}
-				  },
-				},
-			  ])
+		let articleData = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
+		if(!articleData){
+			this.getData(this.props.location.query.id);
 		}else{
-			this.setState({
-				data:articleData
-			});
+			if(this.isPaid(articleData.id)){
+				this.setState({
+					data:articleData
+				});
+				return
+			}
+			//判断是否是收费文章
+			if(articleData.is_pay){
+				Modal.alert('付费阅读', '此文章为付费文章，扣取1积分阅读？', [
+					{ text: '取消', onPress: () => console.log('cancel') },
+					{
+					  text: '确认',
+					  onPress: () =>{
+						//积分不足提示
+						if(parseInt(userInfo.integral) < 1){
+							Modal.alert('提示','您的积分不够，请充值！', [
+								{ text: '取消', onPress: () => console.log('cancel') },
+								{ text: '确认', onPress: () => {
+									this.props.history.replace('/home/mine/myCoinControl/recharge')
+								} },
+							  ])
+							  return false;
+						}else{
+							//扣除积分
+							Coin.set({
+								num:-1,
+								remark:'阅读扣除1积分',
+								token:userInfo.token,
+								uid:userInfo.id,
+							}).then((data)=>{
+								if(data.state){
+									this.setState({
+										data:articleData
+									});
+									this.savePaidArticle(articleData.id);
+								}
+							})
+						}
+					  },
+					},
+				  ])
+			}else{
+				this.setState({
+					data:articleData
+				});
+			}
 		}
+		
+	
+	}
+	getData(id){
+		let params = {
+			id:id
+		}
+		Article.info(params)
+		.then((data)=>{
+			if(data.state){
+			let articleData = data.data.meta;
+				//
+
+			if(this.isPaid(articleData.id)){
+				this.setState({
+					data:articleData
+				});
+				return
+			}
+			//判断是否是收费文章
+			if(articleData.is_pay){
+				Modal.alert('付费阅读', '此文章为付费文章，扣取1积分阅读？', [
+					{ text: '取消', onPress: () => console.log('cancel') },
+					{
+					  text: '确认',
+					  onPress: () =>{
+						//积分不足提示
+						if(parseInt(userInfo.integral) < 1){
+							Modal.alert('提示','您的积分不够，请充值！', [
+								{ text: '取消', onPress: () => console.log('cancel') },
+								{ text: '确认', onPress: () => {
+									this.props.history.replace('/home/mine/myCoinControl/recharge')
+								} },
+							  ])
+							  return false;
+						}else{
+							//扣除积分
+							Coin.set({
+								num:-1,
+								remark:'阅读扣除1积分',
+								token:userInfo.token,
+								uid:userInfo.id,
+							}).then((data)=>{
+								if(data.state){
+									this.setState({
+										data:articleData
+									});
+									this.savePaidArticle(articleData.id);
+								}
+							})
+						}
+					  },
+					},
+				  ])
+			}else{
+				this.setState({
+					data:articleData
+				});
+			}
+				//
+			}
+		})
 	}
 	savePaidArticle(articleId){
 		let paidArticle = '';
@@ -190,7 +255,7 @@ class ArticleList extends React.Component{
 	}
 	handleClick(data){
 		window.sessionStorage.setItem('TEMP_DATA',JSON.stringify(data));
-		this.context.router.push('/home/articleInfo');
+		this.context.router.push(`/home/articleInfo?id=${data.id}`);
 	}
 	render(){
 		function getTitle(type){
