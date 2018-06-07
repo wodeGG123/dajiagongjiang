@@ -204,7 +204,7 @@ class OrderEstimate extends React.Component {
 						}).then((data) => {
 							this.context.router.replace({
 								pathname: '/home/mine/orderEstimate/3',
-								query: { score: parseInt(score * 5) },
+								query: { score: parseInt(score) },
 								state: { worker: this.state.workerInfo.real_name }
 							});
 						})
@@ -397,7 +397,7 @@ class OrderEstimate2 extends React.Component {
 						}).then((data) => {
 							this.context.router.replace({
 								pathname: '/home/mine/orderEstimate/3',
-								query: { score: parseInt(score * 5) },
+								query: { score: parseInt(score) },
 								state: { worker: this.state.workerInfo.real_name }
 							});
 						})

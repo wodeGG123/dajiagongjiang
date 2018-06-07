@@ -104,12 +104,12 @@ class Main extends React.Component{
 		    		</dl>
 		    		<dl>
 		    			<dt><span>年龄</span></dt>
-		    			<dd><span>40</span></dd>
+		    			<dd><span>{(new Date().getFullYear())-worker.birthday.split('-')[0]}</span></dd>
 		    		</dl>
 
 		    		<dl>
 		    			<dt><span>信誉度</span></dt>
-		    			<dd><span>90</span></dd>
+		    			<dd><span>{worker.reputation_level}</span></dd>
 		    		</dl>
 
 

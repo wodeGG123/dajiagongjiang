@@ -640,7 +640,7 @@ class MakeOffersForm extends React.Component{
 						</dd>
 			    	</dl>
 					<dl>
-						<dt><span>项目保质期</span></dt>
+						<dt><span>项目保质期（单位月）</span></dt>
 						<dd><input
 						{...getFieldProps('shelf_life',{
 							initialValue:0,

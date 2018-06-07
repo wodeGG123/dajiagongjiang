@@ -33,7 +33,7 @@ class Main extends React.Component{
             		</dl>
             		<dl>
 	            		<dt>微信</dt>
-	            		<dd>15908259701</dd>
+	            		<dd>DJGG10001</dd>
             		</dl>
             		<dl>
 	            		<dt>QQ</dt>
@@ -42,10 +42,6 @@ class Main extends React.Component{
             		<dl>
 	            		<dt>QQ群</dt>
 	            		<dd>521723685</dd>
-            		</dl>
-					<dl>
-	            		<dt>微信群</dt>
-	            		<dd>DJGG10001</dd>
             		</dl>
             		<div className='contact-us-qr'>
             			<p>扫码关注公众号</p>
