@@ -56,6 +56,8 @@ class MineIndex extends React.Component{
 			this.setState({
 				userInfo:false,
 				userInfoDetail:false,
+			},()=>{
+				window.location.reload()
 			})	
 		  } },
 	    ])
