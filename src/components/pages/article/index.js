@@ -24,7 +24,7 @@ class ArticleInfo extends React.Component{
 	componentWillMount(){
 		let userInfo = store.getState().userInfo;
 		let articleData = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
-		if(!articleData){
+		if(true){
 			this.getData(this.props.location.query.id);
 		}else{
 			if(this.isPaid(articleData.id)){
@@ -242,6 +242,8 @@ class ArticleList extends React.Component{
 			})
 			this.getData({
 				page:1,
+				perPage:20,
+				
 			},true)
 		}else{
 			this.setState({
