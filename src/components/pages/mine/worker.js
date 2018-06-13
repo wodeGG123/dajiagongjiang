@@ -471,7 +471,11 @@ class ApplyForWorkerForm extends React.Component{
 		        	  cols={3}
 			          data={address}     
 			          value={this.state.workAddress}
-			          onChange={v => {}}
+			          onChange={v => {
+						this.setState({
+							workAddress:v
+						})
+					  }}
 			          onOk={() => {}}
 			          onDismiss={() => {}}
 			          cascade={true}
