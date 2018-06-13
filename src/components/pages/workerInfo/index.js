@@ -124,7 +124,7 @@ class Main extends React.Component{
 		    		</dl>
 		    		<dl>
 		    			<dt><span>总单量</span></dt>
-		    			<dd><span>180</span></dd>
+		    			<dd><span>0</span></dd>
 		    		</dl>
 		    		<dl>
 		    			<dt><span>工作范围</span></dt>
