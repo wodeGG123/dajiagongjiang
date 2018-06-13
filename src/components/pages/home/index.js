@@ -39,7 +39,7 @@ class Home extends React.Component{
             key="key1"
             selected={this.state.selectedTab === 'Tab1'}
             onPress={() => {
-              window.location.href = "https://www.chinalife.com.cn/zhuzhan/index/";
+              window.location.href = "/";
               this.setState({
                 selectedTab: 'Tab1',
               });
