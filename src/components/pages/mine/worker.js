@@ -260,6 +260,21 @@ class ApplyForWorkerForm extends React.Component{
 	}
 	render(){		
 		var {getFieldProps,getFieldError} = this.props.form
+		let oldData = false;
+		let id_photo = []
+		let artisan_project = []
+		let artisan_certificate = []
+		if(this.state.oldData){
+			oldData = this.state.oldData
+			let id_photo_obj = JSON.parse(this.state.oldData.id_photo);
+			id_photo = [id_photo_obj.above,id_photo_obj.below];
+			if (this.state.oldData.artisan_project != 'false'){
+				artisan_project = this.state.oldData.artisan_project.split(',')
+			}
+			if (this.state.oldData.artisan_certificate != 'false'){
+				artisan_certificate = this.state.oldData.artisan_certificate.split(',')
+			}
+		}
 		//设置工作年限
 		var workYear = [];
 		for(let i = 1;i <= 50;i++){			
@@ -276,7 +291,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>身份证<span>（需要上传身份证正反面）</span></p>
 		    		<input 
 						{...getFieldProps('id_photo',{
-							initialValue:this.state.oldData?this.state.oldData.id_photo.split(',')||[]:[],
+							initialValue:this.state.oldData?id_photo||[]:[],
 							rules:[
 								{required:true,type:'array',len:2}
 							]							
@@ -284,7 +299,7 @@ class ApplyForWorkerForm extends React.Component{
 						type="hidden"/>
 					<ImagePickerExample 
 					data={this.state.oldData?
-						this.state.oldData.id_photo.split(',').map((obj,index)=>{
+						id_photo.map((obj,index)=>{
 							return ({
 								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
@@ -297,7 +312,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>项目展示<span>（您的项目展示）</span></p>
 					<input 
 						{...getFieldProps('artisan_project',{
-							initialValue:this.state.oldData?this.state.oldData.artisan_project.split(',')||[]:[],
+							initialValue:this.state.oldData?artisan_project||[]:[],
 							rules:[
 								{required:true,type:'array'}
 							]							
@@ -305,7 +320,7 @@ class ApplyForWorkerForm extends React.Component{
 						type="hidden"/>
 					<ImagePickerExample 
 					data={this.state.oldData?
-						this.state.oldData.artisan_project.split(',').map((obj,index)=>{
+						artisan_project.map((obj,index)=>{
 							return ({
 								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
@@ -318,7 +333,7 @@ class ApplyForWorkerForm extends React.Component{
 		    		<p>资质证书<span>（您的获奖资质证书）</span></p>
 					<input 
 						{...getFieldProps('artisan_certificate',{
-							initialValue:this.state.oldData?this.state.oldData.artisan_certificate.split(',')||[]:[],
+							initialValue:this.state.oldData?artisan_certificate||[]:[],
 							rules:[
 								{required:true,type:'array'}
 							]							
@@ -326,7 +341,7 @@ class ApplyForWorkerForm extends React.Component{
 						type="hidden"/>
 					<ImagePickerExample 
 					data={this.state.oldData?
-						this.state.oldData.artisan_certificate.split(',').map((obj,index)=>{
+						artisan_certificate.map((obj,index)=>{
 							return ({
 								img:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
 								url:API.DOMAIN.substr(0,API.DOMAIN.length-1)+obj,
