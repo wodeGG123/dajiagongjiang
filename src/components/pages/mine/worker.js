@@ -170,6 +170,11 @@ class ApplyForWorkerForm extends React.Component{
 			  this.props.form.validateFields((error, value)=>{
 				 
 				 if(!error){
+					let id_photo = value.id_photo;
+					value.id_photo = {
+						above:id_photo[0],
+						below:id_photo[1]
+					}
 					Member.realWorker({
 						...value,
 						artisan_offer:JSON.stringify(value.artisan_offer),
