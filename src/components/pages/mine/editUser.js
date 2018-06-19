@@ -99,7 +99,7 @@ EiditUser.contextTypes = {
 				onChange = (files, type, index) => {
 				
 					if(type == 'add'){
-							Common.upload(files[0].file)
+						Common.upload(files[files.length-1].file)
 							.then((data)=>{
 								files[files.length-1].img = data.data.src;
 								var imgs = files.map((obj,index)=>{

@@ -3,7 +3,6 @@ import API from './api.js'
 let Common = new Object()
 
 Common.upload = function(file){
-
     return Request.post(API.FILE_UPLOAD,{
         file
     })
