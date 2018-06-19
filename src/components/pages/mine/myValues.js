@@ -68,8 +68,8 @@ class MyEvaluate extends React.Component{
 			
 	}
 	render(){
-		console.log(this.props)
-		let evaluate = this.state.userInfoDetail.user_info.evaluate_info,
+		console.log(this.props)               
+		let evaluate = this.state.userInfoDetail?this.state.userInfoDetail.user_info.evaluate_info:[],
 		evaluateList = [];
 		this.props.location.query.type == 1 ? evaluate = (this.props.location.state.data.evaluate_info?JSON.parse(this.props.location.state.data.evaluate_info):[]):null;
 		for(var key in evaluate){
