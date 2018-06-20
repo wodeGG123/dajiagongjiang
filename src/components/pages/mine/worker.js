@@ -210,7 +210,7 @@ class ApplyForWorkerForm extends React.Component{
 				let job = {};
 				job.value = obj.name
 				job.label = obj.name
-				if(obj.children.length>0){
+				if(obj.children&&obj.children.length){
 					job.children = obj.children.map((obj2,index2)=>{
 						let job = {};
 						job.value = obj2.name
