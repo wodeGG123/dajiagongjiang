@@ -74,7 +74,7 @@ class Search extends React.Component{
 				let job = {};
 				job.value = obj.name
 				job.label = obj.name
-				if(obj.children.length>0){
+				if(obj.children&&obj.children.length){
 					job.children = obj.children.map((obj2,index2)=>{
 						let job = {};
 						job.value = obj2.name
@@ -254,6 +254,7 @@ class SearchPre extends React.Component{
   }
   render(){
     let {data} = this.state
+    console.log(data)
     return(<div className='pre-search'>
       <NavBar mode="light" icon={<Icon type="left" />} rightContent={<Link to='/home/search/2'><span>跳过</span></Link>}  onLeftClick={() => {this.context.router.goBack()}}>职位搜索</NavBar>
       <div className='work-list'>
@@ -273,7 +274,7 @@ class SearchPre extends React.Component{
               return (<dl key={index}>
                   <dt>{obj.name}</dt>
                   <dd>
-                    {obj.children.length>0&&obj.children.map((obj2,index2)=>{
+                    {obj.children&&obj.children.map((obj2,index2)=>{
                       return (<Link key={index2} to={'/home/search/2?job='+obj.name+','+obj2.name}>{obj2.name}</Link>)
                     })}
                   </dd>
