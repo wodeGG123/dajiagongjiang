@@ -13,6 +13,7 @@ class OrderInfo extends React.Component{
 			modal:{visible:false,content:'',title:''},
 			data:{},
 			userInfo:false,
+			userInfoDetail:false,
 			workerInfo:false,
 		}
 	}
@@ -21,7 +22,8 @@ class OrderInfo extends React.Component{
 		// let data = store.getState().tempData;
 		let data = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
 		let userInfo = store.getState().userInfo;
-		this.setState({data,userInfo});
+		let userInfoDetail = store.getState().userInfoDetail;
+		this.setState({data,userInfo,userInfoDetail});
 		Worker.list({
 			user_id:data.artisan_user_id
 		}).then((data2)=>{
@@ -37,7 +39,7 @@ class OrderInfo extends React.Component{
 			// this.state.userInfo.integral
 			let price = parseInt(parseInt(this.state.data.rate_price)*0.015);
 			//积分不足提示
-			if(parseInt(this.state.userInfo.integral) < price){
+			if(parseInt(this.state.userInfoDetail.integral) < price){
 				Modal.alert('提示','您的积分不够'+ price +'，请充值！', [
 					{ text: '取消', onPress: () => console.log('cancel') },
 					{ text: '确认', onPress: () => {} },

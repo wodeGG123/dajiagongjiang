@@ -94,9 +94,9 @@ class WorkerBlock extends React.Component{
      let {data} = this.props;
      return (<div onClick={()=>{this.handleClick(data)}} className='worker-item'>
      <dl>
-       <dt><ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+data.avatar} /><i>{data.artisan_address.split('-')[2]}</i></dt>
+       <dt><ImgInit src={API.DOMAIN.substr(0,API.DOMAIN.length-1)+data.avatar} /><i>{data.artisan_address.split('-')[1]+'-'+data.artisan_address.split('-')[2]}</i></dt>
        <dd><h4>{data.real_name}({data.is_busy?'忙碌':'空闲'})</h4><span><FontAwesome name='thumbs-o-up' />{data.praise_level}</span></dd>
-       <dd><p>{data.artisan_level}</p></dd>
+       <dd><p>{data.artisan_work_type.split('-')[1]+'【'+data.artisan_level+'】'}</p></dd>
      </dl>
    </div>)
    }

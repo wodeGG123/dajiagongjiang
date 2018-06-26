@@ -23,6 +23,7 @@ class ArticleInfo extends React.Component{
 	}
 	componentWillMount(){
 		let userInfo = store.getState().userInfo;
+		let userInfoDetail = store.getState().userInfoDetail;
 		let articleData = JSON.parse(window.sessionStorage.getItem('TEMP_DATA'));
 		if(true){
 			this.getData(this.props.location.query.id);
@@ -41,7 +42,7 @@ class ArticleInfo extends React.Component{
 					  text: '确认',
 					  onPress: () =>{
 						//积分不足提示
-						if(parseInt(userInfo.integral) < 1){
+						if(parseInt(userInfoDetail.integral) < 1){
 							Modal.alert('提示','您的积分不够，请充值！', [
 								{ text: '取消', onPress: () => console.log('cancel') },
 								{ text: '确认', onPress: () => {
@@ -78,6 +79,7 @@ class ArticleInfo extends React.Component{
 	
 	}
 	getData(id){
+		let userInfoDetail = store.getState().userInfoDetail;
 		let params = {
 			id:id
 		}
@@ -101,7 +103,7 @@ class ArticleInfo extends React.Component{
 					  text: '确认',
 					  onPress: () =>{
 						//积分不足提示
-						if(parseInt(userInfo.integral) < 1){
+						if(parseInt(userInfoDetail.integral) < 1){
 							Modal.alert('提示','您的积分不够，请充值！', [
 								{ text: '取消', onPress: () => console.log('cancel') },
 								{ text: '确认', onPress: () => {

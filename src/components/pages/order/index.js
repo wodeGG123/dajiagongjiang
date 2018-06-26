@@ -333,7 +333,7 @@ class OrderForm extends React.Component {
 						})}
 						type="hidden"/>
 						</th>
-						<th>数量（㎡）</th>
+						<th>数量</th>
 						<th>单价（元）</th>
 						<th>小计（元）</th>
 						<th>查看</th>
@@ -342,8 +342,8 @@ class OrderForm extends React.Component {
 						return (<tr>
 							<td>{project.name}</td>
 							<td><input onClick={(e)=>{e.target.select()}} type="text" value={project.num} placeholder={0} onChange={(e)=>{this.onNumChange(projectIndex,e.target.value)}}/></td>
-							<td>{project.price}({project.unit})</td>
-							<td>{parseInt(project.price*(project.num||0))}({project.unit})</td>
+							<td>{project.price}(元/{project.unit})</td>
+							<td>{parseInt(project.price*(project.num||0))}(元)</td>
 							<td>
 								<p onClick={()=>{this.props.handleModal({visible:true,title:'报价细则',content:project.remark})}}>报价细则</p>
 								<p onClick={()=>{this.props.handleModal({visible:true,title:'收方方法',content:project.method})}}>收方方法</p>
@@ -526,7 +526,7 @@ class OrderSelfForm extends React.Component {
 						})}
 						type="hidden"/>
 						</th>
-						<th>数量（㎡）</th>
+						<th>数量</th>
 						<th>单价（元）</th>
 						<th>小计（元）</th>
 						<th>查看</th>
@@ -535,8 +535,8 @@ class OrderSelfForm extends React.Component {
 						return (<tr>
 							<td>{project.name}</td>
 							<td><input onClick={(e)=>{e.target.select()}} type="text" value={project.num} placeholder={0} onChange={(e)=>{this.onNumChange(projectIndex,e.target.value)}}/></td>
-							<td>{project.price}({project.unit})</td>
-							<td>{parseInt(project.price*(project.num||0))}({project.unit})</td>
+							<td>{project.price}(元/{project.unit})</td>
+							<td>{parseInt(project.price*(project.num||0))}(元)</td>
 							<td>
 								<p onClick={()=>{this.props.handleModal({visible:true,title:'报价细则',content:project.remark})}}>报价细则</p>
 								<p onClick={()=>{this.props.handleModal({visible:true,title:'收方方法',content:project.method})}}>收方方法</p>

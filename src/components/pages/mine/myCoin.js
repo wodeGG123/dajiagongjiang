@@ -7,28 +7,38 @@ import API from 'rootsrc/request/api'
 import Coin from 'rootsrc/request/coin'
 
 class MyCoin extends React.Component {
+
+	static contextTypes = {
+		router:React.PropTypes.object,
+		store:React.PropTypes.object,
+	}
 	constructor(props) {
 		super(props);
-
-
 		let dataSource = new ListView.DataSource({
 			rowHasChanged: (row1, row2) => row1 !== row2,
 		});
 		dataSource = dataSource.cloneWithRows([]);
 		this.state = {
 			userInfo: store.getState().userInfo,
+			userInfoDetail: store.getState().userInfoDetail,
 			dataSource,
 			data: [],
 			page: 1,
 		}
 	}
-
 	componentWillMount() {
 		this.getData({
 			page: 1,
 			uid: this.state.userInfo.id,
 			token: this.state.userInfo.token,
 		}, true)
+
+		this.context.store.subscribe(()=>{
+			this.setState({
+				userInfoDetail:this.context.store.getState().userInfoDetail
+			})
+			
+		})
 	}
 	getData(params, init) {
 		Coin.list(params)
@@ -52,17 +62,17 @@ class MyCoin extends React.Component {
 		}, false)
 	}
 	render() {
-		let { userInfo } = this.state;
+		let { userInfo,userInfoDetail } = this.state;
 		return (<div className='my-coin'>
 			<NavBar icon={<Icon type="left" />} mode="light" onLeftClick={() => { this.context.router.goBack() }}>我的积分</NavBar>
 			<div className='my-coin-content'>
 				<div className="my-coin-top">
 					<div className='my-coin-top-img'>
-						<ImgInit src={API.DOMAIN.substr(0, API.DOMAIN.length - 1) + userInfo.avatar} />
+						<ImgInit src={API.DOMAIN.substr(0, API.DOMAIN.length - 1) + userInfoDetail.avatar} />
 					</div>
 					<div className='my-coin-top-text'>
 						<p>剩余积分</p>
-						<h3>{userInfo.integral}</h3>
+						<h3>{userInfoDetail.integral}</h3>
 					</div>
 				</div>
 				<div className='my-coin-top-buttons'>
