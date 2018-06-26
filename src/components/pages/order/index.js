@@ -443,7 +443,7 @@ class OrderSelfForm extends React.Component {
 				}
 				member.isExist(value.spare_mobile)
 				.then((data)=>{
-					if(data.state){
+					if(data.state&&data.data.already){
 						param.uid = data.data.uid;
 						param.user_id = data.data.uid;
 						if(param.artisan_user_id == param.uid){
@@ -458,7 +458,7 @@ class OrderSelfForm extends React.Component {
 							}
 						})
 					}else{
-						Toast.info('手机号错误！');
+						Toast.info('此手机号用户不存在！');
 					}
 				})
 
