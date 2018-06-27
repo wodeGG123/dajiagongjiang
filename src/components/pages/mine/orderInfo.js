@@ -38,15 +38,16 @@ class OrderInfo extends React.Component{
 			//接单
 			// this.state.userInfo.integral
 			let price = parseInt(parseInt(this.state.data.rate_price)*0.015);
-			//积分不足提示
-			if(parseInt(this.state.userInfoDetail.integral) < price){
-				Modal.alert('提示','您的积分不够'+ price +'，请充值！', [
-					{ text: '取消', onPress: () => console.log('cancel') },
-					{ text: '确认', onPress: () => {} },
-				  ])
-				  return false;
-			}
-			//扣除积分接单
+			if(parseInt(this.state.data.is_manually) == 0){
+				//积分不足提示
+				if(parseInt(this.state.userInfoDetail.integral) < price){
+					Modal.alert('提示','您的积分不够'+ price +'，请充值！', [
+						{ text: '取消', onPress: () => console.log('cancel') },
+						{ text: '确认', onPress: () => {} },
+					])
+					return false;
+				}
+				//扣除积分接单
 			Modal.alert('接单', '扣除'+price+'积分接单？', [
 				{ text: '取消', onPress: () => console.log('cancel') },
 				{ text: '确认', onPress: () => {
@@ -70,6 +71,19 @@ class OrderInfo extends React.Component{
 				} },
 			  ])
 			return false;
+			}else{
+				Order.set(this.state.data.order_id,{
+					status:c,
+					uid:this.state.userInfo.id,
+					token:this.state.userInfo.token,
+				}).then((data)=>{
+					if(data.state){
+						Toast.info('操作成功！');
+						this.context.router.goBack();
+					}
+				});
+			return false;
+			}
 		}
 
 		Order.set(this.state.data.order_id,{
