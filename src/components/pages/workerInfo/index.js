@@ -124,7 +124,7 @@ class Main extends React.Component{
 		    		</dl>
 		    		<dl>
 		    			<dt><span>总单量</span></dt>
-		    			<dd><span>0</span></dd>
+		    			<dd><span>{worker.artisan_order_num}</span></dd>
 		    		</dl>
 		    		<dl>
 		    			<dt><span>工作范围</span></dt>
