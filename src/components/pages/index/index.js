@@ -55,7 +55,7 @@ class Index extends React.Component{
       })
     })
 
-    Worker.list({page:1,id:1})
+    Worker.list({page:1,id:1,order_reputation:'desc'})
     .then((data)=>{
       if(data.state){
           this.setState({
